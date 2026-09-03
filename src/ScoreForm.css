@@ -1,0 +1,237 @@
+.score-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 5rem; /* space for sticky footer */
+}
+
+.form-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-section {
+  background-color: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+.scoring-section {
+  background-color: #f8fafc;
+}
+
+.form-section h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem 1rem;
+}
+
+.info-grid .input-group {
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.criteria-section {
+  margin-bottom: 2rem;
+}
+
+.criteria-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  background-color: var(--background);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  border-left: 4px solid var(--primary);
+}
+
+.criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.criteria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.criteria-item:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.score-input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.info-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #475569;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  margin-left: 0.5rem;
+}
+
+.tooltip-box {
+  visibility: hidden;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(15, 23, 42, 0.95);
+  color: white;
+  text-align: left;
+  padding: 0.75rem;
+  border-radius: 6px;
+  width: 250px;
+  font-size: 0.85rem;
+  font-weight: normal;
+  line-height: 1.4;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  white-space: pre-wrap;
+}
+
+.tooltip-box::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent;
+}
+
+.info-icon-wrapper:hover .tooltip-box,
+.info-icon-wrapper:active .tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
+.criteria-info {
+  flex: 1;
+  padding-right: 1.5rem;
+}
+
+.criteria-title {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+}
+
+.criteria-max-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--background);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.criteria-input {
+  width: 80px;
+}
+
+.score-input-field {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  padding: 0.75rem;
+  width: 90px;
+  border-radius: 8px;
+}
+
+/* Hide number arrows */
+.score-input-field::-webkit-outer-spin-button,
+.score-input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.score-input-field[type=number] {
+  -moz-appearance: textfield;
+}
+
+.score-summary {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2rem);
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  z-index: 100;
+}
+
+.summary-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.summary-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.summary-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.summary-badge {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.8rem;
+}

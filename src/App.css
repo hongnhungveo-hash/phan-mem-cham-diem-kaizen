@@ -1,0 +1,235 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styling */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem; /* Dãn cách thông thoáng giữa logo và khối chữ */
+}
+
+.header-logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+  flex-shrink: 0;
+}
+
+.header-text-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-org-title {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  margin-bottom: 0.25rem; /* Dãn cách giữa tên viện và slogan */
+}
+
+.header-slogan-title {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Nav Tabs */
+.nav-tabs {
+  display: flex;
+  gap: 0.35rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-height: 38px;
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-btn.active {
+  background-color: #ffffff;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Tablet & Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .header-container {
+    gap: 0.75rem;
+  }
+  
+  .header-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .header-org-title {
+    font-size: 0.78rem;
+  }
+  
+  .header-slogan-title {
+    font-size: 0.88rem;
+  }
+  
+  .nav-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  
+  .nav-tabs {
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .nav-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Print Optimization (Chuẩn Nghị định 30 khi in) */
+@media print {
+  body {
+    background: #ffffff !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 10pt !important;
+    color: #000000 !important;
+  }
+  
+  .header, 
+  .ranking-controls, 
+  .btn, 
+  .nav-tabs, 
+  .modal-overlay,
+  .screen-only {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .glass-panel {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+
+.text-muted { color: var(--text-muted); }
+
+/* Ranking Top Bar */
+.ranking-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ranking-left-section {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.ranking-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ranking-actions-group .btn {
+  white-space: nowrap;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ranking-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
