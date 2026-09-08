@@ -5,6 +5,7 @@ import RankingTable from './RankingTable'
 import SecretaryDesk from './SecretaryDesk'
 import Login from './Login'
 import SecretaryModal from './SecretaryModal'
+import logoImg from './assets/logo.png'
 
 function App() {
   const [activeTab, setActiveTab] = useState('ranking') // 'score' | 'secretary' | 'ranking'
@@ -191,7 +192,12 @@ function App() {
       <header className="header">
         <div className="container header-container">
           <div className="header-brand">
-            <img src="/logo.png" alt="Logo" className="header-logo-img" />
+            <img 
+              src={logoImg} 
+              alt="Logo Bệnh viện Đa khoa Hùng Vương" 
+              className="header-logo-img" 
+              onError={(e) => { e.currentTarget.src = './logo.png' }}
+            />
             <div className="header-text-block">
               <span className="header-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</span>
               <span className="header-slogan-title">"Đột phá chất lượng - Vận hành an toàn"</span>

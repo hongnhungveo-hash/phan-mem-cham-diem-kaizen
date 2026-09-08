@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
+import logoImg from './assets/logo.png';
 
 function Login({ onLoginSuccess }) {
   const [password, setPassword] = useState('');
@@ -25,7 +26,12 @@ function Login({ onLoginSuccess }) {
     <div className="login-container">
       <div className="login-box glass-panel">
         <div className="login-header">
-          <img src="/logo.png" alt="Logo" className="login-logo" />
+          <img 
+            src={logoImg} 
+            alt="Logo Bệnh viện Đa khoa Hùng Vương" 
+            className="login-logo" 
+            onError={(e) => { e.currentTarget.src = './logo.png' }}
+          />
           <h2 className="login-title">Hệ thống Y tế Hùng Vương</h2>
           <p className="login-subtitle">Đăng nhập để chấm điểm đề án</p>
         </div>
