@@ -452,63 +452,40 @@ function App() {
         rawScoreRows={rawScoreRows}
       />
 
-      {/* Footer Bệnh Viện Hiện Đại (Chuẩn Doanh Nghiệp Y Tế) */}
-      <footer className="hospital-footer">
-        <div className="container footer-container">
-          <div className="footer-col footer-brand-col">
-            <div className="footer-brand">
-              <img 
-                src={logoImg} 
-                alt="Logo Bệnh viện Đa khoa Hùng Vương" 
-                className="footer-logo-img" 
-                onError={(e) => { e.currentTarget.src = './logo.png' }}
-              />
-              <div>
-                <div className="footer-hospital-name">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</div>
-                <div className="footer-sub-title">Hội Thi Đề Án Cải Tiến Chất Lượng Năm 2026</div>
+      {/* Khối nhận diện chân trang: Ngắn gọn, Cơ quan chủ quản, Ban tổ chức chính */}
+      <footer className="hospital-footer-compact">
+        <div className="container footer-compact-container">
+          <div className="footer-compact-left">
+            <img 
+              src={logoImg} 
+              alt="Logo Bệnh viện Đa khoa Hùng Vương" 
+              className="footer-compact-logo" 
+              onError={(e) => { e.currentTarget.src = './logo.png' }}
+            />
+            <div className="footer-compact-text">
+              <div className="footer-line-org">
+                <span className="footer-lbl">CƠ QUAN CHỦ QUẢN:</span> CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT — BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG
+              </div>
+              <div className="footer-line-btc">
+                <span className="footer-lbl">BAN TỔ CHỨC CHÍNH:</span> Ban Tổ Chức Hội Thi Đề Án Cải Tiến Chất Lượng Năm 2026
+                <span className="footer-sep">•</span>
+                <span className="footer-focal-text">Thường trực: Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng</span>
+              </div>
+              <div className="footer-line-sub">
+                <span>Trụ sở: Xã Chí Đám, Huyện Đoan Hùng, Tỉnh Phú Thọ</span>
+                <span className="footer-sep">•</span>
+                <span>Hotline: 1800 9415</span>
+                <span className="footer-sep">•</span>
+                <span>© 2026 BVĐK Hùng Vương</span>
               </div>
             </div>
-            <p className="footer-about-text">
-              Triết lý Kaizen: Đột phá chất lượng – Tối ưu vận hành. Khuyến khích sự tham gia của 100% cán bộ nhân viên y tế nhằm xây dựng môi trường khám chữa bệnh an toàn, tinh gọn và văn minh.
-            </p>
-            <div className="footer-compliance-tag">
-              Chuẩn hóa theo Phương pháp luận PDCA, Lean Hospital và Nghị định 30/2020/NĐ-CP
-            </div>
           </div>
 
-          <div className="footer-col">
-            <h4 className="footer-heading">Cơ Quan Chỉ Đạo & Chủ Trì</h4>
-            <ul className="footer-list">
-              <li><strong>Chỉ đạo:</strong> Ban Giám đốc & Hội đồng Thành viên</li>
-              <li><strong>Thường trực:</strong> Phòng Kế hoạch Tổng hợp</li>
-              <li><strong>Chuyên môn:</strong> Tổ Quản lý Chất lượng</li>
-              <li><strong>Đầu mối:</strong> Sếp Trần Đình Vũ — Tổ trưởng Tổ QLCL</li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4 className="footer-heading">Thông Tin Trụ Sở & Mạng Lưới</h4>
-            <ul className="footer-list">
-              <li><strong>Trụ sở chính:</strong> Xã Chí Đám, Đoan Hùng, Phú Thọ</li>
-              <li><strong>Bệnh viện hạt nhân:</strong> ~500 giường bệnh nội trú</li>
-              <li><strong>Cơ sở vệ tinh:</strong> BVĐK Hùng Vương Sơn Dương (125 giường)</li>
-              <li><strong>Hotline Cấp cứu:</strong> 1800 9415 (Miễn phí 24/7)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <div className="container footer-bottom-inner">
-            <span>© 2026 Bệnh viện Đa khoa Hùng Vương. Bản quyền thuộc Dự án Quản lý Chất lượng BV.</span>
-            <div className="footer-bottom-links">
-              <span onClick={() => setActiveTab('home')} style={{cursor: 'pointer'}}>Trang Chủ</span>
-              <span>•</span>
-              <span onClick={() => setActiveTab('showcase')} style={{cursor: 'pointer'}}>Thư Viện Đề Tài</span>
-              <span>•</span>
-              <span onClick={() => setActiveTab('ranking')} style={{cursor: 'pointer'}}>Bảng Xếp Hạng</span>
-              <span>•</span>
-              <span onClick={() => setActiveTab('score')} style={{cursor: 'pointer'}}>Chấm Điểm</span>
-            </div>
+          <div className="footer-compact-right">
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('home')}>Trang Chủ</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('showcase')}>Thư Viện</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('ranking')}>Bảng Xếp Hạng</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('score')}>Chấm Điểm</button>
           </div>
         </div>
       </footer>
