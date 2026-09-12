@@ -1,37 +1,51 @@
 // DỮ LIỆU CỔNG THÔNG TIN HỘI THI KAIZEN - BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG
-// Kỷ niệm 16 năm thành lập (2010 - 2026)
 
 export const COMPETITION_INFO = {
-  title: "HỘI THI SÁNG KIẾN & ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG LẦN THỨ I",
-  subtitle: "Chào mừng 16 năm Ngày thành lập Bệnh viện Đa khoa Hùng Vương (2010 – 2026)",
-  theme: "HÙNG VƯƠNG KAIZEN 16: ĐỘT PHÁ CHẤT LƯỢNG – TỐI ƯU VẬN HÀNH",
-  slogan: "Đột phá chất lượng – Vận hành an toàn",
+  title: "HỘI THI ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG NĂM 2026",
+  subtitle: "Bệnh viện Đa khoa Hùng Vương",
+  theme: "Đột phá chất lượng – Tối ưu vận hành",
+  slogan: "Đột phá chất lượng – Tối ưu vận hành",
   organizer: "Công ty TNHH Phát triển Y học Việt — Bệnh viện Đa khoa Hùng Vương",
   focalPoint: "Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng",
   
   timeline: [
     {
       round: "Vòng 1",
-      name: "Khởi động & Đăng ký Đề án",
-      time: "28/08 – 05/09/2026",
+      name: "Khởi động & Nộp đề án",
       status: "completed",
-      description: "Các đơn vị khảo sát hiện trạng, đo lường số liệu Baseline và nộp Phiếu đăng ký đề tài."
+      description: "Khảo sát hiện trạng khoa phòng, đo lường số liệu ban đầu và nộp phiếu đăng ký."
     },
     {
       round: "Vòng 2",
-      name: "Thực thi Thử nghiệm & Thẩm định Gemba",
-      time: "06/09 – 22/09/2026",
+      name: "Thực thi thử nghiệm & Đánh giá",
       status: "active",
-      description: "Áp dụng thử nghiệm tại buồng bệnh/khoa phòng; Hội đồng giám khảo kiểm tra thực địa."
+      description: "Áp dụng thử nghiệm giải pháp tại hiện trường; Ban Giám khảo thẩm định thực địa."
     },
     {
       round: "Vòng 3",
-      name: "Chung kết Báo cáo & Lễ Trao giải",
-      time: "26/09 – 28/09/2026",
+      name: "Chung kết & Trao giải",
       status: "upcoming",
-      description: "Thuyết trình Báo cáo A3 trước Hội đồng; Lễ vinh danh Gala 16 năm thành lập Bệnh viện."
+      description: "Báo cáo thuyết trình A3 trước Hội đồng; công bố xếp hạng và chuẩn hóa quy trình SOP."
     }
   ],
+
+  kaizenPhilosophy: {
+    definition: "Kaizen (改善) là triết lý cải tiến liên tục bắt nguồn từ Nhật Bản: 'Kai' (Thay đổi) và 'Zen' (Tốt hơn). Trong y tế, Kaizen là phương pháp quản trị tinh gọn dựa trên sự tham gia của 100% nhân viên y tế — từ bác sĩ, điều dưỡng đến kỹ thuật viên, dược sĩ — nhằm tạo ra những thay đổi nhỏ, thực chất và liên tục mỗi ngày tại chính vị trí làm việc.",
+    reasons: [
+      {
+        title: "Triệt tiêu sai sót & Bảo vệ an toàn người bệnh",
+        desc: "Chủ động nhận diện các bẫy lỗi lâm sàng, nhầm lẫn thuốc và nguy cơ sự cố y khoa để thiết lập rào chắn phòng ngừa vững chắc."
+      },
+      {
+        title: "Cắt giảm lãng phí thời gian & Tinh gọn luồng khám",
+        desc: "Giảm thiểu thời gian chờ khám, chờ kết quả cận lâm sàng và chờ thanh toán viện phí, tối ưu hóa trải nghiệm của người bệnh."
+      },
+      {
+        title: "Xây dựng môi trường 5S & Giảm tải cho nhân viên y tế",
+        desc: "Nơi làm việc ngăn nắp, quy trình chuẩn hóa giúp nhân viên thao tác nhanh chóng, giảm căng thẳng và gắn kết nội bộ."
+      }
+    ]
+  },
 
   categories: [
     { id: "cat1", code: "TIME", name: "Rút ngắn Thời gian Chờ & Tối ưu Luồng khám", shortDesc: "Cắt giảm thời gian chờ khám, xét nghiệm, chẩn đoán hình ảnh và thủ tục thanh toán viện phí." },
@@ -292,3 +306,27 @@ export const INITIAL_KAIZEN_PROJECTS = [
     status: "evaluated"
   }
 ];
+
+export const SAMPLE_RANKING_DATA = INITIAL_KAIZEN_PROJECTS.map((p, idx) => {
+  const scores = [94.5, 92.0, 89.5, 88.0, 86.5, 85.0, 83.5, 81.0];
+  const score = scores[idx] || (80 - idx);
+  const p1 = Math.round((score * 0.2) * 10) / 10;
+  const p2 = Math.round((score * 0.3) * 10) / 10;
+  const p3 = Math.round((score * 0.2) * 10) / 10;
+  const p4 = Math.round((score * 0.2) * 10) / 10;
+  const p5 = Math.round((score - p1 - p2 - p3 - p4) * 10) / 10;
+  const xepLoai = score >= 90 ? "Xuất sắc" : (score >= 85 ? "Giỏi" : (score >= 70 ? "Khá" : "Đạt"));
+  return {
+    ...p,
+    tongDiem: score,
+    phan1: p1,
+    phan2: p2,
+    phan3: p3,
+    phan4: p4,
+    phan5: p5,
+    xepLoai,
+    count: 5,
+    hasScore: true
+  };
+});
+

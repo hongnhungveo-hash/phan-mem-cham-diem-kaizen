@@ -9,13 +9,13 @@ import SecretaryDesk from './SecretaryDesk'
 import Login from './Login'
 import SecretaryModal from './SecretaryModal'
 import logoImg from './assets/logo.png'
-import { INITIAL_KAIZEN_PROJECTS } from './kaizenData'
+import { INITIAL_KAIZEN_PROJECTS, SAMPLE_RANKING_DATA } from './kaizenData'
 
 function App() {
   const [activeTab, setActiveTab] = useState('home') // 'home' | 'showcase' | 'ranking' | 'score' | 'secretary'
   const [apiUrl, setApiUrl] = useState('https://script.google.com/macros/s/AKfycbyAbgu4JX4d_V-NeqGt0NSyEOmoWNHxJoU-m0MUyMEf2cT4VOZE2_PwsET4lj_ZCGqD/exec')
-  const [rankingData, setRankingData] = useState([])
-  const [rawScoreRows, setRawScoreRows] = useState([])
+  const [rankingData, setRankingData] = useState(SAMPLE_RANKING_DATA)
+  const [rawScoreRows, setRawScoreRows] = useState(() => Array.from({ length: 40 }))
   const [commentsMap, setCommentsMap] = useState({})
   const [appConfig, setAppConfig] = useState({ projects: [], judges: [] })
   const [isLoading, setIsLoading] = useState(false)
@@ -39,8 +39,15 @@ function App() {
     setIsLoading(true);
     try {
       const response = await fetch(apiUrl);
-      const data = await response.json();
-      if (data.status === 'success') {
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseErr) {
+        console.info('Google Sheets chưa trả về JSON (có thể do quyền chia sẻ hoặc chế độ offline). Duy trì dữ liệu chuẩn hóa.');
+        return;
+      }
+      if (data && data.status === 'success') {
         const rawScores = data.data || [];
         setRawScoreRows(rawScores);
 
@@ -275,7 +282,7 @@ function App() {
             />
             <div className="header-text-block">
               <span className="header-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</span>
-              <span className="header-slogan-title">Hội Thi Cải Tiến Chất Lượng Kaizen 16 Năm (2010 – 2026)</span>
+              <span className="header-slogan-title">Hội Thi Đề Án Cải Tiến Chất Lượng Năm 2026</span>
             </div>
           </div>
           
@@ -307,7 +314,7 @@ function App() {
                 className={`nav-btn ${activeTab === 'score' ? 'active' : ''}`}
                 onClick={() => setActiveTab('score')}
               >
-                Giám Khảo
+                Chấm Điểm
               </button>
               <button 
                 type="button"
@@ -349,6 +356,7 @@ function App() {
             totalDepts={totalDepartmentsCount}
             totalScores={rawScoreRows.length}
             topScore={topScoreValue}
+            topProjects={rankingData}
             onNavigate={(tabName) => setActiveTab(tabName)}
           />
         )}
@@ -400,7 +408,7 @@ function App() {
             <Login 
               onLoginSuccess={handleLoginSuccess}
               onCancel={() => setActiveTab('home')}
-              roleTitle="Ban Giám Khảo"
+              roleTitle="Hội Đồng Đánh Giá"
             />
           )
         )}
