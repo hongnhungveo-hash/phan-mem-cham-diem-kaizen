@@ -1,0 +1,288 @@
+/* A3 DETAIL MODAL - MINIMALIST CLINICAL REPORT STYLING */
+
+.a3-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.a3-modal-dialog {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1040px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.a3-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.a3-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.a3-project-id {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #003B73;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.a3-branch-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.a3-dept-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.a3-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.a3-action-btn {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.a3-close-btn {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.a3-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* PRINTABLE CONTENT CONTAINER */
+.a3-printable-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.a3-print-official-header {
+  display: none; /* Chỉ hiện khi in */
+}
+
+.a3-report-title-block {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #003B73;
+}
+
+.a3-report-sub {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0074B7;
+  margin-bottom: 0.35rem;
+}
+
+.a3-report-main-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #003B73;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.35;
+}
+
+.a3-report-meta-row {
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+/* 2-COLUMN A3 GRID */
+.a3-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.a3-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.a3-box {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.a3-box-header {
+  background: #f1f5f9;
+  color: #003B73;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.a3-box-body {
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.a3-box-body p {
+  margin: 0;
+}
+
+.a3-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.a3-table th,
+.a3-table td {
+  border: 1px solid #cbd5e1;
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+}
+
+.a3-table th {
+  background: #f8fafc;
+  color: #003B73;
+  font-weight: 600;
+}
+
+.a3-table td.text-highlight {
+  color: #0284c7;
+}
+
+.a3-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.a3-footer-hint {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* RESPONSIVE */
+@media (max-width: 820px) {
+  .a3-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PRINT STYLES */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .a3-modal-overlay {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    inset: auto !important;
+  }
+
+  .a3-modal-dialog {
+    visibility: visible !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .a3-modal-dialog * {
+    visibility: visible !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .a3-print-official-header {
+    display: flex !important;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .a3-line-divider {
+    width: 60%;
+    height: 1px;
+    background: #000;
+    margin: 4px auto;
+  }
+
+  .a3-grid-layout {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .a3-box {
+    border: 1px solid #000 !important;
+  }
+
+  .a3-box-header {
+    background: #f1f5f9 !important;
+    color: #000 !important;
+    border-bottom: 1px solid #000 !important;
+    -webkit-print-color-adjust: exact;
+  }
+}

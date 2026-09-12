@@ -68,7 +68,7 @@ export default function SecretaryDesk({
           <input
             type="text"
             className="sidebar-search"
-            placeholder="🔍 Tìm nhanh đề án..."
+            placeholder="Tìm nhanh đề án..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -92,7 +92,7 @@ export default function SecretaryDesk({
                   <span className={`badge ${p.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
                     {p.nhanh}
                   </span>
-                  {hasCmt && <span className="icon-cmt" title="Đã có nhận xét">💬</span>}
+                  {hasCmt && <span className="badge badge-pass" title="Đã có nhận xét">Đã ghi</span>}
                 </div>
 
                 <div className="item-title font-medium">{p.tenDeTai}</div>
@@ -140,7 +140,7 @@ export default function SecretaryDesk({
                 onClick={onRefresh}
                 disabled={isLoading}
               >
-                🔄 {isLoading ? 'Đang tải...' : 'Làm mới'}
+                {isLoading ? 'Đang tải...' : 'Làm mới'}
               </button>
             </div>
 
@@ -160,7 +160,7 @@ export default function SecretaryDesk({
                 <div className="judges-scored-tags">
                   {projectJudgeScores.map((js, idx) => (
                     <div key={idx} className="judge-tag">
-                      <span className="judge-name">👤 {js.giamKhao || `GK ${idx + 1}`}</span>
+                      <span className="judge-name">{js.giamKhao || `Giám khảo ${idx + 1}`}</span>
                       <span className="judge-score">{js.tongDiem} đ</span>
                     </div>
                   ))}
@@ -184,7 +184,7 @@ export default function SecretaryDesk({
 
             {saveSuccess && (
               <div className="save-success-banner">
-                ✅ Đã lưu thành công!
+                Đã lưu thành công vào hệ thống.
               </div>
             )}
 
@@ -197,7 +197,7 @@ export default function SecretaryDesk({
                 onClick={handleSave}
                 disabled={isSaving}
               >
-                {isSaving ? 'Đang lưu...' : '💾 Lưu'}
+                {isSaving ? 'Đang lưu...' : 'Lưu Nhận Xét'}
               </button>
             </div>
           </>

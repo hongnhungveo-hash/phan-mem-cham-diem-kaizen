@@ -76,7 +76,7 @@ export default function SecretaryModal({
               <div className="judges-score-tags">
                 {judgeScores.map((js, idx) => (
                   <div key={idx} className="judge-tag">
-                    <span className="judge-name">👤 {js.giamKhao || `GK ${idx + 1}`}</span>
+                    <span className="judge-name">{js.giamKhao || `Giám khảo ${idx + 1}`}</span>
                     <span className="judge-score">{js.tongDiem} đ</span>
                   </div>
                 ))}
@@ -100,23 +100,28 @@ export default function SecretaryModal({
 
           {saveSuccess && (
             <div className="save-success-banner">
-              ✅ Đã lưu thành công!
+              Đã lưu thành công.
             </div>
           )}
         </div>
 
+        {/* Modal Footer */}
         <div className="modal-footer">
-          <button type="button" className="btn btn-outline" onClick={onClose}>
+          <button 
+            type="button" 
+            className="btn btn-outline" 
+            onClick={onClose}
+          >
             Đóng
           </button>
           <button 
             type="button" 
-            className="btn btn-primary"
+            className="btn btn-primary" 
             style={{padding: '0.5rem 1.8rem'}}
             onClick={handleSave}
             disabled={isSaving}
           >
-            {isSaving ? 'Đang lưu...' : '💾 Lưu'}
+            {isSaving ? 'Đang lưu...' : 'Lưu Nhận Xét'}
           </button>
         </div>
       </div>

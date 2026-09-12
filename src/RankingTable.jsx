@@ -107,7 +107,7 @@ export default function RankingTable({
             <input
               type="text"
               className="ranking-search-input"
-              placeholder="🔍 Tìm mã, tên đề tài, khoa..."
+              placeholder="Tìm mã, tên đề tài, khoa..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -119,7 +119,7 @@ export default function RankingTable({
             onClick={onPrint || (() => window.print())} 
             title="In bảng điểm chuẩn Nghị định 30 làm căn cứ xét thưởng"
           >
-            🖨️ In Bảng Điểm
+            In Bảng Điểm
           </button>
           <button 
             type="button" 
@@ -128,7 +128,7 @@ export default function RankingTable({
             disabled={loading}
             title="Làm mới dữ liệu từ Google Sheets"
           >
-            🔄 {loading ? 'Đang tải...' : 'Làm mới'}
+            {loading ? 'Đang tải...' : 'Làm mới'}
           </button>
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function RankingTable({
                 return (
                   <tr key={row.maDeTai || index} className={isScored && index < 3 ? 'top-rank-row' : ''}>
                     <td className="text-center font-bold rank-cell">
-                      {isScored ? (index === 0 ? '🥇 1' : index === 1 ? '🥈 2' : index === 2 ? '🥉 3' : index + 1) : '—'}
+                      {isScored ? index + 1 : '—'}
                     </td>
                     <td className="text-center font-medium text-muted">{row.maDeTai}</td>
                     <td className="project-title-cell">
@@ -183,7 +183,7 @@ export default function RankingTable({
                       </div>
                       {hasComment && (
                         <div className="table-comment-preview screen-only" title={commentObj.nhanXet}>
-                          💬 {commentObj.nhanXet}
+                          {commentObj.nhanXet}
                         </div>
                       )}
                     </td>
@@ -222,12 +222,12 @@ export default function RankingTable({
                       {/* Trên màn hình: Nút mở Thư Ký */}
                       <div className="screen-only text-center">
                         <button 
-                          type="button"
+                          type="button" 
                           className={`btn-table-secretary ${hasComment ? 'has-comment' : ''}`}
                           onClick={() => onOpenCommentModal(row)}
                           title="Thư ký ghi nhận xét của Hội đồng"
                         >
-                          {hasComment ? '💬 Xem' : '📝 Nhận xét'}
+                          {hasComment ? 'Xem nhận xét' : 'Ghi nhận xét'}
                         </button>
                       </div>
 
