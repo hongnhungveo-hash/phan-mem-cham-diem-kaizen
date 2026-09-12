@@ -1,319 +1,611 @@
-/* HOME CONTAINER STYLING - MINIMALIST MEDICAL ELEGANCE */
+/* ==========================================================================
+   CỔNG THÔNG TIN HỘI THI KAIZEN 2026 - BVĐK HÙNG VƯƠNG
+   HOME COMPONENT STYLING - MODERN MEDICAL LUXURY & 5S ELEGANCE
+   ========================================================================== */
 
 .home-container {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  padding-bottom: 3rem;
+  gap: 2.75rem;
+  padding-bottom: 4rem;
 }
 
-/* HERO SECTION */
+/* ==========================================================================
+   1. HERO SECTION (2-COLUMN BANNER WITH KAIZEN PHILOSOPHY SPOTLIGHT)
+   ========================================================================== */
 .hero-section {
-  text-align: center;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 3rem 1.5rem;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  position: relative;
+  background: linear-gradient(135deg, #071e3d 0%, #003b73 40%, #005f9e 80%, #0284c7 100%);
+  border-radius: 20px;
+  padding: 3.5rem 2.5rem 5rem 2.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 59, 115, 0.35);
+}
+
+.hero-backdrop-glow {
+  position: absolute;
+  top: -25%;
+  right: -10%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+/* CỘT TRÁI HERO */
+.hero-left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .hero-badge {
   display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #0074B7;
-  background: #f0f7fc;
-  border: 1px solid #d0e7f7;
-  padding: 0.35rem 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #e0f2fe;
+  padding: 0.4rem 1rem;
   border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .hero-title {
   font-family: 'Lora', Georgia, serif;
-  font-size: 2.15rem;
-  font-weight: 700;
-  color: #003B73;
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
   margin: 0 0 1rem 0;
-  line-height: 1.3;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+.hero-slogan-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.hero-slogan-label {
+  color: #93c5fd;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .hero-slogan {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #334155;
-  margin: 0 0 2rem 0;
+  color: #f8fafc;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-.hero-actions {
+/* KHUNG TRIẾT LÝ KAIZEN NẰM NGAY TRONG KHUNG TIÊU ĐỀ */
+.hero-philosophy-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-philosophy-card:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.phil-card-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
   flex-wrap: wrap;
 }
 
-.hero-btn {
-  padding: 0.75rem 1.65rem;
+.phil-tag {
+  background: #ffffff;
+  color: #003b73;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.phil-sub {
+  color: #bae6fd;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.phil-definition-text {
+  color: #f0f9ff;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* CÁC NÚT HÀNH ĐỘNG HERO */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  background: #ffffff;
+  color: #003b73;
   font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 8px;
+  font-weight: 700;
+  padding: 0.8rem 1.65rem;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.btn-secondary {
+.btn-hero-primary:hover {
   background: #f1f5f9;
-  color: #334155;
-  border: 1px solid #cbd5e1;
+  color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
 }
 
-.btn-secondary:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+.btn-hero-secondary {
+  background: #38bdf8;
+  color: #082f49;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 6px 16px rgba(56, 189, 248, 0.35);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.btn-sm {
-  padding: 0.4rem 0.85rem;
+.btn-hero-secondary:hover {
+  background: #7dd3fc;
+  color: #032030;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
+}
+
+.btn-hero-outline {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.8rem 1.35rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-hero-outline:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* CỘT PHẢI HERO (KHỐI 3 LÝ DO TẠI SAO PHẢI KAIZEN) */
+.hero-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-reasons-box {
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.reasons-box-header {
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  padding-bottom: 0.85rem;
+}
+
+.reasons-kicker {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  margin-bottom: 0.35rem;
+}
+
+.reasons-box-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: 0.01em;
+}
+
+.reasons-box-desc {
+  color: #bae6fd;
   font-size: 0.82rem;
+  margin: 0;
+  line-height: 1.4;
 }
 
-/* METRICS GRID */
-.metrics-section {
+.hero-reasons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.hero-reason-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  padding: 0.95rem 1.1rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.hero-reason-item:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.reason-item-index {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.reason-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.reason-item-title {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.reason-item-desc {
+  color: #e0f2fe;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* WAVE SVG DIVIDER */
+.hero-wave-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-wave-divider svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 48px;
+}
+
+/* ==========================================================================
+   2. FLOATING METRICS BAR (CHỈ SỐ VẬN HÀNH NỔI)
+   ========================================================================== */
+.floating-metrics {
+  margin-top: -3.25rem;
+  position: relative;
+  z-index: 10;
+  padding: 0 1.25rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
 }
 
 .metric-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1.5rem 1.25rem;
+  border-radius: 16px;
+  padding: 1.6rem 1.25rem 1.4rem 1.25rem;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 25px -5px rgba(0, 59, 115, 0.1);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #003b73, #0284c7);
 }
 
 .metric-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 32px -8px rgba(0, 59, 115, 0.18);
+  border-color: #93c5fd;
+}
+
+.metric-step-tag {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #cbd5e1;
+  font-family: monospace;
 }
 
 .metric-number {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: #003B73;
-  line-height: 1.1;
-  margin-bottom: 0.35rem;
-  font-variant-numeric: tabular-nums;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #003b73;
+  line-height: 1;
+  margin: 0.4rem 0 0.35rem 0;
 }
 
 .metric-label {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.86rem;
+  font-weight: 700;
   color: #1e293b;
-  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3rem;
 }
 
 .metric-sub {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: #64748b;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-/* SECTION BLOCKS */
+/* ==========================================================================
+   3. SECTION BLOCK CHUẨN MỰC
+   ========================================================================== */
 .section-block {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 2rem 1.75rem;
+  border-radius: 18px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
 }
 
 .section-header {
   margin-bottom: 1.75rem;
-  border-bottom: 1px solid #f1f5f9;
-  padding-bottom: 0.75rem;
 }
 
 .section-header.flex-between {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.75rem;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  margin-bottom: 0.45rem;
 }
 
 .section-title {
   font-family: 'Lora', Georgia, serif;
-  font-size: 1.35rem;
+  font-size: 1.65rem;
   font-weight: 700;
-  color: #003B73;
+  color: #003b73;
   margin: 0 0 0.35rem 0;
 }
 
 .section-desc {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #64748b;
   margin: 0;
 }
 
-/* TOP 5 SECTION */
-.top5-section {
-  border-left: 4px solid #003B73;
-}
-
-.empty-top-notice {
-  padding: 2rem;
-  text-align: center;
-  color: #64748b;
-  font-style: italic;
-  background: #f8fafc;
-  border-radius: 8px;
-}
-
+/* ==========================================================================
+   4. TOP 5 LEADERBOARD TABLE (BẢNG XẾP HẠNG TOP 5 TRÊN HOME)
+   ========================================================================== */
 .top5-table-wrapper {
   overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
 }
 
 .top5-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.88rem;
-  margin-bottom: 1.25rem;
+  text-align: left;
 }
 
 .top5-table th {
   background: #f8fafc;
-  color: #003B73;
+  color: #475569;
   font-weight: 700;
-  padding: 0.65rem 0.75rem;
-  border-bottom: 2px solid #e2e8f0;
-  text-align: left;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
 }
 
 .top5-table td {
-  padding: 0.75rem;
+  padding: 0.95rem 1rem;
   border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
   vertical-align: middle;
 }
 
 .top5-row:hover {
-  background: #f8fafc;
+  background: #f0f7fc;
 }
 
-.top5-row.rank-1 .rank-num {
-  color: #b45309;
-  font-size: 1.05rem;
+.rank-pill {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.rank-pill-1 {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.4);
+}
+
+.rank-pill-2 {
+  background: linear-gradient(135deg, #cbd5e1, #64748b);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(100, 116, 139, 0.3);
+}
+
+.rank-pill-3 {
+  background: linear-gradient(135deg, #fdba74, #ea580c);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.3);
+}
+
+.rank-pill-4,
+.rank-pill-5 {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
 }
 
 .project-name-cell {
   color: #0f172a;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 .dept-cell {
   color: #475569;
+  font-size: 0.84rem;
+}
+
+.text-highlight {
+  color: #0074B7;
+  font-size: 1.05rem;
 }
 
 .top5-footer-cta {
-  text-align: center;
-  padding-top: 0.5rem;
-}
-
-/* KAIZEN PHILOSOPHY SECTION */
-.philosophy-section {
-  background: #ffffff;
-}
-
-.philosophy-definition-box {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-left: 3px solid #0074B7;
-  border-radius: 0 8px 8px 0;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.75rem;
-}
-
-.phil-def-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #003B73;
-  margin: 0 0 0.45rem 0;
-}
-
-.phil-def-text {
-  font-size: 0.92rem;
-  color: #334155;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.philosophy-reasons-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
-.reason-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 1.25rem;
-  background: #ffffff;
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  transition: border-color 0.2s ease;
+  justify-content: center;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
 }
 
-.reason-card:hover {
-  border-color: #cbd5e1;
+.empty-top-notice {
+  padding: 2.5rem;
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  background: #f8fafc;
+  border-radius: 12px;
 }
 
-.reason-num {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #0074B7;
-  letter-spacing: 0.05em;
-}
-
-.reason-title {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-  line-height: 1.4;
-}
-
-.reason-desc {
-  font-size: 0.85rem;
-  color: #475569;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* TIMELINE GRID */
+/* ==========================================================================
+   5. TIMELINE GRID (TIẾN ĐỘ CÁC VÒNG THI)
+   ========================================================================== */
 .timeline-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .timeline-card {
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1.25rem;
-  background: #f8fafc;
+  border-radius: 14px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -5px rgba(0, 59, 115, 0.08);
 }
 
 .timeline-card.status-active {
-  background: #ffffff;
-  border-color: #0074B7;
-  box-shadow: 0 4px 16px -2px rgba(0, 116, 183, 0.12);
+  border-color: #0284c7;
+  box-shadow: 0 0 0 1px #0284c7, 0 10px 24px -5px rgba(2, 132, 199, 0.12);
 }
 
 .timeline-header {
@@ -323,54 +615,56 @@
 }
 
 .timeline-round {
-  font-size: 0.8rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.15rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: #003B73;
 }
 
 .status-pill {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
-  border: 1px solid transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .pill-completed {
-  background: #f1f5f9;
-  color: #475569;
-  border-color: #cbd5e1;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
 }
 
 .pill-active {
-  background: #dcfce7;
-  color: #166534;
-  border-color: #bbf7d0;
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
 }
 
 .pill-upcoming {
-  background: #fef3c7;
-  color: #92400e;
-  border-color: #fde68a;
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
 }
 
 .timeline-name {
   font-size: 1.05rem;
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 700;
+  color: #1e293b;
   margin: 0;
 }
 
 .timeline-desc {
-  font-size: 0.85rem;
-  color: #475569;
+  font-size: 0.86rem;
+  color: #64748b;
   line-height: 1.5;
   margin: 0;
 }
 
-/* CATEGORIES GRID */
+/* ==========================================================================
+   6. CATEGORIES GRID (6 CHỦ ĐỀ CẢI TIẾN)
+   ========================================================================== */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -378,113 +672,151 @@
 }
 
 .category-card {
+  background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 1.25rem;
-  background: #f8fafc;
+  border-radius: 14px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   transition: all 0.2s ease;
 }
 
 .category-card:hover {
-  background: #ffffff;
-  border-color: #cbd5e1;
+  border-color: #93c5fd;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -5px rgba(0, 59, 115, 0.08);
 }
 
 .category-code {
+  display: inline-block;
+  align-self: flex-start;
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #0074B7;
-  margin-bottom: 0.35rem;
+  font-weight: 800;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-family: monospace;
 }
 
 .category-title {
   font-size: 0.98rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #0f172a;
-  margin: 0 0 0.4rem 0;
-  line-height: 1.4;
+  margin: 0;
+  line-height: 1.35;
 }
 
 .category-desc {
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   color: #64748b;
+  line-height: 1.5;
   margin: 0;
-  line-height: 1.45;
 }
 
-/* BRANCHES & AWARDS */
+/* ==========================================================================
+   7. BRANCHES & AWARDS (CƠ CẤU PHÂN NHÁNH & KHEN THƯỞNG)
+   ========================================================================== */
 .branches-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
 
 .branch-card {
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1.5rem;
   background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
 }
 
 .branch-tag {
   display: inline-block;
+  align-self: flex-start;
   font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #003B73;
+  font-weight: 800;
+  color: #003b73;
   background: #e2e8f0;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
 
 .branch-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0 0 0.5rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #003b73;
+  margin: 0;
 }
 
 .branch-desc {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: #475569;
-  line-height: 1.5;
-  margin-bottom: 1.25rem;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .award-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .award-item {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: #334155;
   line-height: 1.4;
 }
 
-.award-item strong {
-  color: #003B73;
+/* ==========================================================================
+   8. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-content-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+  .floating-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -2rem;
+  }
+  .timeline-grid {
+    grid-template-columns: 1fr;
+  }
+  .branches-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .hero-section {
-    padding: 2rem 1rem;
+    padding: 2.5rem 1.25rem 4rem 1.25rem;
+    border-radius: 14px;
   }
   .hero-title {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
-  .section-block {
-    padding: 1.5rem 1rem;
+  .hero-slogan {
+    font-size: 1.05rem;
   }
-  .metric-number {
-    font-size: 1.8rem;
+  .floating-metrics {
+    grid-template-columns: 1fr;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
   }
 }

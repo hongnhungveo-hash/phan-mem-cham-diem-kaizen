@@ -292,3 +292,140 @@
   margin-left: auto;
   flex-wrap: wrap;
 }
+
+/* ==========================================================================
+   HOSPITAL CORPORATE FOOTER (CHUẨN DOANH NGHIỆP Y TẾ HIỆN ĐẠI)
+   ========================================================================== */
+.hospital-footer {
+  background: #07192f;
+  color: #cbd5e1;
+  border-top: 1px solid #0f2d52;
+  margin-top: auto;
+  padding: 3.5rem 0 0 0;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-logo-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.footer-hospital-name {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+
+.footer-sub-title {
+  font-size: 0.8rem;
+  color: #38bdf8;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.footer-about-text {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.footer-compliance-tag {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.footer-heading {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1.15rem 0;
+  position: relative;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #0284c7;
+  display: inline-block;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.84rem;
+  color: #94a3b8;
+}
+
+.footer-list strong {
+  color: #e2e8f0;
+}
+
+.footer-bottom {
+  background: #04101e;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #94a3b8;
+}
+
+.footer-bottom-links span {
+  transition: color 0.2s ease;
+}
+
+.footer-bottom-links span:hover {
+  color: #38bdf8;
+}
+
+@media (max-width: 960px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
