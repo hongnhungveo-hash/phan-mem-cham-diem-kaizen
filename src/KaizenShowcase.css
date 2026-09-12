@@ -24,22 +24,22 @@
   font-family: 'Lora', Georgia, serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #141E26;
+  color: #003B73;
   margin: 0 0 0.35rem 0;
 }
 
 .showcase-subtitle {
   font-size: 0.9rem;
-  color: #496371;
+  color: #475569;
   margin: 0;
 }
 
 .showcase-count-pill {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #2D5F73;
-  background: #eef8fa;
-  border: 1px solid #73C6D9;
+  color: #0085db;
+  background: #e1f0fa;
+  border: 1px solid #bae6fd;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
 }
@@ -180,9 +180,9 @@
 .card-id-badge {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #2D5F73;
-  background: #eef8fa;
-  border: 1px solid #73C6D9;
+  color: #0085db;
+  background: #e1f0fa;
+  border: 1px solid #bae6fd;
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
@@ -353,7 +353,7 @@
 }
 
 .view-a3-btn {
-  background: #2D5F73;
+  background: #0085db;
   color: #ffffff;
   border: none;
   font-size: 0.82rem;
@@ -365,8 +365,8 @@
 }
 
 .view-a3-btn:hover {
-  background: #141E26;
-  box-shadow: 0 2px 8px rgba(20, 30, 38, 0.25);
+  background: #006bb3;
+  box-shadow: 0 2px 8px rgba(0, 133, 219, 0.35);
 }
 
 /* RESPONSIVE */

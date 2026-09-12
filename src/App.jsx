@@ -282,7 +282,7 @@ function App() {
             />
             <div className="header-text-block">
               <span className="header-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</span>
-              <span className="header-slogan-title">Hội Thi Đề Án Cải Tiến Chất Lượng Năm 2026</span>
+              <span className="header-slogan-title">Phòng Kế Hoạch Tổng Hợp — Tổ Quản Lý Chất Lượng</span>
             </div>
           </div>
           

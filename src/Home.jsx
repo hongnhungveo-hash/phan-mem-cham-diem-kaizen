@@ -39,7 +39,6 @@ export default function Home({
             <h1 className="hero-title">{COMPETITION_INFO.title}</h1>
             
             <div className="hero-slogan-wrap">
-              <span className="hero-slogan-label">Khẩu hiệu hành động:</span>
               <span className="hero-slogan">"{COMPETITION_INFO.slogan}"</span>
             </div>
 
@@ -109,7 +108,7 @@ export default function Home({
           <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">
             <path 
               d="M0,24 C320,54 420,10 720,32 C1020,54 1180,16 1440,28 L1440,60 L0,60 Z" 
-              fill="#f4fafb"
+              fill="#fafbfc"
             />
           </svg>
         </div>
