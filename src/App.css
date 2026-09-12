@@ -10,11 +10,11 @@
   top: 0;
   z-index: 50;
   padding: 0.65rem 1.25rem;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 4px 20px -4px rgba(0, 59, 115, 0.08);
+  border-bottom: 1px solid rgba(115, 198, 217, 0.4);
+  box-shadow: 0 4px 20px -4px rgba(20, 30, 38, 0.08);
   transition: all 0.25s ease;
 }
 
@@ -41,7 +41,7 @@
   width: 44px;
   height: 44px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 5px rgba(0, 59, 115, 0.15));
+  filter: drop-shadow(0 2px 5px rgba(20, 30, 38, 0.2));
   flex-shrink: 0;
 }
 
@@ -54,7 +54,7 @@
 .header-org-title {
   font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
   font-size: 0.86rem;
-  color: #003B73;
+  color: #141E26;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -65,7 +65,7 @@
 .header-slogan-title {
   font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
   font-size: 0.88rem;
-  color: #0284c7;
+  color: #2D5F73;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -80,10 +80,10 @@
 .nav-tabs {
   display: flex;
   gap: 0.25rem;
-  background-color: #f1f5f9;
+  background-color: #eef8fa;
   padding: 0.25rem;
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d4eaf0;
 }
 
 .nav-btn {
@@ -94,7 +94,7 @@
   border-radius: 9px;
   font-size: 0.86rem;
   font-weight: 600;
-  color: #475569;
+  color: #496371;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
@@ -103,15 +103,15 @@
 }
 
 .nav-btn:hover {
-  color: #003b73;
-  background-color: rgba(255, 255, 255, 0.85);
+  color: #141E26;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .nav-btn.active {
-  background-color: #003B73;
+  background-color: #2D5F73;
   color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 59, 115, 0.28);
+  box-shadow: 0 2px 8px rgba(45, 95, 115, 0.35);
 }
 
 /* Auth Status Box */
@@ -122,9 +122,9 @@
 
 .auth-login-link {
   font-family: 'Be Vietnam Pro', sans-serif;
-  background: #f0f7fc;
-  border: 1px solid #bae6fd;
-  color: #0284c7;
+  background: #eef8fa;
+  border: 1px solid #73C6D9;
+  color: #2D5F73;
   font-size: 0.82rem;
   font-weight: 700;
   padding: 0.45rem 0.95rem;
@@ -135,20 +135,20 @@
 }
 
 .auth-login-link:hover {
-  background: #0284c7;
+  background: #2D5F73;
   color: #ffffff;
-  border-color: #0284c7;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+  border-color: #2D5F73;
+  box-shadow: 0 2px 8px rgba(45, 95, 115, 0.3);
 }
 
 .logged-in-badge {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #f0fdf4;
+  background: #e6f9f0;
   padding: 0.35rem 0.75rem;
   border-radius: 9px;
-  border: 1px solid #bbf7d0;
+  border: 1px solid #a7f3d0;
 }
 
 .auth-role {
@@ -313,14 +313,14 @@
 }
 
 /* ==========================================================================
-   HOSPITAL FOOTER COMPACT (NGẮN GỌN, TRANG TRỌNG, CƠ QUAN CHỦ QUẢN & BAN TỔ CHỨC)
+   HOSPITAL FOOTER COMPACT - DESIGNERVN PALETTE (#141E26, #2D5F73, #55B3D9, #73C6D9, #88E8F2)
    ========================================================================== */
 .hospital-footer-compact {
-  background: #07192f;
-  color: #cbd5e1;
-  border-top: 1px solid #0f2d52;
+  background: #141E26;
+  color: #d4eaf0;
+  border-top: 1px solid #2D5F73;
   margin-top: auto;
-  padding: 1.25rem 0;
+  padding: 1.35rem 0;
 }
 
 .footer-compact-container {
@@ -341,7 +341,7 @@
   width: 44px;
   height: 44px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
   flex-shrink: 0;
 }
 
@@ -362,28 +362,28 @@
 .footer-line-btc {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 0.82rem;
-  color: #93c5fd;
+  color: #88E8F2;
   line-height: 1.4;
 }
 
 .footer-lbl {
   font-weight: 800;
-  color: #38bdf8;
+  color: #55B3D9;
   margin-right: 0.35rem;
 }
 
 .footer-focal-text {
-  color: #e2e8f0;
+  color: #ffffff;
 }
 
 .footer-sep {
-  color: #475569;
+  color: #73C6D9;
   margin: 0 0.45rem;
 }
 
 .footer-line-sub {
   font-size: 0.76rem;
-  color: #64748b;
+  color: #73C6D9;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -398,9 +398,9 @@
 
 .footer-quick-btn {
   font-family: 'Be Vietnam Pro', sans-serif;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
+  background: rgba(115, 198, 217, 0.12);
+  border: 1px solid rgba(115, 198, 217, 0.25);
+  color: #88E8F2;
   font-size: 0.78rem;
   font-weight: 600;
   padding: 0.35rem 0.75rem;
@@ -411,9 +411,9 @@
 }
 
 .footer-quick-btn:hover {
-  background: #0284c7;
-  color: #ffffff;
-  border-color: #0284c7;
+  background: #55B3D9;
+  color: #141E26;
+  border-color: #55B3D9;
 }
 
 @media (max-width: 992px) {

@@ -472,7 +472,7 @@ function App() {
                 <span className="footer-focal-text">Thường trực: Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng</span>
               </div>
               <div className="footer-line-sub">
-                <span>Trụ sở: Xã Chí Đám, Huyện Đoan Hùng, Tỉnh Phú Thọ</span>
+                <span>Trụ sở: Thôn Phượng Hùng 1, Xã Chí Đám, Tỉnh Phú Thọ</span>
                 <span className="footer-sep">•</span>
                 <span>Hotline: 1800 9415</span>
                 <span className="footer-sep">•</span>
