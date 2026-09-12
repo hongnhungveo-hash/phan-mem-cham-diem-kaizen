@@ -33,7 +33,7 @@ export default function Home({
           {/* Cột trái: Tiêu đề, Khẩu hiệu & Định nghĩa Triết lý Kaizen */}
           <div className="hero-left-col">
             <div className="hero-badge">
-              Bệnh Viện Đa Khoa Hùng Vương • Tổ Quản Lý Chất Lượng
+              Bệnh Viện Đa Khoa Hùng Vương • Thân Thiện — Chuyên Nghiệp — Chu Đáo
             </div>
 
             <h1 className="hero-title">{COMPETITION_INFO.title}</h1>

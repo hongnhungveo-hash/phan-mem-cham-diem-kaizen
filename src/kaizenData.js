@@ -5,6 +5,7 @@ export const COMPETITION_INFO = {
   subtitle: "Bệnh viện Đa khoa Hùng Vương",
   theme: "Đột phá chất lượng – Tối ưu vận hành",
   slogan: "Đột phá chất lượng – Tối ưu vận hành",
+  hospitalSlogan: "Thân thiện – Chuyên nghiệp – Chu đáo",
   organizer: "Công ty TNHH Phát triển Y học Việt — Bệnh viện Đa khoa Hùng Vương",
   focalPoint: "Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng",
   

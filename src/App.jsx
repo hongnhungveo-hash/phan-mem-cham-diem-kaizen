@@ -282,7 +282,7 @@ function App() {
             />
             <div className="header-text-block">
               <span className="header-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</span>
-              <span className="header-slogan-title">Phòng Kế Hoạch Tổng Hợp — Tổ Quản Lý Chất Lượng</span>
+              <span className="header-slogan-title">Thân thiện — Chuyên nghiệp — Chu đáo</span>
             </div>
           </div>
           
@@ -473,6 +473,8 @@ function App() {
               </div>
               <div className="footer-line-sub">
                 <span>Trụ sở: Thôn Phượng Hùng 1, Xã Chí Đám, Tỉnh Phú Thọ</span>
+                <span className="footer-sep">•</span>
+                <span>Khẩu hiệu: Thân thiện — Chuyên nghiệp — Chu đáo</span>
                 <span className="footer-sep">•</span>
                 <span>Hotline: 1800 9415</span>
                 <span className="footer-sep">•</span>
