@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './KaizenShowcase.css';
+import { getCleanLeaderName } from './kaizenData';
 
 export default function KaizenShowcase({ 
   projects = [], 
@@ -249,7 +250,7 @@ export default function KaizenShowcase({
                   {p.nhomTacGia && (
                     <div className="dept-item">
                       <span className="dept-label">Chủ nhiệm:</span>
-                      <span className="dept-val text-muted">{p.nhomTacGia.split(',')[0]}</span>
+                      <span className="dept-val text-muted">{getCleanLeaderName(p)}</span>
                     </div>
                   )}
                 </div>

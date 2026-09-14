@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './RankingTable.css';
+import { getCleanLeaderName } from './kaizenData';
 
 export default function RankingTable({ 
   data = [], 
@@ -196,8 +197,8 @@ export default function RankingTable({
                         {row.nhanh}
                       </span>
                     </td>
-                    <td className="text-muted">
-                      {row.nhomTacGia?.split(',')[0] || '—'}
+                    <td className="text-muted font-medium">
+                      {getCleanLeaderName(row) || '—'}
                     </td>
                     <td className="text-center text-muted font-mono" style={{ fontSize: '0.8rem' }}>
                       {row.ngayDangKy || '05/09/2026'}

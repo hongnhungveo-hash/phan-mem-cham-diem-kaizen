@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.css';
-import { COMPETITION_INFO } from './kaizenData';
+import { COMPETITION_INFO, getCleanLeaderName } from './kaizenData';
 
 export default function Home({ 
   totalProjects = 0, 
@@ -240,7 +240,7 @@ export default function Home({
                   </h3>
 
                   <div style={{ fontSize: '0.84rem', color: '#64748b', marginBottom: '1rem' }}>
-                    <strong>Đơn vị:</strong> {p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''} • <strong>Chủ nhiệm:</strong> {p.nhomTacGia?.split(',')[0]}
+                    <strong>Đơn vị:</strong> {p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''} • <strong>Chủ nhiệm:</strong> {getCleanLeaderName(p)}
                   </div>
 
                   {/* KHỐI 3 GẠCH ĐẦU DÒNG CỰC KỲ DỄ HIỂU */}

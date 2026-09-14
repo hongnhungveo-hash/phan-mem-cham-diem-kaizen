@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './A3DetailModal.css';
+import { getCleanLeaderName } from './kaizenData';
 
 export default function A3DetailModal({ project, isOpen, onClose }) {
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'a3', 'timeline', 'documents', 'discussion'
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [commentsList, setCommentsList] = useState([]);
   const [newAuthor, setNewAuthor] = useState('');
   const [newRole, setNewRole] = useState('');
@@ -78,9 +80,14 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
     setNewComment('');
   };
 
+  const cleanLeader = getCleanLeaderName(project);
+
   return (
     <div className="a3-modal-overlay" onClick={onClose}>
-      <div className="a3-modal-dialog" onClick={(e) => e.stopPropagation()}>
+      <div 
+        className={`a3-modal-dialog ${isFullScreen ? 'dialog-fullscreen' : 'dialog-spacious'}`} 
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* TOP BAR */}
         <div className="a3-modal-header screen-only">
           <div className="a3-header-meta">
@@ -96,6 +103,14 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           </div>
 
           <div className="a3-header-actions">
+            <button 
+              type="button" 
+              className="btn btn-outline a3-action-btn" 
+              onClick={() => setIsFullScreen(!isFullScreen)}
+              title={isFullScreen ? "Thu nhỏ cửa sổ" : "Mở rộng toàn màn hình"}
+            >
+              {isFullScreen ? "Thu Nhỏ" : "Toàn Màn Hình"}
+            </button>
             <button 
               type="button" 
               className="btn btn-outline a3-action-btn" 
@@ -123,7 +138,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           </h2>
           
           <div className="hero-compact-info">
-            <span>Chủ nhiệm đề án: <strong>{authors[0]?.name || project.nhomTacGia?.split(',')[0]}</strong></span>
+            <span>Chủ nhiệm: <strong>{cleanLeader}</strong></span>
             <span className="hero-divider">•</span>
             <span>Đơn vị: <strong>{project.khoaPhong}</strong></span>
           </div>
@@ -170,79 +185,87 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
 
         {/* THÂN MODAL CUỘN ĐƯỢC */}
         <div className="modal-scroll-body screen-only">
-          {/* TAB 1: GIỚI THIỆU SẢN PHẨM NGẮN GỌN DỄ HIỂU (30 GIÂY) */}
+          {/* TAB 1: GIỚI THIỆU SẢN PHẨM DẠNG DASHBOARD RỘNG RÃI, KHÔNG CẦN LĂN CHUỘT */}
           {activeTab === 'overview' && (
             <div className="tab-pane overview-pane">
-              {/* KHỐI 1: Ý TƯỞNG CỐT LÕI - KHÔNG LẶP TIÊU ĐỀ */}
-              <div className="idea-banner-card">
-                <div className="idea-badge">Ý TƯỞNG CẢI TIẾN</div>
-                <p className="idea-text">{qs.idea}</p>
-              </div>
+              <div className="overview-dashboard-grid">
+                {/* CỘT TRÁI (58%): Ý TƯỞNG CẢI TIẾN & SO SÁNH TRƯỚC/SAU */}
+                <div className="overview-main-col">
+                  {/* KHỐI 1: Ý TƯỞNG CỐT LÕI */}
+                  <div className="idea-banner-card">
+                    <div className="idea-badge">Ý TƯỞNG CẢI TIẾN</div>
+                    <p className="idea-text">{qs.idea}</p>
+                  </div>
 
-              {/* KHỐI 2: SO SÁNH TRƯỚC VÀ SAU - TINH GỌN, KHÔNG EMOJI, KHÔNG TIÊU ĐỀ PHỤ THỪA */}
-              <div className="quick-compare-grid">
-                <div className="quick-card pain-box">
-                  <div className="box-tag red-tag">BẤT CẬP TRƯỚC ĐÂY</div>
-                  <ul className="quick-list">
-                    {qs.painPoints.map((pt, idx) => (
-                      <li key={idx}>
-                        <span className="bullet-dot red-dot"></span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="quick-card solution-box">
-                  <div className="box-tag green-tag">GIẢI PHÁP CẢI TIẾN</div>
-                  <ul className="quick-list">
-                    {qs.solutions.map((sol, idx) => (
-                      <li key={idx}>
-                        <span className="bullet-dot green-dot"></span>
-                        <span>{sol}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* KHỐI 3: KẾT QUẢ ĐO LƯỜNG NỔI BẬT */}
-              <div className="metrics-showcase-section">
-                <div className="section-mini-title">KẾT QUẢ ĐO LƯỜNG NỔI BẬT</div>
-                <div className="metrics-cards-row">
-                  {qs.keyMetrics.map((km, idx) => (
-                    <div key={idx} className="metric-badge-item">
-                      <div className="metric-item-name">{km.label}</div>
-                      <div className="metric-compare-line">
-                        <span className="val-before">{km.before}</span>
-                        <span className="val-arrow">→</span>
-                        <span className="val-after">{km.after}</span>
-                      </div>
-                      <div className="metric-item-note">{km.note}</div>
+                  {/* KHỐI 2: SO SÁNH TRƯỚC VÀ SAU */}
+                  <div className="quick-compare-grid">
+                    <div className="quick-card pain-box">
+                      <div className="box-tag red-tag">BẤT CẬP TRƯỚC ĐÂY</div>
+                      <ul className="quick-list">
+                        {qs.painPoints.map((pt, idx) => (
+                          <li key={idx}>
+                            <span className="bullet-dot red-dot"></span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* KHỐI 4: NHÓM TÁC GIẢ THỰC HIỆN */}
-              <div className="authors-simple-box">
-                <div className="section-mini-title">NHÓM TÁC GIẢ THỰC HIỆN</div>
-                <div className="authors-simple-flex">
-                  {authors.map((auth, idx) => (
-                    <div key={idx} className="author-pill-item">
-                      <span className="author-role-tag">{idx === 0 ? 'Chủ nhiệm:' : 'Thành viên:'}</span>
-                      <strong className="author-full-name">{auth.name}</strong>
-                      <span className="author-dept-text">({auth.title})</span>
+                    <div className="quick-card solution-box">
+                      <div className="box-tag green-tag">GIẢI PHÁP CẢI TIẾN</div>
+                      <ul className="quick-list">
+                        {qs.solutions.map((sol, idx) => (
+                          <li key={idx}>
+                            <span className="bullet-dot green-dot"></span>
+                            <span>{sol}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="tab-switch-hint">
-                Xem chi tiết quy trình kỹ thuật PDCA:
-                <button type="button" className="inline-tab-link" onClick={() => setActiveTab('a3')}>
-                  Xem Báo cáo A3 đầy đủ →
-                </button>
+                {/* CỘT PHẢI (42%): KẾT QUẢ ĐO LƯỜNG, TÁC GIẢ & HÀNH ĐỘNG */}
+                <div className="overview-side-col">
+                  {/* KHỐI 3: KẾT QUẢ ĐO LƯỜNG NỔI BẬT (LƯỚI 2x2 SIÊU GỌN) */}
+                  <div className="metrics-showcase-section">
+                    <div className="section-mini-title">KẾT QUẢ ĐO LƯỜNG NỔI BẬT</div>
+                    <div className="metrics-cards-grid-2x2">
+                      {qs.keyMetrics.map((km, idx) => (
+                        <div key={idx} className="metric-badge-item">
+                          <div className="metric-item-name">{km.label}</div>
+                          <div className="metric-compare-line">
+                            <span className="val-before">{km.before}</span>
+                            <span className="val-arrow">→</span>
+                            <span className="val-after">{km.after}</span>
+                          </div>
+                          <div className="metric-item-note">{km.note}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* KHỐI 4: NHÓM TÁC GIẢ THỰC HIỆN */}
+                  <div className="authors-simple-box">
+                    <div className="section-mini-title">NHÓM TÁC GIẢ THỰC HIỆN</div>
+                    <div className="authors-simple-flex">
+                      {authors.map((auth, idx) => (
+                        <div key={idx} className="author-pill-item">
+                          <span className="author-role-tag">{idx === 0 ? 'Chủ nhiệm:' : 'Thành viên:'}</span>
+                          <strong className="author-full-name">{auth.name}</strong>
+                          <span className="author-dept-text">({auth.title})</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="tab-switch-hint">
+                    Xem chi tiết quy trình kỹ thuật PDCA:
+                    <button type="button" className="inline-tab-link" onClick={() => setActiveTab('a3')}>
+                      Xem Báo cáo A3 đầy đủ →
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}

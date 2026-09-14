@@ -70,7 +70,8 @@ export const INITIAL_KAIZEN_PROJECTS = [
     nhanh: "Nhánh A",
     khoaPhong: "Khoa Tim Mạch",
     khoaPhoiHop: "Tổ Dược Lâm Sàng",
-    nhomTacGia: "ĐD. Nguyễn Duy Hùng (Chủ nhiệm), ĐD. Nguyễn Việt Hưng, ĐD. Nguyễn Mạnh Hùng, ĐD. Lê Minh Thắng, ĐD. Nguyễn Phạm Quốc Anh",
+    chuNhiem: "ĐD. Nguyễn Duy Hùng",
+    nhomTacGia: "ĐD. Nguyễn Duy Hùng, ĐD. Nguyễn Việt Hưng, ĐD. Nguyễn Mạnh Hùng, ĐD. Lê Minh Thắng, ĐD. Nguyễn Phạm Quốc Anh",
     chuDe: "SAFETY",
     chuDeTen: "An toàn Người bệnh & Phòng ngừa Rủi ro",
     khoiChuyenMon: "Khối Nội - Tim mạch Can thiệp",
@@ -176,7 +177,8 @@ export const INITIAL_KAIZEN_PROJECTS = [
     nhanh: "Nhánh A",
     khoaPhong: "Trung Tâm Cấp Cứu 115",
     khoaPhoiHop: "Tổ Quản Trị Tài Sản & Thiết Bị",
-    nhomTacGia: "ĐD. Đỗ Sơn Bắc (Chủ nhiệm), BS. Nguyễn Văn Hùng, ĐD. Hoàng Văn Tuấn",
+    chuNhiem: "ĐD. Đỗ Sơn Bắc",
+    nhomTacGia: "ĐD. Đỗ Sơn Bắc, BS. Nguyễn Văn Hùng, ĐD. Hoàng Văn Tuấn",
     chuDe: "SAFETY",
     chuDeTen: "An toàn Người bệnh & Sáng chế Kỹ thuật Y tế",
     khoiChuyenMon: "Khối Hồi sức Cấp cứu",
@@ -298,5 +300,21 @@ export const SAMPLE_RANKING_DATA = INITIAL_KAIZEN_PROJECTS.map((p, idx) => {
     hasScore: true
   };
 });
+
+/**
+ * Trả về tên chủ nhiệm đề án gọn gàng, không lặp lại chức danh hay chữ (Chủ nhiệm)
+ */
+export const getCleanLeaderName = (p) => {
+  if (!p) return '';
+  if (p.chuNhiem) return p.chuNhiem;
+  if (p.authorsDetailed && p.authorsDetailed[0]?.name) {
+    return p.authorsDetailed[0].name;
+  }
+  if (p.nhomTacGia) {
+    return p.nhomTacGia.split(',')[0].replace(/\(.*?\)/g, '').trim();
+  }
+  return '';
+};
+
 
 
