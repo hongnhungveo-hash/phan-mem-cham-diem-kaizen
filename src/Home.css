@@ -88,6 +88,24 @@
   color: #bae6fd;
 }
 
+.hero-welcome-greeting {
+  font-family: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fef08a;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(254, 240, 138, 0.12);
+  border: 1px solid rgba(254, 240, 138, 0.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 6px;
+}
+
 .hero-title {
   font-family: 'Lora', Georgia, serif;
   font-size: 2.35rem;
@@ -377,12 +395,17 @@
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: 1.6rem 1.25rem 1.4rem 1.25rem;
+  padding: 1.4rem 1.15rem 1.3rem 1.15rem;
   text-align: center;
   box-shadow: 0 10px 25px -5px rgba(0, 59, 115, 0.08);
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 110px;
 }
 
 .metric-card::before {
@@ -417,21 +440,16 @@
   font-weight: 800;
   color: #003B73;
   line-height: 1;
-  margin: 0.4rem 0 0.35rem 0;
+  margin: 0.25rem 0 0.4rem 0;
 }
 
 .metric-label {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  color: #071e3d;
+  color: #1e293b;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 0.3rem;
-}
-
-.metric-sub {
-  font-size: 0.76rem;
-  color: #475569;
+  margin: 0;
   line-height: 1.35;
 }
 
@@ -864,6 +882,19 @@
   line-height: 1.4;
   margin: 0;
   flex: 1;
+}
+
+.card-evaluated-badge {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
 .project-card-bottom-row {

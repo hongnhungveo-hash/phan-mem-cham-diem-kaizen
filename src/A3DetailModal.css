@@ -75,23 +75,92 @@
   min-width: 0;
 }
 
+.unified-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
 .unified-project-title {
   font-size: 1.18rem;
   font-weight: 700;
   line-height: 1.35;
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   color: #ffffff;
   letter-spacing: -0.01em;
+}
+
+.modal-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.modal-status-pill.scored {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.modal-status-pill.testing {
+  background: rgba(186, 230, 253, 0.25);
+  color: #bae6fd;
+  border: 1px solid rgba(186, 230, 253, 0.45);
 }
 
 .unified-sub-meta {
   font-size: 0.84rem;
   color: rgba(255, 255, 255, 0.88);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
 .unified-sub-meta strong {
   color: #ffffff;
   font-weight: 600;
+}
+
+.meta-dot {
+  opacity: 0.6;
+}
+
+.unified-action-col {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.modal-score-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  border: 1px solid #fef3c7;
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.modal-score-btn:hover, .modal-score-btn.active {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.45);
 }
 
 .a3-close-btn {
@@ -909,15 +978,480 @@
   font-style: italic;
 }
 
+/* TAB BUTTONS & ACCENTS */
+.scoring-tab-btn {
+  color: #fef08a !important;
+  font-weight: 700 !important;
+}
+
+.scoring-tab-btn.active {
+  background: #ffffff !important;
+  color: #d97706 !important;
+}
+
+.idea-full-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #003B73;
+  margin: 0.25rem 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.score-link {
+  color: #d97706 !important;
+  font-weight: 700 !important;
+}
+
+.a3-toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.a3-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.a3-bullet-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.85rem;
+  color: #1e293b;
+  line-height: 1.45;
+}
+
+.a3-bullet-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0.2rem;
+  top: 0;
+  color: #0085db;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.solutions-list li {
+  padding-left: 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.solutions-list li::before {
+  display: none;
+}
+
+.sol-index {
+  background: #e0f2fe;
+  color: #003B73;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.implementation-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.impl-row strong {
+  color: #003B73;
+}
+
+/* ==========================================================================
+   TAB 3: BIÊN BẢN THẨM ĐỊNH QLCL (GATE 1) CHUẨN NGHỊ ĐỊNH 30
+   ========================================================================== */
+.appraisal-pane {
+  padding: 1.5rem;
+  background: #f8fafc;
+}
+
+.appraisal-official-sheet {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.appraisal-header-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1.25rem;
+}
+
+.appraisal-header-left {
+  font-size: 0.88rem;
+  color: #1e293b;
+  line-height: 1.45;
+}
+
+.appraisal-number {
+  font-size: 0.84rem;
+  color: #475569;
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.appraisal-header-right {
+  text-align: center;
+  font-size: 0.88rem;
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.appraisal-date {
+  font-style: italic;
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 0.4rem;
+}
+
+.appraisal-title-block {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.appraisal-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #003B73;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.appraisal-subject {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: #334155;
+  line-height: 1.45;
+}
+
+.appraisal-table-wrap {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+.appraisal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.appraisal-table th, .appraisal-table td {
+  border: 1px solid #cbd5e1;
+  padding: 0.65rem 0.85rem;
+  line-height: 1.45;
+}
+
+.appraisal-table th {
+  background: #f1f5f9;
+  color: #003B73;
+  font-weight: 700;
+}
+
+.appraisal-total-row {
+  background: #f8fafc;
+}
+
+.appraisal-conclusion-box {
+  background: #eff6ff;
+  border-left: 4px solid #0085db;
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.appraisal-sec-title {
+  font-weight: 700;
+  color: #003B73;
+  font-size: 0.88rem;
+  margin-bottom: 0.4rem;
+}
+
+.appraisal-conclusion-text {
+  font-size: 0.86rem;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.appraisal-sign-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+
+.sign-col-left {
+  color: #475569;
+  line-height: 1.5;
+}
+
+.sign-col-right {
+  text-align: center;
+  min-width: 200px;
+}
+
+/* ==========================================================================
+   TAB 6: BẢNG CHẤM ĐIỂM GIÁM KHẢO TRỰC TIẾP
+   ========================================================================== */
+.scoring-pane {
+  padding: 1.5rem;
+  background: #f1f5f9;
+}
+
+.scoring-sheet-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 1050px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 59, 115, 0.08);
+}
+
+.scoring-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.scoring-sheet-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #003B73;
+  margin: 0 0 0.35rem 0;
+  text-transform: uppercase;
+}
+
+.scoring-project-brief {
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.live-score-badge-box {
+  background: linear-gradient(135deg, #071e3d, #003B73);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 180px;
+  box-shadow: 0 4px 14px rgba(0, 59, 115, 0.25);
+}
+
+.live-score-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #93c5fd;
+}
+
+.live-score-number {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #fef08a;
+  line-height: 1.2;
+}
+
+.live-score-rank {
+  font-size: 0.76rem;
+  color: #e0f2fe;
+}
+
+.scoring-success-alert {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  color: #15803d;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 1.25rem;
+}
+
+.judge-select-row {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.judge-input-wrap {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.45rem;
+}
+
+.judge-name-input {
+  flex: 1.2;
+}
+
+.judge-quick-select {
+  flex: 1;
+}
+
+.criteria-scoring-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.crit-score-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.crit-score-item:hover {
+  border-color: #0085db;
+  box-shadow: 0 4px 12px rgba(0, 133, 219, 0.08);
+}
+
+.crit-sec-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0085db;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.crit-item-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.25rem 0;
+}
+
+.crit-item-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.crit-item-input-box {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  margin-left: 1.5rem;
+}
+
+.score-number-input {
+  width: 80px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #003B73;
+  padding: 0.4rem;
+  border-radius: 8px;
+}
+
+.crit-max-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  min-width: 45px;
+}
+
+.judge-comment-box {
+  margin-bottom: 1.5rem;
+}
+
+.scoring-action-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1.25rem;
+}
+
+.btn-confirm-score {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  border: none;
+  padding: 0.7rem 1.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-confirm-score:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+}
+
+.btn-cancel-score {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 0.7rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancel-score:hover {
+  background: #e2e8f0;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .quick-compare-grid,
   .a3-screen-grid,
-  .docs-grid {
+  .docs-grid,
+  .appraisal-header-grid {
     grid-template-columns: 1fr;
   }
   .metrics-cards-row {
     grid-template-columns: 1fr 1fr;
+  }
+  .crit-score-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .crit-item-input-box {
+    margin-left: 0;
+  }
+  .scoring-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

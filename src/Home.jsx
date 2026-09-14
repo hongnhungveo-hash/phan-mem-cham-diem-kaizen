@@ -39,6 +39,10 @@ export default function Home({
               <span className="hero-badge-slogan">Thân Thiện — Chuyên Nghiệp — Chu Đáo</span>
             </div>
 
+            <div className="hero-welcome-greeting">
+              Chào mừng Quý Thầy Cô, Đồng Nghiệp & Hội đồng Giám khảo đến với
+            </div>
+
             <h1 className="hero-title">{COMPETITION_INFO.title}</h1>
             
             <div className="hero-slogan-wrap">
@@ -91,34 +95,30 @@ export default function Home({
         </div>
       </section>
 
-      {/* Floating Metrics Bar (Khối chỉ số vận hành nổi) */}
+      {/* Floating Metrics Bar (Khối chỉ số vận hành nổi: Tiêu đề ngắn gọn, không mô tả thừa) */}
       <section className="metrics-section floating-metrics">
         <div className="metric-card">
           <div className="metric-step-tag">01</div>
           <div className="metric-number">{totalProjects}</div>
-          <div className="metric-label">Đề tài đã đăng ký</div>
-          <div className="metric-sub">Hồ sơ đã tiếp nhận và phê duyệt thử nghiệm</div>
+          <div className="metric-label">Số lượng đề tài đăng ký</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">02</div>
           <div className="metric-number">{totalDepts}</div>
-          <div className="metric-label">Khoa / Phòng chủ trì</div>
-          <div className="metric-sub">Bệnh viện hạt nhân Đoan Hùng & các vệ tinh</div>
+          <div className="metric-label">Khoa phòng tham gia</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">03</div>
           <div className="metric-number" style={{ fontSize: '1.45rem', color: '#0085db' }}>Vòng 2</div>
-          <div className="metric-label">Trạng thái hiện tại</div>
-          <div className="metric-sub">Đang triển khai thử nghiệm thực địa</div>
+          <div className="metric-label">Tiến độ hiện tại</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">04</div>
           <div className="metric-number" style={{ fontSize: '1.45rem', color: '#16a34a' }}>28/09/2026</div>
-          <div className="metric-label">Kế hoạch Vòng Chung kết</div>
-          <div className="metric-sub">Ban Giám khảo chấm điểm thuyết trình chính thức</div>
+          <div className="metric-label">Kế hoạch Chung kết</div>
         </div>
       </section>
 
@@ -143,6 +143,11 @@ export default function Home({
                 <h3 className="project-card-title">
                   {p.tenDeTai || p.tenSanPham}
                 </h3>
+                {p.hasScore && (
+                  <span className="card-evaluated-badge" title={`Đã chấm điểm: ${p.tongDiem} điểm (${p.xepLoai})`}>
+                    ✓ {p.tongDiem}đ
+                  </span>
+                )}
               </div>
 
               <div className="project-card-bottom-row">

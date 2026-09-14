@@ -14,7 +14,40 @@ import { INITIAL_KAIZEN_PROJECTS, SAMPLE_RANKING_DATA } from './kaizenData'
 function App() {
   const [activeTab, setActiveTab] = useState('home') // 'home' | 'showcase' | 'ranking' | 'score' | 'secretary'
   const [apiUrl, setApiUrl] = useState('https://script.google.com/macros/s/AKfycbyAbgu4JX4d_V-NeqGt0NSyEOmoWNHxJoU-m0MUyMEf2cT4VOZE2_PwsET4lj_ZCGqD/exec')
-  const [rankingData, setRankingData] = useState(SAMPLE_RANKING_DATA)
+  
+  // Dữ liệu bảng xếp hạng và tiến độ tiếp nhận
+  const [rankingData, setRankingData] = useState(() => {
+    try {
+      const localScores = JSON.parse(localStorage.getItem('hv_kaizen_local_scores') || '{}');
+      return INITIAL_KAIZEN_PROJECTS.map(p => {
+        const local = localScores[p.maDeTai];
+        if (local) {
+          return {
+            ...p,
+            ...local,
+            hasScore: true,
+            status: 'evaluated'
+          };
+        }
+        return {
+          ...p,
+          tongDiem: 0,
+          phan1: '—',
+          phan2: '—',
+          phan3: '—',
+          phan4: '—',
+          phan5: '—',
+          xepLoai: 'Chờ chấm',
+          count: 0,
+          hasScore: false,
+          status: 'testing'
+        };
+      });
+    } catch {
+      return INITIAL_KAIZEN_PROJECTS;
+    }
+  });
+
   const [rawScoreRows, setRawScoreRows] = useState(() => Array.from({ length: 40 }))
   const [commentsMap, setCommentsMap] = useState({})
   const [appConfig, setAppConfig] = useState({ projects: [], judges: [] })
@@ -204,6 +237,102 @@ function App() {
   const handleOpenA3Modal = (project) => {
     setSelectedProjectForA3(project);
     setIsA3ModalOpen(true);
+  };
+
+  // Xử lý lưu điểm trực tiếp từ Giám khảo trong Modal chi tiết đề án
+  const handleSaveDirectScore = (scoreData) => {
+    const { maDeTai, giamKhao, scores, tongDiem, xepLoai, nhanXet } = scoreData;
+
+    // 1. Lưu điểm vào localStorage để duy trì trạng thái vĩnh viễn
+    try {
+      const localScores = JSON.parse(localStorage.getItem('hv_kaizen_local_scores') || '{}');
+      localScores[maDeTai] = {
+        tongDiem,
+        phan1: scores.p1,
+        phan2: scores.p2,
+        phan3: scores.p3,
+        phan4: scores.p4,
+        phan5: scores.p5,
+        xepLoai,
+        giamKhao,
+        nhanXet,
+        count: (localScores[maDeTai]?.count || 0) + 1,
+        hasScore: true,
+        status: 'evaluated',
+        thoiGianCham: new Date().toLocaleTimeString('vi-VN') + ' ' + new Date().toLocaleDateString('vi-VN')
+      };
+      localStorage.setItem('hv_kaizen_local_scores', JSON.stringify(localScores));
+    } catch (err) {
+      console.warn('Lỗi khi lưu điểm vào localStorage:', err);
+    }
+
+    // 2. Cập nhật state rankingData ngay tức thì
+    setRankingData(prevList => {
+      return prevList.map(p => {
+        if (p.maDeTai === maDeTai) {
+          return {
+            ...p,
+            tongDiem,
+            phan1: scores.p1,
+            phan2: scores.p2,
+            phan3: scores.p3,
+            phan4: scores.p4,
+            phan5: scores.p5,
+            xepLoai,
+            giamKhao,
+            nhanXet,
+            count: (p.count || 0) + 1,
+            hasScore: true,
+            status: 'evaluated'
+          };
+        }
+        return p;
+      });
+    });
+
+    // 3. Cập nhật selectedProjectForA3 để modal hiển thị trạng thái mới
+    setSelectedProjectForA3(prev => {
+      if (prev && prev.maDeTai === maDeTai) {
+        return {
+          ...prev,
+          tongDiem,
+          phan1: scores.p1,
+          phan2: scores.p2,
+          phan3: scores.p3,
+          phan4: scores.p4,
+          phan5: scores.p5,
+          xepLoai,
+          giamKhao,
+          nhanXet,
+          hasScore: true,
+          status: 'evaluated'
+        };
+      }
+      return prev;
+    });
+
+    // 4. Đồng bộ Google Sheets nếu có apiUrl
+    if (apiUrl) {
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'saveScore',
+          maDeTai,
+          giamKhao,
+          tongDiem,
+          phan1: scores.p1,
+          phan2: scores.p2,
+          phan3: scores.p3,
+          phan4: scores.p4,
+          phan5: scores.p5,
+          xepLoai,
+          nhanXet
+        })
+      }).catch(err => {
+        console.info('Ghi nhận điểm offline (đã lưu bộ nhớ cục bộ):', err);
+      });
+    }
   };
 
   // Mở modal nhận xét thư ký
@@ -479,11 +608,13 @@ function App() {
         )}
       </main>
 
-      {/* Modal Xem Báo Cáo A3 */}
+      {/* Modal Xem Báo Cáo A3 & Chấm Điểm Ban Giám Khảo */}
       <A3DetailModal
         isOpen={isA3ModalOpen}
         onClose={() => setIsA3ModalOpen(false)}
         project={selectedProjectForA3}
+        onSaveScore={handleSaveDirectScore}
+        judgesList={appConfig.judges}
       />
 
       {/* Modal Thư Ký Nhận Xét */}
