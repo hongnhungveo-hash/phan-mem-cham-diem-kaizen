@@ -191,7 +191,7 @@ function App() {
       if (p.khoaPhong) depts.add(p.khoaPhong);
       if (p.khoaPhoiHop) depts.add(p.khoaPhoiHop);
     });
-    return depts.size > 0 ? depts.size : 12;
+    return depts.size;
   }, [showcaseProjects, rankingData]);
 
   const topScoreValue = useMemo(() => {
