@@ -52,109 +52,138 @@
   }
 }
 
-/* TOP HEADER */
-.a3-modal-header {
+/* UNIFIED COMPACT HEADER (HỢP NHẤT THANH CÔNG CỤ & KHUNG TIÊU ĐỀ THÀNH 1 KHỐI) */
+.a3-unified-header {
+  background: linear-gradient(135deg, #071e3d 0%, #003B73 70%, #005a9e 100%);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem 0 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.unified-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.85rem 1.5rem;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 1rem;
 }
 
-.a3-header-meta {
+.unified-info-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.unified-title-row {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
+  margin-bottom: 0.25rem;
 }
 
 .a3-project-id {
-  font-size: 0.85rem;
+  font-size: 0.76rem;
   font-weight: 800;
   font-family: monospace;
-  color: #003B73;
-  background: #e0f2fe;
-  border: 1px solid #bae6fd;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
 }
 
 .a3-branch-badge {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 0.22rem 0.6rem;
-  border-radius: 6px;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
 }
 
 .a3-branch-badge.branch-a {
-  background: #e0f2fe;
-  color: #0369a1;
-  border: 1px solid #bae6fd;
+  background: #0284c7;
+  color: #ffffff;
 }
 
 .a3-branch-badge.branch-b {
-  background: #fef3c7;
-  color: #b45309;
-  border: 1px solid #fde68a;
-}
-
-.a3-dept-badge {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #071e3d;
-}
-
-.a3-partner-badge {
-  font-size: 0.82rem;
-  color: #0284c7;
-  font-weight: 600;
+  background: #d97706;
+  color: #ffffff;
 }
 
 .a3-status-approved {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  color: #15803d;
+  color: #166534;
   background: #dcfce7;
   border: 1px solid #86efac;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
+  white-space: nowrap;
 }
 
-.a3-header-actions {
+.unified-project-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+  color: #ffffff;
+}
+
+.unified-sub-meta {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  flex-wrap: wrap;
 }
 
-.a3-action-btn {
-  padding: 0.35rem 0.85rem;
-  font-size: 0.82rem;
+.meta-dot {
+  opacity: 0.4;
+}
+
+.meta-cat {
+  color: #7dd3fc;
+  font-weight: 600;
+}
+
+/* ACTIONS */
+.unified-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.btn-compact {
+  padding: 0.28rem 0.7rem;
+  font-size: 0.78rem;
   font-weight: 600;
   border-radius: 6px;
-  border-color: #0085db;
-  color: #0085db;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.a3-action-btn:hover {
-  background: #0085db;
-  color: #fff;
+.btn-compact:hover {
+  background: #ffffff;
+  color: #003B73;
 }
 
 .a3-close-btn {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  color: #475569;
-  width: 32px;
-  height: 32px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -166,61 +195,21 @@
   border-color: #dc2626;
 }
 
-/* HERO BANNER */
-.project-detail-hero {
-  background: linear-gradient(135deg, #071e3d 0%, #003B73 60%, #0085db 100%);
-  color: #ffffff;
-  padding: 1.25rem 1.75rem 0 1.75rem;
-  position: relative;
-}
-
-.hero-topic-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: rgba(255, 255, 255, 0.18);
-  padding: 0.2rem 0.65rem;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-}
-
-.hero-project-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.4;
-  margin: 0 0 0.5rem 0;
-  color: #ffffff;
-}
-
-.hero-compact-info {
+/* TABS ROW AT BOTTOM OF HEADER */
+.unified-nav-tabs {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1rem;
-}
-
-.hero-divider {
-  opacity: 0.5;
-}
-
-/* NAV TABS */
-.project-detail-nav-tabs {
-  display: flex;
-  gap: 0.4rem;
+  gap: 0.35rem;
   overflow-x: auto;
   padding-bottom: 0;
+  margin-top: 0.2rem;
 }
 
-.detail-tab-btn {
+.unified-tab-btn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.82);
-  padding: 0.65rem 1.1rem;
-  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.42rem 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
@@ -228,27 +217,55 @@
   white-space: nowrap;
 }
 
-.detail-tab-btn:hover {
+.unified-tab-btn:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 
-.detail-tab-btn.active {
+.unified-tab-btn.active {
   background: #fafbfc;
   color: #003B73;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
   border-bottom-color: #fafbfc;
+  font-weight: 700;
 }
 
 /* MODAL SCROLL BODY */
 .modal-scroll-body {
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   overflow-y: auto;
   flex: 1;
   background: #fafbfc;
+}
+
+/* FOOTER COMPACT */
+.a3-modal-footer-compact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 1.25rem;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.btn-close-compact {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-close-compact:hover {
+  background: #e2e8f0;
 }
 
 .tab-pane {

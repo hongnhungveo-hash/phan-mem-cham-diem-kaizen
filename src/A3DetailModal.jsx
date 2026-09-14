@@ -88,94 +88,93 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
         className={`a3-modal-dialog ${isFullScreen ? 'dialog-fullscreen' : 'dialog-spacious'}`} 
         onClick={(e) => e.stopPropagation()}
       >
-        {/* TOP BAR */}
-        <div className="a3-modal-header screen-only">
-          <div className="a3-header-meta">
-            <span className="a3-project-id">{project.maDeTai}</span>
-            <span className={`a3-branch-badge ${project.nhanh === 'Nhánh B' ? 'branch-b' : 'branch-a'}`}>
-              {project.nhanh}
-            </span>
-            <span className="a3-dept-badge">{project.khoaPhong}</span>
-            {project.khoaPhoiHop && (
-              <span className="a3-partner-badge">/ {project.khoaPhoiHop}</span>
-            )}
-            <span className="a3-status-approved">Thử nghiệm thực địa</span>
+        {/* THANH TIÊU ĐỀ & ĐIỀU HƯỚNG TINH GỌN (1 KHỐI DUY NHẤT, CAO CHỈ ~95PX) */}
+        <div className="a3-unified-header screen-only">
+          <div className="unified-top-bar">
+            {/* Cột trái: Tên sản phẩm, Mã đề án, Nhánh, Đơn vị, Chủ nhiệm */}
+            <div className="unified-info-col">
+              <div className="unified-title-row">
+                <span className="a3-project-id">{project.maDeTai}</span>
+                <span className={`a3-branch-badge ${project.nhanh === 'Nhánh B' ? 'branch-b' : 'branch-a'}`}>
+                  {project.nhanh}
+                </span>
+                <h2 className="unified-project-title">
+                  {project.tenSanPham || project.tenDeTai}
+                </h2>
+                <span className="a3-status-approved">Thử nghiệm thực địa</span>
+              </div>
+              
+              <div className="unified-sub-meta">
+                <span>Đơn vị: <strong>{project.khoaPhong}{project.khoaPhoiHop ? ` / ${project.khoaPhoiHop}` : ''}</strong></span>
+                <span className="meta-dot">•</span>
+                <span>Chủ nhiệm: <strong>{cleanLeader}</strong></span>
+                <span className="meta-dot">•</span>
+                <span className="meta-cat">{project.chuDeTen || 'Sáng Kiến Y Tế'}</span>
+              </div>
+            </div>
+
+            {/* Cột phải: 3 nút tác vụ tinh gọn */}
+            <div className="unified-actions">
+              <button 
+                type="button" 
+                className="btn btn-compact btn-print" 
+                onClick={handlePrint}
+                title="In bản Báo cáo A3 chuẩn Nghị định 30"
+              >
+                In A3
+              </button>
+              <button 
+                type="button" 
+                className="btn btn-compact btn-fullscreen" 
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                title={isFullScreen ? "Thu nhỏ cửa sổ" : "Mở rộng toàn màn hình"}
+              >
+                {isFullScreen ? "Thu Nhỏ" : "Toàn Màn Hình"}
+              </button>
+              <button 
+                type="button" 
+                className="a3-close-btn" 
+                onClick={onClose}
+                title="Đóng cửa sổ"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
-          <div className="a3-header-actions">
+          {/* DÒNG TABS TINH TẾ GẮN LIỀN NGAY ĐÁY HEADER */}
+          <div className="unified-nav-tabs">
             <button 
               type="button" 
-              className="btn btn-outline a3-action-btn" 
-              onClick={() => setIsFullScreen(!isFullScreen)}
-              title={isFullScreen ? "Thu nhỏ cửa sổ" : "Mở rộng toàn màn hình"}
-            >
-              {isFullScreen ? "Thu Nhỏ" : "Toàn Màn Hình"}
-            </button>
-            <button 
-              type="button" 
-              className="btn btn-outline a3-action-btn" 
-              onClick={handlePrint}
-              title="In bản Báo cáo A3 chuẩn Nghị định 30"
-            >
-              In Báo Cáo A3
-            </button>
-            <button 
-              type="button" 
-              className="a3-close-btn" 
-              onClick={onClose}
-              title="Đóng cửa sổ"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-
-        {/* HERO TIÊU ĐỀ SẢN PHẨM */}
-        <div className="project-detail-hero screen-only">
-          <div className="hero-topic-tag">{project.chuDeTen || 'Sáng Kiến Cải Tiến Y Tế'}</div>
-          <h2 className="hero-project-title">
-            {project.tenSanPham || project.tenDeTai}
-          </h2>
-          
-          <div className="hero-compact-info">
-            <span>Chủ nhiệm: <strong>{cleanLeader}</strong></span>
-            <span className="hero-divider">•</span>
-            <span>Đơn vị: <strong>{project.khoaPhong}</strong></span>
-          </div>
-
-          {/* TABS ĐIỀU HƯỚNG */}
-          <div className="project-detail-nav-tabs">
-            <button 
-              type="button" 
-              className={`detail-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+              className={`unified-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
               onClick={() => setActiveTab('overview')}
             >
               Giới Thiệu Sản Phẩm
             </button>
             <button 
               type="button" 
-              className={`detail-tab-btn ${activeTab === 'a3' ? 'active' : ''}`}
+              className={`unified-tab-btn ${activeTab === 'a3' ? 'active' : ''}`}
               onClick={() => setActiveTab('a3')}
             >
               Báo Cáo A3 (PDCA)
             </button>
             <button 
               type="button" 
-              className={`detail-tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
+              className={`unified-tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
               onClick={() => setActiveTab('timeline')}
             >
               Tiến Độ Triển Khai
             </button>
             <button 
               type="button" 
-              className={`detail-tab-btn ${activeTab === 'documents' ? 'active' : ''}`}
+              className={`unified-tab-btn ${activeTab === 'documents' ? 'active' : ''}`}
               onClick={() => setActiveTab('documents')}
             >
               Hồ Sơ Đăng Ký ({docs.length})
             </button>
             <button 
               type="button" 
-              className={`detail-tab-btn ${activeTab === 'discussion' ? 'active' : ''}`}
+              className={`unified-tab-btn ${activeTab === 'discussion' ? 'active' : ''}`}
               onClick={() => setActiveTab('discussion')}
             >
               Góp Ý ({commentsList.length})
@@ -583,13 +582,11 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           </div>
         </div>
 
-        {/* FOOTER */}
-        <div className="a3-modal-footer screen-only">
-          <div className="a3-footer-hint">
-            Hội thi Cải tiến Chất lượng Bệnh viện Đa khoa Hùng Vương 2026
-          </div>
-          <button type="button" className="btn btn-outline btn-sm" onClick={onClose}>
-            Đóng
+        {/* FOOTER TINH GỌN */}
+        <div className="a3-modal-footer-compact screen-only">
+          <span className="footer-small-text">Hội thi Cải tiến Chất lượng Bệnh viện Đa khoa Hùng Vương 2026</span>
+          <button type="button" className="btn-close-compact" onClick={onClose}>
+            Đóng Cửa Sổ
           </button>
         </div>
       </div>
