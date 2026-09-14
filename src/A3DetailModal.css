@@ -176,44 +176,21 @@
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
-  margin: 0 0 0.85rem 0;
+  margin: 0 0 0.5rem 0;
   color: #ffffff;
 }
 
-.hero-info-pills {
+.hero-compact-info {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 1rem;
 }
 
-.hero-pill {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.3rem 0.75rem;
-  border-radius: 6px;
-  display: flex;
-  gap: 0.4rem;
-  align-items: center;
-}
-
-.hero-pill.highlight-pill {
-  background: #f0fdf4;
-  color: #166534;
-  border-color: #bbf7d0;
-}
-
-.hero-pill.highlight-pill .pill-val {
-  color: #15803d;
-}
-
-.pill-label {
-  opacity: 0.85;
-}
-
-.pill-val {
-  font-weight: 600;
+.hero-divider {
+  opacity: 0.5;
 }
 
 /* NAV TABS */
@@ -278,8 +255,8 @@
   border: 1px solid #cbd5e1;
   border-left: 5px solid #0085db;
   border-radius: 10px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.25rem;
+  padding: 1.15rem 1.35rem;
+  margin-bottom: 1.15rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
@@ -288,21 +265,15 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   color: #0085db;
-  margin-bottom: 0.35rem;
-}
-
-.idea-title {
-  font-size: 1.08rem;
-  font-weight: 700;
-  color: #003B73;
-  margin: 0 0 0.5rem 0;
+  margin-bottom: 0.4rem;
 }
 
 .idea-text {
   font-size: 0.92rem;
-  color: #334155;
+  color: #1e293b;
   line-height: 1.55;
   margin: 0;
+  font-weight: 500;
 }
 
 /* SO SÁNH NHANH 2 CỘT */
@@ -310,33 +281,33 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .quick-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  padding: 1.25rem;
+  padding: 1.15rem 1.25rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
 .quick-card.pain-box {
-  border-top: 4px solid #ef4444;
+  border-top: 3px solid #ef4444;
 }
 
 .quick-card.solution-box {
-  border-top: 4px solid #10b981;
+  border-top: 3px solid #10b981;
 }
 
 .box-tag {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.05em;
-  padding: 0.2rem 0.55rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 4px;
   display: inline-block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .box-tag.red-tag {
@@ -349,52 +320,38 @@
   color: #15803d;
 }
 
-.box-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 0.75rem 0;
-}
-
 .quick-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.55rem;
 }
 
 .quick-list li {
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
+  gap: 0.55rem;
   font-size: 0.88rem;
   color: #334155;
   line-height: 1.45;
 }
 
-.bullet-icon {
-  width: 18px;
-  height: 18px;
+.bullet-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 800;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 7px;
 }
 
-.red-bullet {
-  background: #fee2e2;
-  color: #dc2626;
+.bullet-dot.red-dot {
+  background: #ef4444;
 }
 
-.green-bullet {
-  background: #dcfce7;
-  color: #16a34a;
+.bullet-dot.green-dot {
+  background: #10b981;
 }
 
 /* METRICS SHOWCASE ROW */
@@ -402,8 +359,37 @@
   background: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.25rem;
+  padding: 1.15rem 1.35rem;
+  margin-bottom: 1.15rem;
+}
+
+.doc-type-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: monospace;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #334155;
+  text-align: center;
+}
+
+.doc-type-badge.type-docx {
+  background: #dbeafe;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.doc-type-badge.type-pdf {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.doc-type-badge.type-cad {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
 }
 
 .section-mini-title {

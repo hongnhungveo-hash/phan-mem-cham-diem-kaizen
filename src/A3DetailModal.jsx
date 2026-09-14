@@ -90,9 +90,9 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
             </span>
             <span className="a3-dept-badge">{project.khoaPhong}</span>
             {project.khoaPhoiHop && (
-              <span className="a3-partner-badge">+ {project.khoaPhoiHop}</span>
+              <span className="a3-partner-badge">/ {project.khoaPhoiHop}</span>
             )}
-            <span className="a3-status-approved">Đang Thử Nghiệm Thực Tế</span>
+            <span className="a3-status-approved">Thử nghiệm thực địa</span>
           </div>
 
           <div className="a3-header-actions">
@@ -122,19 +122,10 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
             {project.tenSanPham || project.tenDeTai}
           </h2>
           
-          <div className="hero-info-pills">
-            <div className="hero-pill">
-              <span className="pill-label">Đơn vị chủ trì:</span>
-              <span className="pill-val">{project.khoaPhong}</span>
-            </div>
-            <div className="hero-pill">
-              <span className="pill-label">Chủ nhiệm đề án:</span>
-              <span className="pill-val">{authors[0]?.name || project.nhomTacGia}</span>
-            </div>
-            <div className="hero-pill highlight-pill">
-              <span className="pill-label">Tình trạng đề tài:</span>
-              <span className="pill-val font-bold">Đã tiếp nhận & Phê duyệt thử nghiệm</span>
-            </div>
+          <div className="hero-compact-info">
+            <span>Chủ nhiệm đề án: <strong>{authors[0]?.name || project.nhomTacGia?.split(',')[0]}</strong></span>
+            <span className="hero-divider">•</span>
+            <span>Đơn vị: <strong>{project.khoaPhong}</strong></span>
           </div>
 
           {/* TABS ĐIỀU HƯỚNG */}
@@ -172,7 +163,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               className={`detail-tab-btn ${activeTab === 'discussion' ? 'active' : ''}`}
               onClick={() => setActiveTab('discussion')}
             >
-              Góp Ý & Học Hỏi ({commentsList.length})
+              Góp Ý ({commentsList.length})
             </button>
           </div>
         </div>
@@ -182,22 +173,20 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           {/* TAB 1: GIỚI THIỆU SẢN PHẨM NGẮN GỌN DỄ HIỂU (30 GIÂY) */}
           {activeTab === 'overview' && (
             <div className="tab-pane overview-pane">
-              {/* KHỐI 1: Ý TƯỞNG CỐT LÕI */}
+              {/* KHỐI 1: Ý TƯỞNG CỐT LÕI - KHÔNG LẶP TIÊU ĐỀ */}
               <div className="idea-banner-card">
-                <div className="idea-badge">Ý TƯỞNG & ĐỘT PHÁ SẢN PHẨM</div>
-                <h3 className="idea-title">{project.tenDeTai}</h3>
+                <div className="idea-badge">Ý TƯỞNG CẢI TIẾN</div>
                 <p className="idea-text">{qs.idea}</p>
               </div>
 
-              {/* KHỐI 2: SO SÁNH TRƯỚC VÀ SAU (NGẮN GỌN 2 CỘT) */}
+              {/* KHỐI 2: SO SÁNH TRƯỚC VÀ SAU - TINH GỌN, KHÔNG EMOJI, KHÔNG TIÊU ĐỀ PHỤ THỪA */}
               <div className="quick-compare-grid">
                 <div className="quick-card pain-box">
-                  <div className="box-tag red-tag">⚠️ BẤT CẬP TRƯỚC ĐÂY</div>
-                  <h4 className="box-title">Khó khăn tại hiện trường</h4>
+                  <div className="box-tag red-tag">BẤT CẬP TRƯỚC ĐÂY</div>
                   <ul className="quick-list">
                     {qs.painPoints.map((pt, idx) => (
                       <li key={idx}>
-                        <span className="bullet-icon red-bullet">✕</span>
+                        <span className="bullet-dot red-dot"></span>
                         <span>{pt}</span>
                       </li>
                     ))}
@@ -205,12 +194,11 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                 </div>
 
                 <div className="quick-card solution-box">
-                  <div className="box-tag green-tag">✅ GIẢI PHÁP ĐÃ LÀM</div>
-                  <h4 className="box-title">Sáng kiến cải tiến thực tế</h4>
+                  <div className="box-tag green-tag">GIẢI PHÁP CẢI TIẾN</div>
                   <ul className="quick-list">
                     {qs.solutions.map((sol, idx) => (
                       <li key={idx}>
-                        <span className="bullet-icon green-bullet">✓</span>
+                        <span className="bullet-dot green-dot"></span>
                         <span>{sol}</span>
                       </li>
                     ))}
@@ -218,7 +206,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* KHỐI 3: 4 CON SỐ BIẾT NÓI (HIỆU QUẢ NHANH) */}
+              {/* KHỐI 3: KẾT QUẢ ĐO LƯỜNG NỔI BẬT */}
               <div className="metrics-showcase-section">
                 <div className="section-mini-title">KẾT QUẢ ĐO LƯỜNG NỔI BẬT</div>
                 <div className="metrics-cards-row">
@@ -227,7 +215,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                       <div className="metric-item-name">{km.label}</div>
                       <div className="metric-compare-line">
                         <span className="val-before">{km.before}</span>
-                        <span className="val-arrow">➔</span>
+                        <span className="val-arrow">→</span>
                         <span className="val-after">{km.after}</span>
                       </div>
                       <div className="metric-item-note">{km.note}</div>
@@ -242,7 +230,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                 <div className="authors-simple-flex">
                   {authors.map((auth, idx) => (
                     <div key={idx} className="author-pill-item">
-                      <span className="author-role-tag">{idx === 0 ? '⭐ Chủ nhiệm' : 'Thành viên'}:</span>
+                      <span className="author-role-tag">{idx === 0 ? 'Chủ nhiệm:' : 'Thành viên:'}</span>
                       <strong className="author-full-name">{auth.name}</strong>
                       <span className="author-dept-text">({auth.title})</span>
                     </div>
@@ -251,9 +239,9 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               </div>
 
               <div className="tab-switch-hint">
-                💡 Muốn xem đề cương kỹ thuật chi tiết theo chu trình PDCA? 
+                Xem chi tiết quy trình kỹ thuật PDCA:
                 <button type="button" className="inline-tab-link" onClick={() => setActiveTab('a3')}>
-                  Xem Báo cáo A3 đầy đủ ➔
+                  Xem Báo cáo A3 đầy đủ →
                 </button>
               </div>
             </div>
@@ -390,24 +378,27 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               </div>
 
               <div className="docs-grid">
-                {docs.map((doc, idx) => (
-                  <div key={idx} className="doc-item-card">
-                    <div className="doc-type-icon">
-                      {doc.type.includes('Word') ? '📄' : (doc.type.includes('pdf') || doc.type.includes('Bản vẽ') ? '📐' : '📑')}
-                    </div>
-                    <div className="doc-details">
-                      <h4 className="doc-name">{doc.name}</h4>
-                      <div className="doc-meta-row">
-                        <span className="doc-badge">{doc.type}</span>
-                        <span className="doc-filename">{doc.file}</span>
+                {docs.map((doc, idx) => {
+                  const ext = doc.type.includes('Word') ? 'DOCX' : (doc.type.includes('pdf') ? 'PDF' : (doc.type.includes('Bản vẽ') ? 'CAD' : 'FILE'));
+                  return (
+                    <div key={idx} className="doc-item-card">
+                      <div className={`doc-type-badge type-${ext.toLowerCase()}`}>
+                        {ext}
                       </div>
-                      <p className="doc-desc">{doc.desc}</p>
+                      <div className="doc-details">
+                        <h4 className="doc-name">{doc.name}</h4>
+                        <div className="doc-meta-row">
+                          <span className="doc-badge">{doc.type}</span>
+                          <span className="doc-filename">{doc.file}</span>
+                        </div>
+                        <p className="doc-desc">{doc.desc}</p>
+                      </div>
+                      <div className="doc-action">
+                        <span className="doc-stored-tag">Đã Tiếp Nhận</span>
+                      </div>
                     </div>
-                    <div className="doc-action">
-                      <span className="doc-stored-tag">Đã Tiếp Nhận</span>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -572,10 +563,10 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
         {/* FOOTER */}
         <div className="a3-modal-footer screen-only">
           <div className="a3-footer-hint">
-            * Cổng giới thiệu sáng kiến y tế — Bệnh viện Đa khoa Hùng Vương (16 năm thành lập).
+            Hội thi Cải tiến Chất lượng Bệnh viện Đa khoa Hùng Vương 2026
           </div>
-          <button type="button" className="btn btn-outline" onClick={onClose}>
-            Đóng Cửa Sổ
+          <button type="button" className="btn btn-outline btn-sm" onClick={onClose}>
+            Đóng
           </button>
         </div>
       </div>

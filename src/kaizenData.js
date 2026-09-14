@@ -79,35 +79,35 @@ export const INITIAL_KAIZEN_PROJECTS = [
     // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
     tenSanPham: "Mô hình “STEMI Emergency Box” — Hộp Cấp Cứu Mạch Vành Khẩn Cấp",
     ngayDangKy: "05/09/2026",
-    trangThaiDangKy: "Đã tiếp nhận & Đang thử nghiệm thực địa",
+    trangThaiDangKy: "Thử nghiệm thực địa",
     
     // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
     quickSummary: {
-      idea: "Đóng gói toàn bộ 100% thuốc chống đông, dây dẫn và ống thông can thiệp vào một hộp chuyên dụng có niêm phong, đặt sẵn ngay cửa phòng can thiệp DSA.",
+      idea: "Đóng gói đồng bộ toàn bộ thuốc chống đông và vật tư can thiệp vào hộp chuyên dụng có niêm phong bảo đảm, đặt sẵn tại phòng DSA.",
       painPoints: [
-        "Trước đây: Thuốc và vật tư để ở 3 tủ khác nhau theo danh mục kế toán kho.",
-        "Mất từ 15 đến 20 phút để kíp trực ngoài giờ gom đủ thuốc và dụng cụ.",
-        "Nguy cơ thiếu hoặc nhầm vật tư phụ trong ca can thiệp ban đêm khoảng 12%."
+        "Thuốc và vật tư phân tán tại 3 tủ khác nhau theo danh mục kế toán kho.",
+        "Mất 15 - 20 phút để gom đủ cơ số thuốc và dụng cụ trong ca trực cấp cứu đêm.",
+        "Nguy cơ thiếu hoặc nhầm lẫn vật tư can thiệp ngoài giờ hành chính (khoảng 12%)."
       ],
       solutions: [
-        "Thiết kế hộp cấp cứu STEMI Box chuyên dụng, mở dùng ngay trong 30 giây.",
+        "Đóng gói hộp STEMI Box chuyên dụng theo cơ số chuẩn, mở dùng ngay trong 30 giây.",
         "Niêm phong bảo đảm 1 lần (Security Seal) kèm bảng kiểm trực quan 1 trang.",
         "Khoa Dược cấp bù hoàn nguyên hộp thuốc trong vòng 02 giờ sau ca can thiệp."
       ],
       keyMetrics: [
-        { label: "Thời gian chuẩn bị", before: "20 phút", after: "Dưới 3 phút", note: "Nhanh hơn 85%" },
+        { label: "Thời gian chuẩn bị", before: "20 phút", after: "< 3 phút", note: "Nhanh hơn 85%" },
         { label: "Sai sót, nhầm thuốc", before: "12%", after: "0%", note: "An toàn tuyệt đối" },
         { label: "Door-to-Balloon", before: "65 phút", after: "< 50 phút", note: "Tiết kiệm 15 phút vàng" },
-        { label: "Chi phí triển khai", before: "—", after: "0 VNĐ", note: "Tận dụng tủ hộp sẵn có" }
+        { label: "Chi phí triển khai", before: "—", after: "0 đ", note: "Tận dụng tủ hộp sẵn có" }
       ]
     },
     
     // ĐIỂM SÁNG NỔI BẬT
     keyHighlights: [
-      { label: "Rút ngắn 85% thời gian", desc: "Giảm thời gian chuẩn bị từ 20 phút xuống dưới 3 phút ngoài giờ", icon: "⚡" },
-      { label: "0% Sai sót vật tư", desc: "Triệt tiêu nguy cơ thiếu/nhầm thuốc chống đông ngoài giờ", icon: "🛡️" },
-      { label: "Tiết kiệm 15 phút vàng", desc: "Tối ưu hóa thời gian Door-to-Balloon toàn viện dưới 50 phút", icon: "⏱️" },
-      { label: "Chi phí tối thiểu", desc: "Tận dụng tủ hộp sẵn có, hoàn nguyên thuốc trong 2 giờ sau ca", icon: "💰" }
+      { label: "Rút ngắn 85% thời gian", desc: "Giảm thời gian chuẩn bị từ 20 phút xuống dưới 3 phút ngoài giờ", icon: "time" },
+      { label: "0% Sai sót vật tư", desc: "Triệt tiêu nguy cơ thiếu/nhầm thuốc chống đông ngoài giờ", icon: "shield" },
+      { label: "Tiết kiệm 15 phút vàng", desc: "Tối ưu hóa thời gian Door-to-Balloon toàn viện dưới 50 phút", icon: "check" },
+      { label: "Chi phí tối thiểu", desc: "Tận dụng tủ hộp sẵn có, hoàn nguyên thuốc trong 2 giờ sau ca", icon: "wallet" }
     ],
 
     // CHI TIẾT NHÓM TÁC GIẢ
@@ -185,35 +185,35 @@ export const INITIAL_KAIZEN_PROJECTS = [
     // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
     tenSanPham: "Sáng chế Bộ Giá Treo Bình Oxy Đứng Đa Năng Inox 304 Khóa 1 Chạm",
     ngayDangKy: "05/09/2026",
-    trangThaiDangKy: "Đã tiếp nhận & Đang thử nghiệm thực địa",
+    trangThaiDangKy: "Thử nghiệm thực địa",
     
     // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
     quickSummary: {
-      idea: "Gia công bộ giá treo cơ khí Inox 304 gắn thẳng vào thanh ray xe cáng cứu thương, có đệm cao su và khóa lẫy một chạm, giữ bình oxy đứng vững chắc suốt hành trình vận chuyển.",
+      idea: "Gia công giá treo Inox 304 kẹp thẳng vào khung xe cáng, có khóa lẫy một chạm giữ bình oxy đứng vững suốt hành trình vận chuyển.",
       painPoints: [
-        "Trước đây: 100% chuyến cấp cứu phải đặt bình oxy nằm ngang dưới chân bệnh nhân.",
-        "Khi xe cấp cứu chạy nhanh hoặc xóc nảy, bình oxy rất dễ lăn trượt, va đập gãy van khí nén.",
-        "Mất 2-3 phút chằng buộc dây tạm bợ; điều dưỡng khó quan sát đồng hồ áp suất khi đang ép tim."
+        "Bình oxy đặt nằm ngang dưới chân bệnh nhân, dễ lăn trượt và va đập khi xe xóc nảy.",
+        "Mất 2 - 3 phút chằng buộc dây tạm bợ; đồng hồ áp lực bị khuất tầm nhìn.",
+        "Chiếm diện tích sàn cáng, gây vướng khi kíp trực cấp cứu ép tim hồi sức."
       ],
       solutions: [
-        "Chế tạo giá Inox 304 ngàm kẹp trực tiếp vào kết cấu khung cáng, không làm vướng lối đi.",
-        "Khóa lẫy bán nguyệt siết nhanh một chạm, chỉ mất 10 - 15 giây để lắp hoặc tháo bình.",
-        "Định vị bình oxy tại đầu cáng, đồng hồ áp suất luôn hướng thẳng vào mắt điều dưỡng."
+        "Giá Inox 304 ngàm kẹp trực tiếp vào khung cáng, giải phóng lối đi và sàn xe.",
+        "Khóa lẫy một chạm siết nhanh, tháo lắp bình oxy chỉ mất 10 - 15 giây.",
+        "Định vị bình tại đầu cáng, đồng hồ đo áp lực luôn hướng thẳng tầm mắt điều dưỡng."
       ],
       keyMetrics: [
-        { label: "An toàn rơi đổ", before: "Nguy cơ cao", after: "100% An toàn", note: "Triệt tiêu rơi vỡ van khí" },
-        { label: "Thời gian lắp/tháo", before: "2 - 3 phút", after: "< 15 giây", note: "Khóa nhanh một chạm" },
-        { label: "Quan sát đồng hồ", before: "Bị che khuất", after: "Trực diện mắt", note: "Kiểm soát oxy liên tục" },
-        { label: "Chi phí chế tạo", before: "—", after: "1.200.000 đ", note: "Inox 304 chịu lực cao" }
+        { label: "Độ an toàn rơi đổ", before: "Nguy cơ cao", after: "100% Cố định", note: "Triệt tiêu va đập van" },
+        { label: "Thời gian tháo lắp", before: "2 - 3 phút", after: "< 15 giây", note: "Khóa nhanh 1 chạm" },
+        { label: "Quan sát đồng hồ", before: "Bị che khuất", after: "Trực diện mắt", note: "Kiểm soát liên tục" },
+        { label: "Chi phí chế tạo", before: "—", after: "1.200.000 đ", note: "Inox 304 chịu lực" }
       ]
     },
     
     // ĐIỂM SÁNG NỔI BẬT
     keyHighlights: [
-      { label: "100% Cố định an toàn", desc: "Triệt tiêu nguy cơ rơi đổ hoặc rò rỉ van khí nén cao áp khi xe xóc nảy", icon: "🛡️" },
-      { label: "Thao tác dưới 15 giây", desc: "Rút ngắn thời gian cố định bình oxy từ 3 phút xuống chỉ còn 10-15 giây", icon: "⚡" },
-      { label: "Tối ưu hóa quan sát", desc: "Đồng hồ đo áp suất và lưu lượng kế luôn hướng về tầm mắt kíp trực", icon: "👀" },
-      { label: "Chi phí chỉ 1,2 triệu", desc: "Gia công Inox 304 chịu lực cao, tiết kiệm ngân sách bệnh viện", icon: "💰" }
+      { label: "100% Cố định an toàn", desc: "Triệt tiêu nguy cơ rơi đổ hoặc rò rỉ van khí nén cao áp khi xe xóc nảy", icon: "shield" },
+      { label: "Thao tác dưới 15 giây", desc: "Rút ngắn thời gian cố định bình oxy từ 3 phút xuống chỉ còn 10-15 giây", icon: "time" },
+      { label: "Tối ưu hóa quan sát", desc: "Đồng hồ đo áp suất và lưu lượng kế luôn hướng về tầm mắt kíp trực", icon: "eye" },
+      { label: "Chi phí chỉ 1,2 triệu", desc: "Gia công Inox 304 chịu lực cao, tiết kiệm ngân sách bệnh viện", icon: "wallet" }
     ],
 
     // CHI TIẾT NHÓM TÁC GIẢ

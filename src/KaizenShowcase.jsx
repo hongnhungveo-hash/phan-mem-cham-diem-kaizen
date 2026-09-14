@@ -271,7 +271,7 @@ export default function KaizenShowcase({
                       borderRadius: '4px',
                       border: '1px solid #86efac'
                     }}>
-                      ✓ Đã Tiếp Nhận & Phê Duyệt
+                      Đã Tiếp Nhận & Phê Duyệt
                     </span>
                     <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
                       Đang thử nghiệm thực địa

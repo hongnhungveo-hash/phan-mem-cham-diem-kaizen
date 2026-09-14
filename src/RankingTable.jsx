@@ -77,7 +77,7 @@ export default function RankingTable({
         color: '#1e3a8a',
         lineHeight: '1.5'
       }}>
-        <strong>📢 Thông tin tiến độ Hội thi:</strong> Trang web hiện đang ở <strong>Giai đoạn Tiếp nhận & Giới thiệu Đề án Cải tiến</strong> để các Khoa/Phòng cùng theo dõi và học hỏi lẫn nhau. 
+        <strong>Thông tin tiến độ Hội thi:</strong> Trang web hiện đang ở <strong>Giai đoạn Tiếp nhận & Giới thiệu Đề án Cải tiến</strong> để các Khoa/Phòng cùng theo dõi và học hỏi lẫn nhau. 
         <strong> Phần chấm điểm và bảng xếp hạng chính thức</strong> từ Hội đồng Ban Giám khảo sẽ được kích hoạt tại Vòng Chung kết sau khi các đơn vị hoàn tất thử nghiệm thực địa.
       </div>
 

@@ -254,20 +254,20 @@ export default function Home({
                     lineHeight: '1.5',
                     color: '#334155'
                   }}>
-                    <div style={{ marginBottom: '0.5rem' }}>
-                      <strong style={{ color: '#0085db' }}>💡 Ý tưởng: </strong>
+                    <div style={{ marginBottom: '0.45rem' }}>
+                      <strong style={{ color: '#0085db' }}>Ý tưởng: </strong>
                       {qs.idea || p.tomTat}
                     </div>
                     {qs.painPoints && qs.painPoints[0] && (
-                      <div style={{ marginBottom: '0.5rem', color: '#b91c1c' }}>
-                        <strong>⚠️ Trước đây: </strong>
+                      <div style={{ marginBottom: '0.45rem', color: '#b91c1c' }}>
+                        <strong>Bất cập cũ: </strong>
                         {qs.painPoints[0]}
                       </div>
                     )}
                     {qs.keyMetrics && qs.keyMetrics[0] && (
                       <div style={{ color: '#15803d', fontWeight: 600 }}>
-                        <strong>✨ Đột phá: </strong>
-                        {qs.keyMetrics[0].label}: Từ {qs.keyMetrics[0].before} ➔ {qs.keyMetrics[0].after} ({qs.keyMetrics[0].note})
+                        <strong>Hiệu quả: </strong>
+                        {qs.keyMetrics[0].label}: {qs.keyMetrics[0].before} → {qs.keyMetrics[0].after} ({qs.keyMetrics[0].note})
                       </div>
                     )}
                   </div>
@@ -308,7 +308,7 @@ export default function Home({
           fontSize: '0.86rem',
           color: '#1e40af'
         }}>
-          📢 <strong>Thông báo Ban Tổ chức:</strong> Cổng tiếp nhận đề án đang tiếp tục nhận sản phẩm từ các Khoa/Phòng. 
+          <strong>Thông báo Ban Tổ chức:</strong> Cổng tiếp nhận đề án đang tiếp tục nhận sản phẩm từ các Khoa/Phòng. 
           Hội đồng Ban Giám khảo sẽ tiến hành chấm thi và xếp hạng chính thức tại Vòng Chung kết sau khi các đơn vị hoàn tất thử nghiệm thực địa.
         </div>
       </section>
