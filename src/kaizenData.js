@@ -76,6 +76,63 @@ export const INITIAL_KAIZEN_PROJECTS = [
     khoiChuyenMon: "Khối Nội - Tim mạch Can thiệp",
     tomTat: "Xây dựng mô hình hộp cấp cứu đóng gói sẵn tích hợp đầy đủ thuốc và dụng cụ can thiệp mạch vành, rút ngắn 85% thời gian chuẩn bị ngoài giờ hành chính từ 20 phút xuống dưới 3 phút, tối ưu hóa thời gian Door-to-Balloon cứu sống người bệnh.",
     
+    // THÔNG TIN THẨM ĐỊNH SƠ BỘ BAN ĐẦU (TỔ QLCL)
+    diemThamDinhBanDau: 94.0,
+    xepLoaiThamDinh: "Đạt Loại A (Xuất sắc) — Phê duyệt thực nghiệm",
+    vanBanPheDuyet: "Thông báo số 16/TB-QLCL-KAIZEN (Ngày 05/09/2026)",
+    nguoiPheDuyet: "Trần Đình Vũ — Tổ trưởng Tổ Quản lý Chất lượng (Phòng KHTH)",
+    tinhTrangTienDo: "Đang triển khai thử nghiệm thực địa tại Phòng Can thiệp DSA (06/09 - 22/09/2026)",
+    tienDoPhanTram: 65,
+    
+    // ĐIỂM SÁNG NỔI BẬT
+    keyHighlights: [
+      { label: "Rút ngắn 85% thời gian", desc: "Giảm thời gian chuẩn bị từ 20 phút xuống dưới 3 phút ngoài giờ", icon: "⚡" },
+      { label: "0% Sai sót vật tư", desc: "Triệt tiêu nguy cơ thiếu/nhầm thuốc chống đông ngoài giờ", icon: "🛡️" },
+      { label: "Tiết kiệm 15 phút vàng", desc: "Tối ưu hóa thời gian Door-to-Balloon toàn viện dưới 50 phút", icon: "⏱️" },
+      { label: "Chi phí tối thiểu", desc: "Tận dụng tủ hộp sẵn có, hoàn nguyên thuốc trong 2 giờ sau ca", icon: "💰" }
+    ],
+
+    // CHI TIẾT NHÓM TÁC GIẢ
+    authorsDetailed: [
+      { name: "ĐD. Nguyễn Duy Hùng", role: "Trưởng nhóm (Chủ nhiệm đề án)", title: "Điều dưỡng viên Phòng Can thiệp Tim mạch" },
+      { name: "ĐD. Nguyễn Việt Hưng", role: "Thư ký đề án (Theo dõi số liệu)", title: "Điều dưỡng viên Phòng Can thiệp" },
+      { name: "ĐD. Nguyễn Mạnh Hùng", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" },
+      { name: "ĐD. Lê Minh Thắng", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" },
+      { name: "ĐD. Nguyễn Phạm Quốc Anh", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" }
+    ],
+
+    // TRỤC THỜI GIAN THEO DÕI TIẾN ĐỘ DỰ ÁN
+    timeline: [
+      { phase: "Vòng 1: Đăng ký & Thẩm định sơ bộ", date: "05/09/2026", status: "completed", note: "Đã phê duyệt đề cương A3, Điểm thẩm định sơ bộ: 94/100 (Tổ QLCL)" },
+      { phase: "Vòng 2: Triển khai thử nghiệm tại hiện trường", date: "06/09 - 22/09/2026", status: "in_progress", note: "Vận hành 02 Hộp cấp cứu STEMI Box tại phòng DSA và đo thời gian thực tế" },
+      { phase: "Vòng 3: Báo cáo A3 & Thuyết trình Chung kết", date: "28/09/2026", status: "upcoming", note: "Ban Giám khảo chấm điểm chính thức và công bố thứ hạng hội thi" },
+      { phase: "Vòng 4: Chuẩn hóa SOP & Nhân rộng toàn viện", date: "Tháng 10/2026", status: "upcoming", note: "Ban hành SOP-TM-012 và nhân rộng mô hình cho Cấp cứu, ICU và Gây mê" }
+    ],
+
+    // 5 TẦNG TẠI SAO (5 WHYS)
+    fiveWhys: [
+      { level: "Why 1", question: "Tại sao thời gian chuẩn bị thuốc và vật tư can thiệp STEMI bị kéo dài ngoài giờ?", answer: "Do thuốc chống đông và vật tư chuyên dụng được bố trí phân tán ở 03 tủ thuốc khác nhau." },
+      { level: "Why 2", question: "Tại sao thuốc và vật tư lại bố trí phân tán?", answer: "Do cách sắp xếp truyền thống theo danh mục kế toán kho dược chứ không theo phác đồ cấp cứu bệnh học." },
+      { level: "Why 3", question: "Tại sao không gom sẵn thành bộ cấp cứu chuyên biệt?", answer: "Do chưa có quy định đóng gói đồng bộ và kiểm tra niêm phong định kỳ cho gói cấp cứu STEMI." },
+      { level: "Why 4", question: "Tại sao kíp trực đêm dễ bị lúng túng khi lấy vật tư?", answer: "Do áp lực thời gian vàng và thiếu bảng kiểm trực quan checklist một chạm tại phòng can thiệp." },
+      { level: "Why 5 (Cốt lõi)", question: "NGUYÊN NHÂN GỐC RỄ Ở HỆ THỐNG", answer: "Quy trình quản lý và cấp phát vật tư can thiệp chưa được thiết kế theo luồng tinh gọn Lean chuyên biệt cho tình huống tối khẩn cấp." }
+    ],
+
+    // HỒ SƠ TÀI LIỆU MINH CHỨNG
+    documents: [
+      { name: "Bản Đăng ký Đề án Sau Hiệu chỉnh (Mẫu 01)", type: "Word (.docx)", file: "KZ16-TIMMACH-01 02. Bản Đăng ký Sau Hiệu chỉnh Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Hồ sơ đăng ký chi tiết đã hoàn thiện theo góp ý của Tổ QLCL" },
+      { name: "Thông báo Thẩm định Sơ bộ Số 16/TB-QLCL-KAIZEN", type: "Văn bản (.docx)", file: "KZ16-TIMMACH-01 03. Biên bản Thẩm định Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Quyết định phê duyệt đề cương thực nghiệm của Tổ trưởng Tổ QLCL Trần Đình Vũ" },
+      { name: "Đề cương A3 Triển khai Thực nghiệm", type: "Báo cáo A3 (.docx)", file: "KZ16-TIMMACH-01 04. Đề cương A3 Triển khai Thực nghiệm Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Đề cương chi tiết triển khai tại hiện trường và kế hoạch nghiệm thu" },
+      { name: "Quy trình Thao tác Chuẩn SOP-TM-012", type: "SOP Quản lý", file: "SOP-TM-012 Quy trình chuẩn bị Hộp cấp cứu STEMI Box.docx", desc: "Quy trình niêm phong một lần và hoàn nguyên thuốc trong 02 giờ" }
+    ],
+
+    // Ý KIẾN THẢO LUẬN & HỌC HỎI CHUYÊN MÔN
+    communityDiscussions: [
+      { id: 1, author: "Trần Đình Vũ", role: "Tổ trưởng Tổ QLCL (Phòng KHTH)", time: "05/09/2026", content: "Đề án có ý nghĩa sống còn với người bệnh nhồi máu cơ tim cấp. Tổ QLCL đánh giá 94/100 điểm thẩm định ban đầu và cử cán bộ đồng hành đo lường số liệu thực địa cùng kíp DSA." },
+      { id: 2, author: "BS. Trần Văn Hùng", role: "Bác sĩ - Khoa Cấp cứu", time: "06/09/2026", content: "Mô hình STEMI Box này cực kỳ thiết thực. Khi kíp 115 chuyển bệnh nhân vào phòng DSA, thời gian chuẩn bị thuốc dưới 3 phút sẽ giúp bác sĩ can thiệp mạch vành kịp thời tối đa." },
+      { id: 3, author: "ThS. Ma Văn Hoàng", role: "Trưởng phòng Kế hoạch Tổng hợp", time: "08/09/2026", content: "Đề nghị Khoa Tim mạch theo dõi chặt chẽ khâu hoàn nguyên cơ số thuốc với Khoa Dược để đảm bảo hộp cấp cứu luôn sẵn sàng 24/7." }
+    ],
+    
     a3Report: {
       background: "Nhồi máu cơ tim cấp có ST chênh lên (STEMI) là tình trạng cấp cứu khẩn cấp đòi hỏi tái thông mạch vành trong thời gian vàng. Tuy nhiên, ngoài giờ hành chính, điều dưỡng phải di chuyển qua 03 tủ thuốc và kho vật tư khác nhau để tìm kiếm thuốc chống đông, thuốc tiêu sợi huyết và ống thông can thiệp, gây lãng phí 15-20 phút quý giá của người bệnh.",
       baselineData: "Thời gian chuẩn bị đầy đủ thuốc và dụng cụ can thiệp ngoài giờ: 18 - 22 phút; Tỷ lệ thiếu hoặc nhầm lẫn vật tư phụ trong ca can thiệp ban đêm: khoảng 12%; Thời gian Door-to-Balloon còn bị kéo dài (trung bình 65 phút).",
@@ -106,6 +163,61 @@ export const INITIAL_KAIZEN_PROJECTS = [
     chuDeTen: "An toàn Người bệnh & Sáng chế Kỹ thuật Y tế",
     khoiChuyenMon: "Khối Hồi sức Cấp cứu",
     tomTat: "Sáng chế và gia công giá treo cơ khí Inox 304 có khớp ngàm gắn trực tiếp vào xe cáng cứu thương, cố định bình oxy đứng vững chắc với khóa lẫy một chạm, rút ngắn thời gian thao tác từ 3 phút xuống dưới 15 giây và triệt tiêu 100% nguy cơ rơi đổ.",
+    
+    // THÔNG TIN THẨM ĐỊNH SƠ BỘ BAN ĐẦU (TỔ QLCL)
+    diemThamDinhBanDau: 88.0,
+    xepLoaiThamDinh: "Đạt Loại A (Xuất sắc) — Phê duyệt thực nghiệm",
+    vanBanPheDuyet: "Thông báo số 15/TB-QLCL-KAIZEN (Ngày 05/09/2026)",
+    nguoiPheDuyet: "Trần Đình Vũ — Tổ trưởng Tổ Quản lý Chất lượng (Phòng KHTH)",
+    tinhTrangTienDo: "Đang triển khai thử nghiệm thực địa trên 02 xe cứu thương 115 (06/09 - 22/09/2026)",
+    tienDoPhanTram: 60,
+    
+    // ĐIỂM SÁNG NỔI BẬT
+    keyHighlights: [
+      { label: "100% Cố định an toàn", desc: "Triệt tiêu nguy cơ rơi đổ hoặc rò rỉ van khí nén cao áp khi xe xóc nảy", icon: "🛡️" },
+      { label: "Thao tác dưới 15 giây", desc: "Rút ngắn thời gian cố định bình oxy từ 3 phút xuống chỉ còn 10-15 giây", icon: "⚡" },
+      { label: "Tối ưu hóa quan sát", desc: "Đồng hồ đo áp suất và lưu lượng kế luôn hướng về tầm mắt kíp trực", icon: "👀" },
+      { label: "Chi phí chỉ 1,2 triệu", desc: "Gia công Inox 304 chịu lực cao, tiết kiệm ngân sách bệnh viện", icon: "💰" }
+    ],
+
+    // CHI TIẾT NHÓM TÁC GIẢ
+    authorsDetailed: [
+      { name: "ĐD. Đỗ Sơn Bắc", role: "Tác giả sáng chế (Chủ nhiệm đề án)", title: "Điều dưỡng viên Trung tâm Cấp cứu 115" },
+      { name: "BS. Nguyễn Văn Hùng", role: "Cố vấn chuyên môn cấp cứu", title: "Bác sĩ Trung tâm Cấp cứu 115" },
+      { name: "ĐD. Hoàng Văn Tuấn", role: "Thành viên thực nghiệm hiện trường", title: "Điều dưỡng viên Trung tâm Cấp cứu 115" }
+    ],
+
+    // TRỤC THỜI GIAN THEO DÕI TIẾN ĐỘ DỰ ÁN
+    timeline: [
+      { phase: "Vòng 1: Đăng ký & Thẩm định sơ bộ", date: "05/09/2026", status: "completed", note: "Đã phê duyệt đề cương A3, Điểm thẩm định sơ bộ: 88/100 (Tổ QLCL)" },
+      { phase: "Vòng 2: Triển khai thử nghiệm tại hiện trường", date: "06/09 - 22/09/2026", status: "in_progress", note: "Lắp đặt và chạy thử nghiệm rung lắc trên 02 xe cứu thương 115" },
+      { phase: "Vòng 3: Báo cáo A3 & Thuyết trình Chung kết", date: "28/09/2026", status: "upcoming", note: "Ban Giám khảo chấm điểm chính thức và công bố thứ hạng hội thi" },
+      { phase: "Vòng 4: Chuẩn hóa SOP & Nhân rộng toàn viện", date: "Tháng 10/2026", status: "upcoming", note: "Nhân rộng lắp đặt cho toàn bộ đội xe cứu thương và cáng nội viện" }
+    ],
+
+    // 5 TẦNG TẠI SAO (5 WHYS)
+    fiveWhys: [
+      { level: "Why 1", question: "Tại sao bình oxy dễ bị trượt đổ khi vận chuyển người bệnh cấp cứu?", answer: "Do bình oxy đặt nằm tự do trên cáng hoặc cạnh người bệnh mà không có giá đỡ chuyên dụng." },
+      { level: "Why 2", question: "Tại sao không gắn cố định bình oxy vào thân cáng cứu thương?", answer: "Do khung cáng cứu thương tiêu chuẩn không có cơ cấu kẹp giữ chuyên dụng cho bình oxy y tế." },
+      { level: "Why 3", question: "Tại sao nhân viên y tế không giữ bình oxy trong suốt quá trình đi xe?", answer: "Do kíp cấp cứu phải tập trung hai tay ép tim, bóp bóng Ambu và theo dõi đường thở cho người bệnh." },
+      { level: "Why 4", question: "Tại sao không sử dụng các giá treo bán sẵn trên thị trường?", answer: "Do các loại giá treo thương mại cồng kềnh, không tương thích với kích thước xe cứu thương và cáng nội viện." },
+      { level: "Why 5 (Cốt lõi)", question: "NGUYÊN NHÂN GỐC RỄ Ở HỆ THỐNG", answer: "Thiếu module cơ khí chuyên dụng tích hợp đồng bộ trực tiếp vào kết cấu khung cáng để giữ bình oxy ở tư thế đứng an toàn." }
+    ],
+
+    // HỒ SƠ TÀI LIỆU MINH CHỨNG
+    documents: [
+      { name: "Bản Đăng ký Đề án Sau Hiệu chỉnh (Mẫu 01)", type: "Word (.docx)", file: "KZ16-CC115-01 02. Bản Đăng ký Sau Hiệu chỉnh Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Hồ sơ đăng ký sáng chế và cải tiến sau thẩm định" },
+      { name: "Thông báo Thẩm định Sơ bộ Số 15/TB-QLCL-KAIZEN", type: "Văn bản (.docx)", file: "KZ16-CC115-01 03. Biên bản Thẩm định Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Quyết định phê duyệt đề cương thực nghiệm của Tổ trưởng Tổ QLCL Trần Đình Vũ" },
+      { name: "Đề cương A3 Triển khai Thực nghiệm", type: "Báo cáo A3 (.docx)", file: "KZ16-CC115-01 04. Đề cương A3 Triển khai Thực nghiệm Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Đề cương thử nghiệm cơ khí và độ an toàn chịu lực" },
+      { name: "Bản vẽ Cơ khí Giá treo Bình Oxy Inox 304", type: "Bản vẽ kỹ thuật (.pdf)", file: "Ban ve co khi gia treo binh oxy Inox 304.pdf", desc: "Bản vẽ kỹ thuật chi tiết ngàm kẹp cáng cứu thương và khóa lẫy một chạm" }
+    ],
+
+    // Ý KIẾN THẢO LUẬN & HỌC HỎI CHUYÊN MÔN
+    communityDiscussions: [
+      { id: 1, author: "Trần Đình Vũ", role: "Tổ trưởng Tổ QLCL (Phòng KHTH)", time: "05/09/2026", content: "Sáng chế giải quyết dứt điểm rủi ro va đập bình oxy nén cao áp. Điểm thẩm định ban đầu: 88/100 điểm. Đề nghị kíp cấp cứu chạy thử nghiệm tải trọng rung lắc trên các cung đường đèo dốc." },
+      { id: 2, author: "ĐD. Nguyễn Thị Thảo", role: "Điều dưỡng Trưởng - Khoa Cấp cứu", time: "06/09/2026", content: "Cực kỳ ủng hộ sáng chế của anh Bắc! Khi đón bệnh nhân từ xe 115 vào buồng cấp cứu, bình oxy đứng thẳng giúp thao tác chuyển người bệnh sang giường trơn tru và an toàn hơn rất nhiều." },
+      { id: 3, author: "KTV. Phạm Quốc Hưng", role: "Tổ Quản trị Tài sản & Thiết bị", time: "07/09/2026", content: "Kết cấu Inox 304 rất bền chắc, chống oxy hóa và dễ lau khử khuẩn 5S. Tổ Thiết bị sẵn sàng phối hợp sản xuất hàng loạt cho toàn bộ hệ thống xe vận chuyển." }
+    ],
     
     a3Report: {
       background: "Khi vận chuyển người bệnh nguy kịch cần thở oxy liên tục từ hiện trường về viện hoặc chuyển khoa hồi sức, bình oxy cao áp thường phải đặt nằm ngang dưới chân người bệnh hoặc buộc dây tạm bợ vào thanh giằng cáng. Khi xe cấp cứu di chuyển xóc nảy, bình oxy rất dễ bị trượt đổ, va đập gây rò rỉ van khí nén, đồng thời đồng hồ đo lưu lượng bị khuất tầm nhìn, khiến điều dưỡng khó kiểm soát chính xác lưu lượng khí thở.",
@@ -150,4 +262,5 @@ export const SAMPLE_RANKING_DATA = INITIAL_KAIZEN_PROJECTS.map((p, idx) => {
     hasScore: true
   };
 });
+
 

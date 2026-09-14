@@ -6,6 +6,7 @@ export default function RankingTable({
   loading = false, 
   comments = {},
   onOpenCommentModal,
+  onSelectProject,
   onPrint,
   onRefresh
 }) {
@@ -42,9 +43,9 @@ export default function RankingTable({
   };
 
   const getLabel = (score) => {
-    if (score >= 90) return 'Xuất sắc';
-    if (score >= 80) return 'Giỏi';
-    if (score >= 70) return 'Khá';
+    if (score >= 90) return 'Loại A (Xuất sắc)';
+    if (score >= 80) return 'Loại A (Giỏi)';
+    if (score >= 70) return 'Loại B (Khá)';
     return 'Đạt';
   };
 
@@ -59,24 +60,41 @@ export default function RankingTable({
                 <div className="print-org-upper">CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT</div>
                 <div className="print-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</div>
                 <div className="print-divider-left"></div>
-                <div className="print-doc-num">Số: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /BC-BTC-KAIZEN</div>
+                <div className="print-doc-num">Số: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /BC-KHTH-QLCL</div>
               </td>
               <td style={{width: '54%', textAlign: 'center', verticalAlign: 'top'}}>
                 <div className="print-nation-title">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
                 <div className="print-nation-motto">Độc lập – Tự do – Hạnh phúc</div>
                 <div className="print-divider-right"></div>
-                <div className="print-date">Chí Đám, ngày 28 tháng 09 năm 2026</div>
+                <div className="print-date">Chí Đám, ngày 05 tháng 09 năm 2026</div>
               </td>
             </tr>
           </tbody>
         </table>
 
         <div className="print-main-title">
-          BẢNG TỔNG HỢP KẾT QUẢ ĐÁNH GIÁ ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG NĂM 2026
+          BẢNG TỔNG HỢP KẾT QUẢ THẨM ĐỊNH SƠ BỘ ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG NĂM 2026
         </div>
         <div className="print-sub-title">
-          (Vòng Chung kết Hội thi Đề án Cải tiến Chất lượng Bệnh viện kỷ niệm 16 năm thành lập)
+          (Giai đoạn 1: Tiếp nhận hồ sơ & Thẩm định đề cương phê duyệt thực nghiệm của Tổ QLCL — Chưa phải điểm xếp hạng Ban Giám khảo)
         </div>
+      </div>
+
+      {/* LƯU Ý PHÂN ĐỊNH ĐIỂM THẨM ĐỊNH BAN ĐẦU TRÊN MÀN HÌNH */}
+      <div className="screen-only" style={{
+        background: '#eff6ff',
+        border: '1px solid #bfdbfe',
+        borderLeft: '4px solid #0085db',
+        borderRadius: '8px',
+        padding: '0.85rem 1.15rem',
+        marginBottom: '1rem',
+        fontSize: '0.85rem',
+        color: '#1e3a8a',
+        lineHeight: '1.5'
+      }}>
+        <strong>ℹ️ Lưu ý quan trọng:</strong> Điểm số dưới đây là <strong>Kết quả Thẩm định Hồ sơ Ban đầu</strong> do 
+        Tổ Quản lý Chất lượng (thuộc Phòng KHTH) thực hiện nhằm phê duyệt đề cương triển khai thử nghiệm thực địa. 
+        <strong> Bảng điểm chấm chính thức từ Hội đồng Ban Giám khảo</strong> sẽ được chấm độc lập tại Vòng Chung kết sau khi hoàn thành chu trình PDCA.
       </div>
 
       {/* Thanh Bộ Lọc & Tìm Kiếm Trên Màn Hình */}
@@ -117,7 +135,7 @@ export default function RankingTable({
             type="button" 
             className="btn-control-action" 
             onClick={onPrint || (() => window.print())} 
-            title="In bảng điểm chuẩn Nghị định 30 làm căn cứ xét thưởng"
+            title="In bảng điểm thẩm định sơ bộ chuẩn Nghị định 30"
           >
             In Bảng Điểm
           </button>
@@ -138,22 +156,22 @@ export default function RankingTable({
         <table className="ranking-table">
           <thead>
             <tr>
-              <th style={{width: '45px', textAlign: 'center'}}>Xếp hạng</th>
-              <th style={{width: '60px', textAlign: 'center'}}>Mã đề tài</th>
-              <th style={{minWidth: '240px'}}>Tên đề án cải tiến</th>
+              <th style={{width: '45px', textAlign: 'center'}}>Hạng sơ bộ</th>
+              <th style={{width: '65px', textAlign: 'center'}}>Mã đề tài</th>
+              <th style={{minWidth: '240px'}}>Tên đề án cải tiến (Nhấn để xem chi tiết)</th>
               <th style={{width: '110px'}}>Nhóm tác giả</th>
               <th style={{width: '70px', textAlign: 'center'}}>Nhánh</th>
               <th style={{minWidth: '150px'}}>Khoa/Phòng thực hiện</th>
-              <th className="score-header text-center">Tính cấp thiết<br/>(15)</th>
-              <th className="score-header text-center">Phương pháp<br/>(25)</th>
-              <th className="score-header text-center">Hiệu quả thực tế<br/>(35)</th>
+              <th className="score-header text-center">Tính cấp thiết<br/>(20)</th>
+              <th className="score-header text-center">Khả thi<br/>(25)</th>
+              <th className="score-header text-center">Hiệu quả<br/>(20)</th>
               <th className="score-header text-center">Chuẩn hóa SOP<br/>(15)</th>
-              <th className="score-header text-center">Kỹ năng trình bày<br/>(10)</th>
-              <th style={{width: '65px', textAlign: 'center'}}>Tổng TB</th>
-              <th style={{width: '75px', textAlign: 'center'}}>Xếp Loại</th>
+              <th className="score-header text-center">An toàn NB<br/>(20)</th>
+              <th style={{width: '80px', textAlign: 'center'}}>Điểm Thẩm Định</th>
+              <th style={{width: '100px', textAlign: 'center'}}>Phê Duyệt</th>
               <th className="column-comment-header" style={{minWidth: '160px', textAlign: 'center'}}>
-                <span className="screen-only">Thư Ký</span>
-                <span className="print-only">Ý kiến nhận xét của Hội đồng</span>
+                <span className="screen-only">Thư Ký / Tổ QLCL</span>
+                <span className="print-only">Ý kiến nhận xét của Tổ QLCL</span>
               </th>
             </tr>
           </thead>
@@ -177,9 +195,17 @@ export default function RankingTable({
                       {isScored ? index + 1 : '—'}
                     </td>
                     <td className="text-center font-medium text-muted">{row.maDeTai}</td>
-                    <td className="project-title-cell">
-                      <div className="font-bold text-main project-title-text">
+                    <td 
+                      className="project-title-cell"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => onSelectProject && onSelectProject(row)}
+                      title="Nhấn để xem giới thiệu chi tiết đề tài và theo dõi dự án"
+                    >
+                      <div className="font-bold text-main project-title-text" style={{ color: '#003B73' }}>
                         {row.tenDeTai}
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: '#0085db', marginTop: '3px' }} className="screen-only">
+                        🔍 Nhấn để xem toàn diện: Bối cảnh, 5 Whys, Before/After, Tiến độ
                       </div>
                       {hasComment && (
                         <div className="table-comment-preview screen-only" title={commentObj.nhanXet}>
@@ -212,10 +238,10 @@ export default function RankingTable({
                     <td className="text-center">
                       {isScored ? (
                         <span className={`badge ${getBadgeClass(score)}`}>
-                          {getLabel(score)}
+                          Đã phê duyệt
                         </span>
                       ) : (
-                        <span className="badge badge-pass" style={{color: '#94a3b8'}}>Chờ chấm</span>
+                        <span className="badge badge-pass" style={{color: '#94a3b8'}}>Chờ thẩm định</span>
                       )}
                     </td>
                     <td className="comment-col-cell">
@@ -225,7 +251,7 @@ export default function RankingTable({
                           type="button" 
                           className={`btn-table-secretary ${hasComment ? 'has-comment' : ''}`}
                           onClick={() => onOpenCommentModal(row)}
-                          title="Thư ký ghi nhận xét của Hội đồng"
+                          title="Thư ký ghi nhận xét của Tổ QLCL / Hội đồng"
                         >
                           {hasComment ? 'Xem nhận xét' : 'Ghi nhận xét'}
                         </button>
@@ -233,7 +259,7 @@ export default function RankingTable({
 
                       {/* Khi In: Hiển thị đầy đủ nhận xét của Hội đồng */}
                       <div className="print-only print-comment-text">
-                        {hasComment ? commentObj.nhanXet : '—'}
+                        {hasComment ? commentObj.nhanXet : 'Đã thẩm định và phê duyệt đề cương thực nghiệm.'}
                       </div>
                     </td>
                   </tr>

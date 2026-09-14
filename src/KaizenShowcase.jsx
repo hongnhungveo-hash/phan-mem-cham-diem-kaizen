@@ -252,15 +252,19 @@ export default function KaizenShowcase({
                 {/* Tóm tắt vấn đề & giải pháp */}
                 <p className="card-summary">{p.tomTat || (p.a3Report?.background ? p.a3Report.background.substring(0, 130) + '...' : 'Đề án cải tiến chất lượng đang triển khai thử nghiệm.')}</p>
 
-                {/* Điểm số & Xếp hạng */}
+                {/* Điểm số Thẩm định Sơ bộ & Phê duyệt */}
                 <div className="card-score-strip">
                   {scoreInfo && scoreInfo.hasScore ? (
-                    <div className="score-badge-box">
-                      <span className="score-val">{scoreInfo.tongDiem} điểm</span>
-                      <span className="score-rank">({scoreInfo.xepLoai})</span>
+                    <div className="score-badge-box" style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '0.35rem 0.65rem', borderRadius: '6px' }}>
+                      <span className="score-val" style={{ color: '#15803d', fontWeight: 700 }}>
+                        Điểm thẩm định sơ bộ: {scoreInfo.tongDiem} / 100
+                      </span>
+                      <span className="score-rank" style={{ color: '#166534', marginLeft: '6px', fontSize: '0.78rem' }}>
+                        (Đã phê duyệt đề cương)
+                      </span>
                     </div>
                   ) : (
-                    <span className="score-evaluating">Đang trong tiến trình đánh giá</span>
+                    <span className="score-evaluating">Đang trong tiến trình thẩm định</span>
                   )}
                 </div>
 
@@ -282,12 +286,13 @@ export default function KaizenShowcase({
                   <button 
                     type="button" 
                     className="view-a3-btn"
+                    style={{ background: '#0085db', color: '#fff', fontWeight: 600, padding: '0.45rem 0.85rem' }}
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectProject(p);
                     }}
                   >
-                    Xem Báo Cáo A3
+                    Xem Chi Tiết & Tiến Độ
                   </button>
                 </div>
               </div>

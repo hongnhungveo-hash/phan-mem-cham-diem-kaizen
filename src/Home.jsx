@@ -8,11 +8,12 @@ export default function Home({
   totalScores = 0, 
   topScore = 0,
   topProjects = [],
-  onNavigate 
+  onNavigate,
+  onSelectProject
 }) {
   const phil = COMPETITION_INFO.kaizenPhilosophy;
 
-  // Lấy Top 5 đề án có điểm cao nhất
+  // Lấy danh sách đề án đã được thẩm định
   const top5List = (topProjects || [])
     .filter(p => p.hasScore !== false && Number(p.tongDiem) > 0)
     .slice(0, 5);
@@ -65,16 +66,16 @@ export default function Home({
               <button 
                 type="button" 
                 className="btn btn-hero-secondary"
-                onClick={() => onNavigate('score')}
+                onClick={() => onNavigate('ranking')}
               >
-                Đánh Giá & Chấm Điểm
+                Xem Điểm Thẩm Định Sơ Bộ
               </button>
               <button 
                 type="button" 
                 className="btn btn-hero-outline"
-                onClick={() => onNavigate('ranking')}
+                onClick={() => onNavigate('score')}
               >
-                Bảng Xếp Hạng Đầy Đủ
+                Cổng Chấm Điểm Ban Giám Khảo
               </button>
             </div>
           </div>
@@ -119,8 +120,8 @@ export default function Home({
         <div className="metric-card">
           <div className="metric-step-tag">01</div>
           <div className="metric-number">{totalProjects}</div>
-          <div className="metric-label">Đề tài dự thi</div>
-          <div className="metric-sub">Phân bổ tại Nhánh A & Nhánh B</div>
+          <div className="metric-label">Đề tài tiếp nhận</div>
+          <div className="metric-sub">Đã phê duyệt đề cương thực nghiệm</div>
         </div>
 
         <div className="metric-card">
@@ -132,76 +133,107 @@ export default function Home({
 
         <div className="metric-card">
           <div className="metric-step-tag">03</div>
-          <div className="metric-number">{totalScores}</div>
-          <div className="metric-label">Lượt phiếu đã chấm</div>
-          <div className="metric-sub">Đánh giá độc lập từ Ban Giám khảo</div>
+          <div className="metric-number">{totalScores > 0 ? totalScores : '0'}</div>
+          <div className="metric-label">Phiếu chấm Ban Giám khảo</div>
+          <div className="metric-sub">Sẽ ghi nhận trực tiếp tại Vòng Chung kết</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">04</div>
           <div className="metric-number">{topScore > 0 ? `${topScore}` : '—'}</div>
-          <div className="metric-label">Điểm trung bình cao nhất</div>
-          <div className="metric-sub">Thang điểm 100 theo chuẩn PDCA y tế</div>
+          <div className="metric-label">Điểm thẩm định sơ bộ cao nhất</div>
+          <div className="metric-sub">Đánh giá hồ sơ bởi Tổ QLCL (Phòng KHTH)</div>
         </div>
       </section>
 
-      {/* TOP 5 ĐỀ ÁN DẪN ĐẦU (VIEW TRỰC TIẾP TRÊN TRANG CHỦ) */}
+      {/* KẾT QUẢ THẨM ĐỊNH HỒ SƠ BAN ĐẦU CỦA TỔ QLCL */}
       <section className="section-block top5-section">
         <div className="section-header flex-between">
           <div>
-            <div className="section-badge">XẾP HẠNG THỜI GIAN THỰC</div>
-            <h2 className="section-title">Top 5 Đề Án Dẫn Đầu</h2>
-            <p className="section-desc">Các đề án có điểm số đánh giá cao nhất tính đến thời điểm hiện tại</p>
+            <div className="section-badge">GIAI ĐOẠN 1: THẨM ĐỊNH HỒ SƠ BAN ĐẦU</div>
+            <h2 className="section-title">Kết Quả Thẩm Định Đề Án Cải Tiến (Tổ QLCL)</h2>
+            <p className="section-desc">Điểm đánh giá sơ bộ hồ sơ để phê duyệt thử nghiệm thực địa (Chưa phải điểm xếp hạng của Ban Giám khảo)</p>
           </div>
           <button 
             type="button" 
             className="btn btn-outline btn-sm"
             onClick={() => onNavigate('ranking')}
           >
-            Xem Bảng Xếp Hạng Đầy Đủ
+            Xem Chi Tiết Bảng Điểm Thẩm Định
           </button>
+        </div>
+
+        {/* Khung Lưu ý Quan trọng */}
+        <div style={{
+          background: '#eff6ff',
+          border: '1px solid #bfdbfe',
+          borderLeft: '4px solid #0085db',
+          borderRadius: '8px',
+          padding: '0.85rem 1.15rem',
+          marginBottom: '1rem',
+          fontSize: '0.86rem',
+          color: '#1e3a8a',
+          lineHeight: '1.5'
+        }}>
+          <strong>ℹ️ Lưu ý chuyên môn:</strong> Điểm số và xếp loại dưới đây là <strong>Kết quả Thẩm định Hồ sơ Ban đầu</strong> do 
+          Tổ Quản lý Chất lượng (Phòng KHTH) thực hiện nhằm phê duyệt đề cương triển khai thực nghiệm. 
+          <strong> Bảng điểm xếp hạng chính thức từ Hội đồng Ban Giám khảo</strong> sẽ được chấm độc lập tại Vòng Chung kết sau khi nghiệm thu A3.
         </div>
 
         {top5List.length === 0 ? (
           <div className="empty-top-notice">
-            Các đề án đang trong tiến trình thẩm định và nộp điểm từ Ban Giám khảo.
+            Các đề án đang trong tiến trình tiếp nhận và thẩm định hồ sơ sơ bộ.
           </div>
         ) : (
           <div className="top5-table-wrapper">
             <table className="top5-table">
               <thead>
                 <tr>
-                  <th style={{width: '70px', textAlign: 'center'}}>Hạng</th>
-                  <th style={{width: '95px', textAlign: 'center'}}>Mã số</th>
-                  <th>Tên đề án cải tiến</th>
-                  <th style={{minWidth: '170px'}}>Khoa / Phòng thực hiện</th>
+                  <th style={{width: '70px', textAlign: 'center'}}>Hạng sơ bộ</th>
+                  <th style={{width: '100px', textAlign: 'center'}}>Mã đề tài</th>
+                  <th>Tên đề án cải tiến (Nhấn để xem chi tiết & theo dõi)</th>
+                  <th style={{minWidth: '170px'}}>Khoa / Phòng chủ trì</th>
                   <th style={{width: '85px', textAlign: 'center'}}>Nhánh</th>
-                  <th style={{width: '95px', textAlign: 'center'}}>Điểm TB</th>
-                  <th style={{width: '95px', textAlign: 'center'}}>Xếp loại</th>
+                  <th style={{width: '110px', textAlign: 'center'}}>Điểm Thẩm Định</th>
+                  <th style={{width: '130px', textAlign: 'center'}}>Tình Trạng</th>
                 </tr>
               </thead>
               <tbody>
                 {top5List.map((item, idx) => {
                   const score = Number(item.tongDiem);
                   return (
-                    <tr key={item.maDeTai || idx} className={`top5-row rank-${idx + 1}`}>
+                    <tr 
+                      key={item.maDeTai || idx} 
+                      className={`top5-row rank-${idx + 1}`}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => onSelectProject && onSelectProject(item)}
+                      title="Nhấn vào hàng này để xem chi tiết đề tài và theo dõi tiến độ"
+                    >
                       <td className="text-center">
                         <span className={`rank-pill rank-pill-${idx + 1}`}>
                           {idx + 1}
                         </span>
                       </td>
                       <td className="text-center font-mono text-muted">{item.maDeTai}</td>
-                      <td className="font-medium project-name-cell">{item.tenDeTai}</td>
+                      <td className="font-medium project-name-cell">
+                        <div style={{ fontWeight: 600, color: '#003B73' }}>{item.tenDeTai}</div>
+                        <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
+                          Tác giả: {item.nhomTacGia || '—'}
+                        </div>
+                      </td>
                       <td className="dept-cell">{item.khoaPhong}</td>
                       <td className="text-center">
                         <span className={`badge ${item.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
                           {item.nhanh}
                         </span>
                       </td>
-                      <td className="text-center font-bold text-highlight">{score.toFixed(1)}</td>
+                      <td className="text-center font-bold text-highlight">
+                        <span style={{ fontSize: '1.05rem', color: '#0284c7' }}>{score.toFixed(1)}</span>
+                        <span style={{ fontSize: '0.75rem', color: '#64748b', display: 'block' }}>/ 100 điểm</span>
+                      </td>
                       <td className="text-center">
                         <span className={`badge ${getBadgeClass(score)}`}>
-                          {item.xepLoai}
+                          Đã phê duyệt
                         </span>
                       </td>
                     </tr>
@@ -216,7 +248,7 @@ export default function Home({
                 className="btn btn-primary"
                 onClick={() => onNavigate('ranking')}
               >
-                Xem Toàn Bộ Bảng Điểm 14 Cột & Nhận Xét Của Hội Đồng
+                Xem Bảng Tổng Hợp Điểm Thẩm Định Sơ Bộ & Nhận Xét Của Tổ QLCL
               </button>
             </div>
           </div>

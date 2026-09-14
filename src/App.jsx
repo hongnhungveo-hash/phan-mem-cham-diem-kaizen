@@ -306,15 +306,17 @@ function App() {
                 type="button"
                 className={`nav-btn ${activeTab === 'ranking' ? 'active' : ''}`}
                 onClick={() => setActiveTab('ranking')}
+                title="Bảng tổng hợp điểm thẩm định hồ sơ sơ bộ của Tổ QLCL"
               >
-                Bảng Xếp Hạng
+                Điểm Thẩm Định Sơ Bộ
               </button>
               <button 
                 type="button"
                 className={`nav-btn ${activeTab === 'score' ? 'active' : ''}`}
                 onClick={() => setActiveTab('score')}
+                title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức"
               >
-                Chấm Điểm
+                Ban Giám Khảo Chấm Điểm
               </button>
               <button 
                 type="button"
@@ -358,6 +360,7 @@ function App() {
             topScore={topScoreValue}
             topProjects={rankingData}
             onNavigate={(tabName) => setActiveTab(tabName)}
+            onSelectProject={handleOpenA3Modal}
           />
         )}
 
@@ -370,17 +373,22 @@ function App() {
           />
         )}
 
-        {/* TAB 3: BẢNG XẾP HẠNG */}
+        {/* TAB 3: BẢNG ĐIỂM THẨM ĐỊNH SƠ BỘ */}
         {activeTab === 'ranking' && (
           <div className="glass-panel" style={{ padding: '1.25rem 1.5rem' }}>
-            <div className="ranking-top-bar screen-only">
-              <h2 style={{ margin: 0, fontSize: '1.3rem', color: '#003B73' }}>
-                Bảng Xếp Hạng Đề Án Cải Tiến
-              </h2>
+            <div className="ranking-top-bar screen-only" style={{ marginBottom: '1rem' }}>
+              <div>
+                <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#003B73' }}>
+                  Bảng Điểm Thẩm Định Sơ Bộ Đề Án Cải Tiến (Vòng 1)
+                </h2>
+                <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '3px' }}>
+                  Kết quả đánh giá hồ sơ ban đầu của Tổ Quản lý Chất lượng (Phòng KHTH) — Chưa phải điểm xếp hạng của Ban Giám khảo
+                </div>
+              </div>
               <div className="ranking-badge-group">
-                <span className="badge badge-excellent">Xuất sắc (90-100)</span>
-                <span className="badge badge-good">Giỏi (80-89)</span>
-                <span className="badge badge-fair">Khá (70-79)</span>
+                <span className="badge badge-excellent">Loại A (Xuất sắc: 90-100)</span>
+                <span className="badge badge-good">Loại A (Giỏi: 80-89)</span>
+                <span className="badge badge-fair">Loại B (Khá: 70-79)</span>
                 <span className="badge badge-pass">Đạt (&lt;70)</span>
               </div>
             </div>
@@ -390,6 +398,7 @@ function App() {
               loading={isLoading} 
               comments={commentsMap}
               onOpenCommentModal={handleOpenCommentModal}
+              onSelectProject={handleOpenA3Modal}
               onRefresh={fetchData}
               onPrint={() => window.print()}
             />
