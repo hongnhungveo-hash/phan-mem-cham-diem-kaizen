@@ -469,11 +469,77 @@
   border-color: #0085db;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
+  .header-container {
+    gap: 1rem;
+  }
+  .header-org-title {
+    font-size: 0.96rem;
+  }
+  .header-slogan-title {
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.6rem 0;
+  }
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .header-brand {
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
+  .header-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+  .header-org-title {
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+  }
+  .header-slogan-title {
+    font-size: 0.82rem;
+  }
+  .header-right-nav {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-tabs {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  .nav-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .main-content {
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    padding: 0 0.75rem;
+  }
   .footer-compact-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+    padding: 1.25rem 1rem;
+  }
+  .footer-compact-logo {
+    width: 32px;
+    height: 32px;
+  }
+  .footer-line-org, .footer-line-btc, .footer-line-sub {
+    font-size: 0.76rem;
+    line-height: 1.45;
   }
 }
 

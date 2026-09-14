@@ -55,38 +55,12 @@ export default function Home({
                 {phil.definition}
               </p>
             </div>
-
-            {/* Các nút hành động CTA */}
-            <div className="hero-actions">
-              <button 
-                type="button" 
-                className="btn btn-hero-primary"
-                onClick={() => onNavigate('showcase')}
-              >
-                Khám Phá Thư Viện Đề Tài
-              </button>
-              <button 
-                type="button" 
-                className="btn btn-hero-secondary"
-                onClick={() => onNavigate('ranking')}
-              >
-                Xem Điểm Thẩm Định Sơ Bộ
-              </button>
-              <button 
-                type="button" 
-                className="btn btn-hero-outline"
-                onClick={() => onNavigate('score')}
-              >
-                Cổng Chấm Điểm Ban Giám Khảo
-              </button>
-            </div>
           </div>
 
           {/* Cột phải: Khối "Tại sao phải Kaizen trong y tế?" gồm 3 thẻ nổi bật */}
           <div className="hero-right-col">
             <div className="hero-reasons-box">
               <div className="reasons-box-header">
-                <span className="reasons-kicker">MỤC TIÊU CỐT LÕI</span>
                 <h3 className="reasons-box-title">Tại Sao Phải Thực Hiện Kaizen?</h3>
                 <p className="reasons-box-desc">3 đòn bẩy chiến lược chuyển hóa chất lượng y tế toàn diện</p>
               </div>
@@ -152,164 +126,62 @@ export default function Home({
       <section className="section-block registered-products-section">
         <div className="section-header flex-between">
           <div>
-            <div className="section-badge">KHÔNG GIAN THAM KHẢO & HỌC HỎI</div>
             <h2 className="section-title">Sản Phẩm & Đề Tài Cải Tiến Đang Đăng Ký</h2>
-            <p className="section-desc">Giới thiệu các sáng kiến, mô hình y tế và giải pháp tinh gọn đang được triển khai thử nghiệm tại các khoa/phòng</p>
+            <p className="section-desc">Danh sách các sáng kiến và giải pháp cải tiến chất lượng y tế đang được tiếp nhận và thử nghiệm tại các đơn vị</p>
           </div>
-          <button 
-            type="button" 
-            className="btn btn-outline btn-sm"
-            onClick={() => onNavigate('showcase')}
-          >
-            Xem Thư Viện Tất Cả Sản Phẩm ➔
-          </button>
+          <div className="registered-count-tag">
+            Đã tiếp nhận: <strong>{topProjects.length} đề án</strong>
+          </div>
         </div>
 
-        {/* LƯỚI THẺ SẢN PHẨM CẢI TIẾN TRỰC QUAN, NGẮN GỌN & DỄ HIỂU */}
-        <div className="registered-cards-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '1.5rem',
-          marginTop: '1rem'
-        }}>
-          {topProjects.map((p) => {
-            const qs = p.quickSummary || {};
-            return (
-              <div 
-                key={p.maDeTai} 
-                className="registered-product-card"
-                style={{
-                  background: '#ffffff',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  boxShadow: '0 4px 6px -1px rgba(0, 59, 115, 0.08)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  transition: 'transform 0.15s ease, box-shadow 0.15s ease'
-                }}
-              >
-                <div>
-                  {/* TAGS HÀNG ĐẦU */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                      <span style={{
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        fontSize: '0.8rem',
-                        color: '#003B73',
-                        background: '#e0f2fe',
-                        padding: '0.2rem 0.55rem',
-                        borderRadius: '4px'
-                      }}>
-                        {p.maDeTai}
-                      </span>
-                      <span style={{
-                        fontSize: '0.75rem',
-                        fontWeight: 600,
-                        color: '#0369a1',
-                        background: '#f0f9ff',
-                        padding: '0.2rem 0.5rem',
-                        borderRadius: '4px'
-                      }}>
-                        {p.nhanh}
-                      </span>
-                    </div>
+        {/* DANH SÁCH ĐỀ TÀI DẠNG LIST TINH GỌN, CHUẨN THỂ THỨC */}
+        <div className="registered-project-list">
+          {topProjects.map((p, idx) => (
+            <div key={p.maDeTai} className="registered-project-row">
+              <div className="project-row-num">
+                {(idx + 1).toString().padStart(2, '0')}
+              </div>
 
-                    <span style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      color: '#15803d',
-                      background: '#dcfce7',
-                      border: '1px solid #86efac',
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '999px'
-                    }}>
-                      Đang Thử Nghiệm
-                    </span>
-                  </div>
-
-                  {/* TÊN SẢN PHẨM & ĐỀ TÀI */}
-                  <h3 style={{
-                    fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: '#003B73',
-                    margin: '0 0 0.4rem 0',
-                    lineHeight: 1.35
-                  }}>
-                    {p.tenSanPham || p.tenDeTai}
-                  </h3>
-
-                  <div style={{ fontSize: '0.84rem', color: '#64748b', marginBottom: '1rem' }}>
-                    <strong>Đơn vị:</strong> {p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''} • <strong>Chủ nhiệm:</strong> {getCleanLeaderName(p)}
-                  </div>
-
-                  {/* KHỐI 3 GẠCH ĐẦU DÒNG CỰC KỲ DỄ HIỂU */}
-                  <div style={{
-                    background: '#f8fafc',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '8px',
-                    padding: '1rem',
-                    marginBottom: '1rem',
-                    fontSize: '0.86rem',
-                    lineHeight: '1.5',
-                    color: '#334155'
-                  }}>
-                    <div style={{ marginBottom: '0.45rem' }}>
-                      <strong style={{ color: '#0085db' }}>Ý tưởng: </strong>
-                      {qs.idea || p.tomTat}
-                    </div>
-                    {qs.painPoints && qs.painPoints[0] && (
-                      <div style={{ marginBottom: '0.45rem', color: '#b91c1c' }}>
-                        <strong>Bất cập cũ: </strong>
-                        {qs.painPoints[0]}
-                      </div>
-                    )}
-                    {qs.keyMetrics && qs.keyMetrics[0] && (
-                      <div style={{ color: '#15803d', fontWeight: 600 }}>
-                        <strong>Hiệu quả: </strong>
-                        {qs.keyMetrics[0].label}: {qs.keyMetrics[0].before} → {qs.keyMetrics[0].after} ({qs.keyMetrics[0].note})
-                      </div>
-                    )}
-                  </div>
+              <div className="project-row-main">
+                <div className="project-row-top">
+                  <span className="project-row-code">{p.maDeTai}</span>
+                  <span className="project-row-branch">{p.nhanh}</span>
                 </div>
 
-                {/* NÚT XEM CHI TIẾT */}
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-                    Ngày tiếp nhận: {p.ngayDangKy || '05/09/2026'}
+                <h3 className="project-row-title">
+                  {p.tenDeTai || p.tenSanPham}
+                </h3>
+
+                <div className="project-row-meta">
+                  <span className="meta-item">
+                    <span className="meta-lbl">Khoa/Phòng:</span>
+                    <strong className="meta-val">{p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''}</strong>
                   </span>
-                  <button 
-                    type="button" 
-                    className="btn btn-primary btn-sm"
-                    style={{
-                      background: '#0085db',
-                      color: '#ffffff',
-                      fontWeight: 600,
-                      padding: '0.45rem 1rem',
-                      borderRadius: '6px'
-                    }}
-                    onClick={() => onSelectProject && onSelectProject(p)}
-                  >
-                    Xem Chi Tiết Sản Phẩm ➔
-                  </button>
+                  <span className="meta-sep">•</span>
+                  <span className="meta-item">
+                    <span className="meta-lbl">Tác giả:</span>
+                    <strong className="meta-val">{getCleanLeaderName(p)}</strong>
+                  </span>
                 </div>
               </div>
-            );
-          })}
+
+              <div className="project-row-action">
+                <button 
+                  type="button" 
+                  className="btn-view-detail"
+                  onClick={() => onSelectProject && onSelectProject(p)}
+                >
+                  <span>Xem Chi Tiết</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div style={{
-          marginTop: '1.5rem',
-          textAlign: 'center',
-          background: '#eff6ff',
-          border: '1px dashed #93c5fd',
-          borderRadius: '8px',
-          padding: '1rem',
-          fontSize: '0.86rem',
-          color: '#1e40af'
-        }}>
+        <div className="registered-list-notice">
           <strong>Thông báo Ban Tổ chức:</strong> Cổng tiếp nhận đề án đang tiếp tục nhận sản phẩm từ các Khoa/Phòng. 
           Hội đồng Ban Giám khảo sẽ tiến hành chấm thi và xếp hạng chính thức tại Vòng Chung kết sau khi các đơn vị hoàn tất thử nghiệm thực địa.
         </div>
@@ -318,7 +190,6 @@ export default function Home({
       {/* Timeline Section */}
       <section className="section-block">
         <div className="section-header">
-          <div className="section-badge">LỘ TRÌNH THI ĐUA</div>
           <h2 className="section-title">Tiến Độ Các Vòng Thi</h2>
           <p className="section-desc">Kế hoạch triển khai đồng bộ giữa các khối chuyên môn toàn hệ thống</p>
         </div>
@@ -341,29 +212,9 @@ export default function Home({
         </div>
       </section>
 
-      {/* 6 Core Categories */}
-      <section className="section-block">
-        <div className="section-header">
-          <div className="section-badge">ĐỊNH HƯỚNG CHUYÊN MÔN</div>
-          <h2 className="section-title">6 Nhóm Chủ Đề Cải Tiến Trọng Tâm</h2>
-          <p className="section-desc">Định hướng giải quyết điểm nghẽn lâm sàng và nâng cao chất lượng phục vụ</p>
-        </div>
-
-        <div className="categories-grid">
-          {COMPETITION_INFO.categories.map((cat) => (
-            <div key={cat.id} className="category-card">
-              <div className="category-code">{cat.code}</div>
-              <h3 className="category-title">{cat.name}</h3>
-              <p className="category-desc">{cat.shortDesc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Competition Branches & Awards */}
       <section className="section-block">
         <div className="section-header">
-          <div className="section-badge">CƠ CẤU THI ĐUA</div>
           <h2 className="section-title">Cơ Cấu Phân Nhánh & Khen Thưởng</h2>
           <p className="section-desc">Đánh giá công bằng, minh bạch giữa sáng kiến nội bộ và sáng kiến liên khoa</p>
         </div>

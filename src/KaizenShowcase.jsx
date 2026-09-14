@@ -143,11 +143,9 @@ export default function KaizenShowcase({
               onChange={(e) => setSelectedBlock(e.target.value)}
             >
               <option value="ALL">Tất cả các khối</option>
-              <option value="Khối Lâm sàng">Khối Lâm sàng</option>
-              <option value="Khối Ngoại - Phẫu thuật">Khối Ngoại - Phẫu thuật</option>
-              <option value="Khối Cận lâm sàng">Khối Cận lâm sàng</option>
-              <option value="Khối Dược - KSNK">Khối Dược - KSNK</option>
-              <option value="Khối Hành chính - Quản lý">Khối Hành chính - Quản lý</option>
+              <option value="Khối Lâm Sàng">Khối Lâm Sàng</option>
+              <option value="Khối Cận Lâm Sàng & Quản Lý">Khối Cận Lâm Sàng & Quản Lý</option>
+              <option value="Khối Phòng Khám Vệ Tinh">Khối Phòng Khám Vệ Tinh</option>
             </select>
           </div>
 
@@ -159,10 +157,11 @@ export default function KaizenShowcase({
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="ALL">Tất cả chủ đề</option>
-              <option value="TIME">Thời gian chờ</option>
               <option value="SAFETY">An toàn người bệnh</option>
-              <option value="5S">Thực hành 5S</option>
+              <option value="TIME">Thời gian chờ</option>
+              <option value="EXP">Trải nghiệm & Hài lòng</option>
               <option value="DIGITAL">Chuyển đổi số</option>
+              <option value="5S">Thực hành 5S</option>
             </select>
           </div>
 

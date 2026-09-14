@@ -65,222 +65,1406 @@ export const COMPETITION_INFO = {
 
 export const INITIAL_KAIZEN_PROJECTS = [
   {
-    maDeTai: "KZ16-TIMMACH-01",
-    tenDeTai: "Cải tiến quy trình chuẩn bị thuốc và vật tư can thiệp cấp cứu STEMI bằng mô hình “STEMI Emergency Box” tại Phòng Can thiệp Tim mạch",
-    nhanh: "Nhánh A",
-    khoaPhong: "Khoa Tim Mạch",
-    khoaPhoiHop: "Tổ Dược Lâm Sàng",
-    chuNhiem: "ĐD. Nguyễn Duy Hùng",
-    nhomTacGia: "ĐD. Nguyễn Duy Hùng, ĐD. Nguyễn Việt Hưng, ĐD. Nguyễn Mạnh Hùng, ĐD. Lê Minh Thắng, ĐD. Nguyễn Phạm Quốc Anh",
-    chuDe: "SAFETY",
-    chuDeTen: "An toàn Người bệnh & Phòng ngừa Rủi ro",
-    khoiChuyenMon: "Khối Nội - Tim mạch Can thiệp",
-    tomTat: "Xây dựng mô hình hộp cấp cứu đóng gói sẵn tích hợp đầy đủ thuốc và dụng cụ can thiệp mạch vành, rút ngắn 85% thời gian chuẩn bị ngoài giờ hành chính từ 20 phút xuống dưới 3 phút, tối ưu hóa thời gian Door-to-Balloon cứu sống người bệnh.",
-    
-    // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
-    tenSanPham: "Mô hình “STEMI Emergency Box” — Hộp Cấp Cứu Mạch Vành Khẩn Cấp",
-    ngayDangKy: "05/09/2026",
-    trangThaiDangKy: "Thử nghiệm thực địa",
-    
-    // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
-    quickSummary: {
-      idea: "Đóng gói đồng bộ toàn bộ thuốc chống đông và vật tư can thiệp vào hộp chuyên dụng có niêm phong bảo đảm, đặt sẵn tại phòng DSA.",
-      painPoints: [
-        "Thuốc và vật tư phân tán tại 3 tủ khác nhau theo danh mục kế toán kho.",
-        "Mất 15 - 20 phút để gom đủ cơ số thuốc và dụng cụ trong ca trực cấp cứu đêm.",
-        "Nguy cơ thiếu hoặc nhầm lẫn vật tư can thiệp ngoài giờ hành chính (khoảng 12%)."
+    "maDeTai": "KZ16-NGOAI-01",
+    "tenDeTai": "Ứng dụng xe tiêm thông minh gắn máy tính xách tay tra cứu y lệnh thời gian thực nhằm triệt tiêu sai sót thuốc tại Khoa Ngoại Tổng hợp",
+    "tenSanPham": "Xe tiêm thông minh gắn máy tính xách tay tra cứu y lệnh thời gian thực",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Ngoại TH",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Trần Mạnh Giang",
+    "nhomTacGia": "ĐD. Trần Mạnh Giang, ĐD. Võ Nguyễn Thúy Hà, ĐD. Phạm Thị Thanh Cần, ĐD. Lê Thị Hồng Nhung, ĐD. Nguyễn Thị Hương Thảo",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Ứng dụng xe tiêm thông minh gắn máy tính xách tay tra cứu y lệnh thời gian thực nhằm triệt tiêu sai sót thuốc tại Khoa Ngoại Tổng hợp",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Tích hợp máy tính xách tay và máy quét mã vạch lên xe tiêm, tra cứu y lệnh trực tiếp tại giường bệnh.",
+      "painPoints": [
+        "In sổ tiêm giấy có độ trễ y lệnh khi bác sĩ bổ sung",
+        "Nguy cơ nhầm lẫn liều lượng và giờ tiêm"
       ],
-      solutions: [
-        "Đóng gói hộp STEMI Box chuyên dụng theo cơ số chuẩn, mở dùng ngay trong 30 giây.",
-        "Niêm phong bảo đảm 1 lần (Security Seal) kèm bảng kiểm trực quan 1 trang.",
-        "Khoa Dược cấp bù hoàn nguyên hộp thuốc trong vòng 02 giờ sau ca can thiệp."
+      "solutions": [
+        "Xe tiêm thông minh tra cứu y lệnh thời gian thực",
+        "Đối chiếu 5 đúng điện tử tại giường bệnh"
       ],
-      keyMetrics: [
-        { label: "Thời gian chuẩn bị", before: "20 phút", after: "< 3 phút", note: "Nhanh hơn 85%" },
-        { label: "Sai sót, nhầm thuốc", before: "12%", after: "0%", note: "An toàn tuyệt đối" },
-        { label: "Door-to-Balloon", before: "65 phút", after: "< 50 phút", note: "Tiết kiệm 15 phút vàng" },
-        { label: "Chi phí triển khai", before: "—", after: "0 đ", note: "Tận dụng tủ hộp sẵn có" }
+      "keyMetrics": [
+        {
+          "label": "Sai sót thuốc",
+          "before": "8 vụ/tháng",
+          "after": "0 vụ",
+          "note": "Triệt tiêu 100%"
+        },
+        {
+          "label": "Thời gian tra cứu",
+          "before": "12 phút",
+          "after": "2 phút",
+          "note": "Nhanh hơn 80%"
+        },
+        {
+          "label": "Độ trễ y lệnh",
+          "before": "45 phút",
+          "after": "0 phút",
+          "note": "Cập nhật tức thì"
+        },
+        {
+          "label": "Chi phí trang bị",
+          "before": "—",
+          "after": "Tiết kiệm",
+          "note": "Tận dụng laptop viện"
+        }
       ]
     },
-    
-    // ĐIỂM SÁNG NỔI BẬT
-    keyHighlights: [
-      { label: "Rút ngắn 85% thời gian", desc: "Giảm thời gian chuẩn bị từ 20 phút xuống dưới 3 phút ngoài giờ", icon: "time" },
-      { label: "0% Sai sót vật tư", desc: "Triệt tiêu nguy cơ thiếu/nhầm thuốc chống đông ngoài giờ", icon: "shield" },
-      { label: "Tiết kiệm 15 phút vàng", desc: "Tối ưu hóa thời gian Door-to-Balloon toàn viện dưới 50 phút", icon: "check" },
-      { label: "Chi phí tối thiểu", desc: "Tận dụng tủ hộp sẵn có, hoàn nguyên thuốc trong 2 giờ sau ca", icon: "wallet" }
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Trần Mạnh Giang",
+        "title": "Điều dưỡng trưởng Khoa Ngoại TH",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "ĐD. Võ Nguyễn Thúy Hà",
+        "title": "Điều dưỡng viên Khoa Ngoại TH",
+        "role": "Thư ký đề án (Theo dõi số liệu)"
+      },
+      {
+        "name": "ĐD. Phạm Thị Thanh Cần",
+        "title": "Điều dưỡng viên Khoa Ngoại TH",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Lê Thị Hồng Nhung",
+        "title": "Điều dưỡng viên Khoa Ngoại TH",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Nguyễn Thị Hương Thảo",
+        "title": "Điều dưỡng viên Khoa Ngoại TH",
+        "role": "Thành viên thực hiện thử nghiệm"
+      }
     ],
-
-    // CHI TIẾT NHÓM TÁC GIẢ
-    authorsDetailed: [
-      { name: "ĐD. Nguyễn Duy Hùng", role: "Trưởng nhóm (Chủ nhiệm đề án)", title: "Điều dưỡng viên Phòng Can thiệp Tim mạch" },
-      { name: "ĐD. Nguyễn Việt Hưng", role: "Thư ký đề án (Theo dõi số liệu)", title: "Điều dưỡng viên Phòng Can thiệp" },
-      { name: "ĐD. Nguyễn Mạnh Hùng", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" },
-      { name: "ĐD. Lê Minh Thắng", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" },
-      { name: "ĐD. Nguyễn Phạm Quốc Anh", role: "Thành viên thực nghiệm", title: "Điều dưỡng viên Phòng Can thiệp" }
-    ],
-
-    // TRỤC THỜI GIAN THEO DÕI TIẾN ĐỘ DỰ ÁN
-    timeline: [
-      { phase: "Vòng 1: Đăng ký & Thẩm định sơ bộ", date: "05/09/2026", status: "completed", note: "Đã phê duyệt đề cương A3, Điểm thẩm định sơ bộ: 94/100 (Tổ QLCL)" },
-      { phase: "Vòng 2: Triển khai thử nghiệm tại hiện trường", date: "06/09 - 22/09/2026", status: "in_progress", note: "Vận hành 02 Hộp cấp cứu STEMI Box tại phòng DSA và đo thời gian thực tế" },
-      { phase: "Vòng 3: Báo cáo A3 & Thuyết trình Chung kết", date: "28/09/2026", status: "upcoming", note: "Ban Giám khảo chấm điểm chính thức và công bố thứ hạng hội thi" },
-      { phase: "Vòng 4: Chuẩn hóa SOP & Nhân rộng toàn viện", date: "Tháng 10/2026", status: "upcoming", note: "Ban hành SOP-TM-012 và nhân rộng mô hình cho Cấp cứu, ICU và Gây mê" }
-    ],
-
-    // 5 TẦNG TẠI SAO (5 WHYS)
-    fiveWhys: [
-      { level: "Why 1", question: "Tại sao thời gian chuẩn bị thuốc và vật tư can thiệp STEMI bị kéo dài ngoài giờ?", answer: "Do thuốc chống đông và vật tư chuyên dụng được bố trí phân tán ở 03 tủ thuốc khác nhau." },
-      { level: "Why 2", question: "Tại sao thuốc và vật tư lại bố trí phân tán?", answer: "Do cách sắp xếp truyền thống theo danh mục kế toán kho dược chứ không theo phác đồ cấp cứu bệnh học." },
-      { level: "Why 3", question: "Tại sao không gom sẵn thành bộ cấp cứu chuyên biệt?", answer: "Do chưa có quy định đóng gói đồng bộ và kiểm tra niêm phong định kỳ cho gói cấp cứu STEMI." },
-      { level: "Why 4", question: "Tại sao kíp trực đêm dễ bị lúng túng khi lấy vật tư?", answer: "Do áp lực thời gian vàng và thiếu bảng kiểm trực quan checklist một chạm tại phòng can thiệp." },
-      { level: "Why 5 (Cốt lõi)", question: "NGUYÊN NHÂN GỐC RỄ Ở HỆ THỐNG", answer: "Quy trình quản lý và cấp phát vật tư can thiệp chưa được thiết kế theo luồng tinh gọn Lean chuyên biệt cho tình huống tối khẩn cấp." }
-    ],
-
-    // HỒ SƠ TÀI LIỆU MINH CHỨNG
-    documents: [
-      { name: "Bản Đăng ký Đề án Sau Hiệu chỉnh (Mẫu 01)", type: "Word (.docx)", file: "KZ16-TIMMACH-01 02. Bản Đăng ký Sau Hiệu chỉnh Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Hồ sơ đăng ký chi tiết đã hoàn thiện theo góp ý của Tổ QLCL" },
-      { name: "Thông báo Thẩm định Sơ bộ Số 16/TB-QLCL-KAIZEN", type: "Văn bản (.docx)", file: "KZ16-TIMMACH-01 03. Biên bản Thẩm định Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Quyết định phê duyệt đề cương thực nghiệm của Tổ trưởng Tổ QLCL Trần Đình Vũ" },
-      { name: "Đề cương A3 Triển khai Thực nghiệm", type: "Báo cáo A3 (.docx)", file: "KZ16-TIMMACH-01 04. Đề cương A3 Triển khai Thực nghiệm Tim Mạch ĐD. Nguyễn Duy Hùng.docx", desc: "Đề cương chi tiết triển khai tại hiện trường và kế hoạch nghiệm thu" },
-      { name: "Quy trình Thao tác Chuẩn SOP-TM-012", type: "SOP Quản lý", file: "SOP-TM-012 Quy trình chuẩn bị Hộp cấp cứu STEMI Box.docx", desc: "Quy trình niêm phong một lần và hoàn nguyên thuốc trong 02 giờ" }
-    ],
-
-    // Ý KIẾN THẢO LUẬN & HỌC HỎI CHUYÊN MÔN
-    communityDiscussions: [
-      { id: 1, author: "Trần Đình Vũ", role: "Tổ trưởng Tổ QLCL (Phòng KHTH)", time: "05/09/2026", content: "Đề án có ý nghĩa sống còn với người bệnh nhồi máu cơ tim cấp. Tổ QLCL đánh giá 94/100 điểm thẩm định ban đầu và cử cán bộ đồng hành đo lường số liệu thực địa cùng kíp DSA." },
-      { id: 2, author: "BS. Trần Văn Hùng", role: "Bác sĩ - Khoa Cấp cứu", time: "06/09/2026", content: "Mô hình STEMI Box này cực kỳ thiết thực. Khi kíp 115 chuyển bệnh nhân vào phòng DSA, thời gian chuẩn bị thuốc dưới 3 phút sẽ giúp bác sĩ can thiệp mạch vành kịp thời tối đa." },
-      { id: 3, author: "ThS. Ma Văn Hoàng", role: "Trưởng phòng Kế hoạch Tổng hợp", time: "08/09/2026", content: "Đề nghị Khoa Tim mạch theo dõi chặt chẽ khâu hoàn nguyên cơ số thuốc với Khoa Dược để đảm bảo hộp cấp cứu luôn sẵn sàng 24/7." }
-    ],
-    
-    a3Report: {
-      background: "Nhồi máu cơ tim cấp có ST chênh lên (STEMI) là tình trạng cấp cứu khẩn cấp đòi hỏi tái thông mạch vành trong thời gian vàng. Tuy nhiên, ngoài giờ hành chính, điều dưỡng phải di chuyển qua 03 tủ thuốc và kho vật tư khác nhau để tìm kiếm thuốc chống đông, thuốc tiêu sợi huyết và ống thông can thiệp, gây lãng phí 15-20 phút quý giá của người bệnh.",
-      baselineData: "Thời gian chuẩn bị đầy đủ thuốc và dụng cụ can thiệp ngoài giờ: 18 - 22 phút; Tỷ lệ thiếu hoặc nhầm lẫn vật tư phụ trong ca can thiệp ban đêm: khoảng 12%; Thời gian Door-to-Balloon còn bị kéo dài (trung bình 65 phút).",
-      rootCause: "Phân tích 5 Whys: (1) Thuốc và vật tư can thiệp STEMI bị phân tán ở 03 tủ -> (2) Sắp xếp truyền thống theo danh mục kế toán kho chứ không theo bệnh học cấp cứu -> (3) Chưa có quy định đóng gói đồng bộ gói cấp cứu STEMI -> (4) Thiếu checklist một chạm tại phòng can thiệp -> (5) Cốt lõi: Quy trình quản lý và cấp phát vật tư can thiệp chưa được thiết kế theo luồng tinh gọn Lean cho tình huống tối khẩn cấp.",
-      smartGoal: "Rút ngắn thời gian chuẩn bị đầy đủ thuốc và vật tư can thiệp từ 18-22 phút xuống dưới 3 phút; giảm triệt để tỷ lệ thiếu/nhầm lẫn vật tư về 0%; rút ngắn thời gian Door-to-Balloon toàn viện từ 65 phút xuống dưới 50 phút; mức độ hài lòng kíp can thiệp đạt trên 95%.",
-      countermeasures: "1. Xây dựng mô hình “STEMI Emergency Box” chuyên dụng, tích hợp đầy đủ 100% thuốc chống đông, dây dẫn, ống thông theo phác đồ chuẩn Bộ Y tế.\n2. Áp dụng cơ chế niêm phong một lần (Security Seal); kiểm tra định kỳ mỗi ca trực theo bảng kiểm Checklist 1 trang trực quan.\n3. Bố trí Hộp cấp cứu ngay tại cửa phòng can thiệp mạch DSA, thao tác mở và đưa vào sử dụng chỉ trong 30 giây.\n4. Phối hợp với Khoa Dược hoàn nguyên cơ số thuốc và vật tư đã sử dụng trong vòng 02 giờ sau ca can thiệp để sẵn sàng cho ca tiếp theo.",
-      resultsBeforeAfter: [
-        { metric: "Thời gian chuẩn bị thuốc & vật tư can thiệp", before: "18 - 22 phút", after: "Dưới 3 phút (Rút ngắn 85%)" },
-        { metric: "Tỷ lệ thiếu/nhầm lẫn vật tư can thiệp", before: "12%", after: "0% (Triệt tiêu sai sót)" },
-        { metric: "Thời gian Door-to-Balloon toàn viện", before: "65 phút", after: "Dưới 50 phút (Tiết kiệm 15 phút vàng)" },
-        { metric: "Mức độ hài lòng của kíp bác sĩ can thiệp", before: "Chưa đo lường", after: "98% Hài lòng cao" }
-      ],
-      standardization: "Ban hành SOP-TM-012: Quy trình chuẩn bị và hoàn nguyên Hộp cấp cứu STEMI Box tại Phòng Can thiệp Tim mạch. Nhân rộng mô hình hộp cấp cứu khẩn cấp cho Khoa Cấp cứu, ICU và Phòng Mổ.",
-      lessonsLearned: "Sắp xếp quy trình theo luồng giá trị bệnh học (Lean) thay vì danh mục kế toán giúp bảo vệ tối đa tế bào cơ tim của người bệnh và giải tỏa áp lực tâm lý cho kíp trực cấp cứu ban đêm."
-    },
-    views: 526,
-    likes: 89,
-    status: "evaluated"
+    "diemBanDau": "85.0"
   },
   {
-    maDeTai: "KZ16-CC115-01",
-    tenDeTai: "Sáng chế giá treo bình oxy đứng đa năng trên xe cáng cấp cứu nhằm nâng cao an toàn vận chuyển và kiểm soát lưu lượng khí thở tại Trung tâm Cấp cứu 115",
-    nhanh: "Nhánh A",
-    khoaPhong: "Trung Tâm Cấp Cứu 115",
-    khoaPhoiHop: "Tổ Quản Trị Tài Sản & Thiết Bị",
-    chuNhiem: "ĐD. Đỗ Sơn Bắc",
-    nhomTacGia: "ĐD. Đỗ Sơn Bắc, BS. Nguyễn Văn Hùng, ĐD. Hoàng Văn Tuấn",
-    chuDe: "SAFETY",
-    chuDeTen: "An toàn Người bệnh & Sáng chế Kỹ thuật Y tế",
-    khoiChuyenMon: "Khối Hồi sức Cấp cứu",
-    tomTat: "Sáng chế và gia công giá treo cơ khí Inox 304 có khớp ngàm gắn trực tiếp vào xe cáng cứu thương, cố định bình oxy đứng vững chắc với khóa lẫy một chạm, rút ngắn thời gian thao tác từ 3 phút xuống dưới 15 giây và triệt tiêu 100% nguy cơ rơi đổ.",
-    
-    // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
-    tenSanPham: "Sáng chế Bộ Giá Treo Bình Oxy Đứng Đa Năng Inox 304 Khóa 1 Chạm",
-    ngayDangKy: "05/09/2026",
-    trangThaiDangKy: "Thử nghiệm thực địa",
-    
-    // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
-    quickSummary: {
-      idea: "Gia công giá treo Inox 304 kẹp thẳng vào khung xe cáng, có khóa lẫy một chạm giữ bình oxy đứng vững suốt hành trình vận chuyển.",
-      painPoints: [
-        "Bình oxy đặt nằm ngang dưới chân bệnh nhân, dễ lăn trượt và va đập khi xe xóc nảy.",
-        "Mất 2 - 3 phút chằng buộc dây tạm bợ; đồng hồ áp lực bị khuất tầm nhìn.",
-        "Chiếm diện tích sàn cáng, gây vướng khi kíp trực cấp cứu ép tim hồi sức."
+    "maDeTai": "KZ16-CC115-01",
+    "tenDeTai": "Sáng chế giá treo bình oxy đứng đa năng trên xe cáng cấp cứu nhằm nâng cao an toàn vận chuyển và kiểm soát lưu lượng khí thở tại Trung tâm Cấp cứu 115",
+    "tenSanPham": "Giá treo máy phá rung tim trên xe cứu thương chuyên dụng",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Trung tâm Cấp cứu 115",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Đỗ Sơn Bắc",
+    "nhomTacGia": "ĐD. Đỗ Sơn Bắc, BS. Nguyễn Văn Hùng, ĐD. Hoàng Văn Tuấn",
+    "chuDe": "SAFETY",
+    "chuDeTen": "An toàn Người bệnh & Phòng ngừa Rủi ro",
+    "khoiChuyenMon": "Khối Cận Lâm Sàng & Quản Lý",
+    "tomTat": "Sáng chế giá treo bình oxy đứng đa năng trên xe cáng cấp cứu nhằm nâng cao an toàn vận chuyển và kiểm soát lưu lượng khí thở tại Trung tâm Cấp cứu 115",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Thiết kế giá treo Inox 304 giảm rung chấn, cố định máy phá rung tim chuyên dụng ngay cạnh cáng cấp cứu trên xe 115.",
+      "painPoints": [
+        "Máy phá rung để dưới sàn xe hoặc ghế phụ gây vướng víu",
+        "Mất 35-45 giây tìm và chuẩn bị sốc điện khi xe di chuyển xóc"
       ],
-      solutions: [
-        "Giá Inox 304 ngàm kẹp trực tiếp vào khung cáng, giải phóng lối đi và sàn xe.",
-        "Khóa lẫy một chạm siết nhanh, tháo lắp bình oxy chỉ mất 10 - 15 giây.",
-        "Định vị bình tại đầu cáng, đồng hồ đo áp lực luôn hướng thẳng tầm mắt điều dưỡng."
+      "solutions": [
+        "Giá treo Inox 304 chịu lực 80kg, xoay đa hướng 180 độ",
+        "Khóa chốt an toàn thao tác 1 chạm trong 3 giây"
       ],
-      keyMetrics: [
-        { label: "Độ an toàn rơi đổ", before: "Nguy cơ cao", after: "100% Cố định", note: "Triệt tiêu va đập van" },
-        { label: "Thời gian tháo lắp", before: "2 - 3 phút", after: "< 15 giây", note: "Khóa nhanh 1 chạm" },
-        { label: "Quan sát đồng hồ", before: "Bị che khuất", after: "Trực diện mắt", note: "Kiểm soát liên tục" },
-        { label: "Chi phí chế tạo", before: "—", after: "1.200.000 đ", note: "Inox 304 chịu lực" }
+      "keyMetrics": [
+        {
+          "label": "Thời gian sốc điện",
+          "before": "45 giây",
+          "after": "15 giây",
+          "note": "Nhanh hơn 67%"
+        },
+        {
+          "label": "Nguy cơ rơi vỡ máy",
+          "before": "Tiềm ẩn",
+          "after": "0%",
+          "note": "Cố định tuyệt đối"
+        },
+        {
+          "label": "Chi phí gia công",
+          "before": "—",
+          "after": "1,2 triệu",
+          "note": "Vật tư Inox 304 nội bộ"
+        },
+        {
+          "label": "Độ bền thử nghiệm",
+          "before": "—",
+          "after": "Chuẩn 100%",
+          "note": "Đạt kiểm định an toàn"
+        }
       ]
     },
-    
-    // ĐIỂM SÁNG NỔI BẬT
-    keyHighlights: [
-      { label: "100% Cố định an toàn", desc: "Triệt tiêu nguy cơ rơi đổ hoặc rò rỉ van khí nén cao áp khi xe xóc nảy", icon: "shield" },
-      { label: "Thao tác dưới 15 giây", desc: "Rút ngắn thời gian cố định bình oxy từ 3 phút xuống chỉ còn 10-15 giây", icon: "time" },
-      { label: "Tối ưu hóa quan sát", desc: "Đồng hồ đo áp suất và lưu lượng kế luôn hướng về tầm mắt kíp trực", icon: "eye" },
-      { label: "Chi phí chỉ 1,2 triệu", desc: "Gia công Inox 304 chịu lực cao, tiết kiệm ngân sách bệnh viện", icon: "wallet" }
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Đỗ Sơn Bắc",
+        "title": "Điều dưỡng viên Trung tâm Cấp cứu 115",
+        "role": "Tác giả sáng chế (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "BS. Nguyễn Văn Hùng",
+        "title": "Bác sĩ Cấp cứu 115",
+        "role": "Cố vấn chuyên môn cấp cứu ngoại viện"
+      },
+      {
+        "name": "ĐD. Hoàng Văn Tuấn",
+        "title": "Điều dưỡng viên Cấp cứu 115",
+        "role": "Thành viên thực nghiệm hiện trường"
+      }
     ],
-
-    // CHI TIẾT NHÓM TÁC GIẢ
-    authorsDetailed: [
-      { name: "ĐD. Đỗ Sơn Bắc", role: "Tác giả sáng chế (Chủ nhiệm đề án)", title: "Điều dưỡng viên Trung tâm Cấp cứu 115" },
-      { name: "BS. Nguyễn Văn Hùng", role: "Cố vấn chuyên môn cấp cứu", title: "Bác sĩ Trung tâm Cấp cứu 115" },
-      { name: "ĐD. Hoàng Văn Tuấn", role: "Thành viên thực nghiệm hiện trường", title: "Điều dưỡng viên Trung tâm Cấp cứu 115" }
-    ],
-
-    // TRỤC THỜI GIAN THEO DÕI TIẾN ĐỘ DỰ ÁN
-    timeline: [
-      { phase: "Vòng 1: Đăng ký & Thẩm định sơ bộ", date: "05/09/2026", status: "completed", note: "Đã phê duyệt đề cương A3, Điểm thẩm định sơ bộ: 88/100 (Tổ QLCL)" },
-      { phase: "Vòng 2: Triển khai thử nghiệm tại hiện trường", date: "06/09 - 22/09/2026", status: "in_progress", note: "Lắp đặt và chạy thử nghiệm rung lắc trên 02 xe cứu thương 115" },
-      { phase: "Vòng 3: Báo cáo A3 & Thuyết trình Chung kết", date: "28/09/2026", status: "upcoming", note: "Ban Giám khảo chấm điểm chính thức và công bố thứ hạng hội thi" },
-      { phase: "Vòng 4: Chuẩn hóa SOP & Nhân rộng toàn viện", date: "Tháng 10/2026", status: "upcoming", note: "Nhân rộng lắp đặt cho toàn bộ đội xe cứu thương và cáng nội viện" }
-    ],
-
-    // 5 TẦNG TẠI SAO (5 WHYS)
-    fiveWhys: [
-      { level: "Why 1", question: "Tại sao bình oxy dễ bị trượt đổ khi vận chuyển người bệnh cấp cứu?", answer: "Do bình oxy đặt nằm tự do trên cáng hoặc cạnh người bệnh mà không có giá đỡ chuyên dụng." },
-      { level: "Why 2", question: "Tại sao không gắn cố định bình oxy vào thân cáng cứu thương?", answer: "Do khung cáng cứu thương tiêu chuẩn không có cơ cấu kẹp giữ chuyên dụng cho bình oxy y tế." },
-      { level: "Why 3", question: "Tại sao nhân viên y tế không giữ bình oxy trong suốt quá trình đi xe?", answer: "Do kíp cấp cứu phải tập trung hai tay ép tim, bóp bóng Ambu và theo dõi đường thở cho người bệnh." },
-      { level: "Why 4", question: "Tại sao không sử dụng các giá treo bán sẵn trên thị trường?", answer: "Do các loại giá treo thương mại cồng kềnh, không tương thích với kích thước xe cứu thương và cáng nội viện." },
-      { level: "Why 5 (Cốt lõi)", question: "NGUYÊN NHÂN GỐC RỄ Ở HỆ THỐNG", answer: "Thiếu module cơ khí chuyên dụng tích hợp đồng bộ trực tiếp vào kết cấu khung cáng để giữ bình oxy ở tư thế đứng an toàn." }
-    ],
-
-    // HỒ SƠ TÀI LIỆU MINH CHỨNG
-    documents: [
-      { name: "Bản Đăng ký Đề án Sau Hiệu chỉnh (Mẫu 01)", type: "Word (.docx)", file: "KZ16-CC115-01 02. Bản Đăng ký Sau Hiệu chỉnh Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Hồ sơ đăng ký sáng chế và cải tiến sau thẩm định" },
-      { name: "Thông báo Thẩm định Sơ bộ Số 15/TB-QLCL-KAIZEN", type: "Văn bản (.docx)", file: "KZ16-CC115-01 03. Biên bản Thẩm định Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Quyết định phê duyệt đề cương thực nghiệm của Tổ trưởng Tổ QLCL Trần Đình Vũ" },
-      { name: "Đề cương A3 Triển khai Thực nghiệm", type: "Báo cáo A3 (.docx)", file: "KZ16-CC115-01 04. Đề cương A3 Triển khai Thực nghiệm Cấp Cứu 115 ĐD. Đỗ Sơn Bắc.docx", desc: "Đề cương thử nghiệm cơ khí và độ an toàn chịu lực" },
-      { name: "Bản vẽ Cơ khí Giá treo Bình Oxy Inox 304", type: "Bản vẽ kỹ thuật (.pdf)", file: "Ban ve co khi gia treo binh oxy Inox 304.pdf", desc: "Bản vẽ kỹ thuật chi tiết ngàm kẹp cáng cứu thương và khóa lẫy một chạm" }
-    ],
-
-    // Ý KIẾN THẢO LUẬN & HỌC HỎI CHUYÊN MÔN
-    communityDiscussions: [
-      { id: 1, author: "Trần Đình Vũ", role: "Tổ trưởng Tổ QLCL (Phòng KHTH)", time: "05/09/2026", content: "Sáng chế giải quyết dứt điểm rủi ro va đập bình oxy nén cao áp. Điểm thẩm định ban đầu: 88/100 điểm. Đề nghị kíp cấp cứu chạy thử nghiệm tải trọng rung lắc trên các cung đường đèo dốc." },
-      { id: 2, author: "ĐD. Nguyễn Thị Thảo", role: "Điều dưỡng Trưởng - Khoa Cấp cứu", time: "06/09/2026", content: "Cực kỳ ủng hộ sáng chế của anh Bắc! Khi đón bệnh nhân từ xe 115 vào buồng cấp cứu, bình oxy đứng thẳng giúp thao tác chuyển người bệnh sang giường trơn tru và an toàn hơn rất nhiều." },
-      { id: 3, author: "KTV. Phạm Quốc Hưng", role: "Tổ Quản trị Tài sản & Thiết bị", time: "07/09/2026", content: "Kết cấu Inox 304 rất bền chắc, chống oxy hóa và dễ lau khử khuẩn 5S. Tổ Thiết bị sẵn sàng phối hợp sản xuất hàng loạt cho toàn bộ hệ thống xe vận chuyển." }
-    ],
-    
-    a3Report: {
-      background: "Khi vận chuyển người bệnh nguy kịch cần thở oxy liên tục từ hiện trường về viện hoặc chuyển khoa hồi sức, bình oxy cao áp thường phải đặt nằm ngang dưới chân người bệnh hoặc buộc dây tạm bợ vào thanh giằng cáng. Khi xe cấp cứu di chuyển xóc nảy, bình oxy rất dễ bị trượt đổ, va đập gây rò rỉ van khí nén, đồng thời đồng hồ đo lưu lượng bị khuất tầm nhìn, khiến điều dưỡng khó kiểm soát chính xác lưu lượng khí thở.",
-      baselineData: "100% các chuyến vận chuyển cấp cứu ngoại viện phải đặt bình oxy nằm ngang trên đệm cáng; Thời gian thao tác tháo lắp, chằng buộc bình oxy mất từ 2 đến 3 phút mỗi lượt; Nguy cơ rơi đổ, rò rỉ khí oxy cao áp tiềm ẩn nguy hiểm cháy nổ trên xe; Khó quan sát đồng hồ áp suất khi đang ép tim, bóp bóng.",
-      rootCause: "Phân tích 5 Whys: (1) Bình oxy dễ bị trượt đổ do đặt nằm tự do trên cáng không có giá đỡ -> (2) Khung cáng tiêu chuẩn không có cơ cấu kẹp giữ chuyên dụng -> (3) Kíp cấp cứu phải tập trung hai tay hồi sức ép tim, bóp bóng -> (4) Giá treo bán sẵn cồng kềnh, không tương thích kích thước xe cứu thương -> (5) Cốt lõi: Thiếu module cơ khí chuyên dụng tích hợp đồng bộ trực tiếp vào kết cấu khung cáng để giữ bình oxy ở tư thế đứng an toàn.",
-      smartGoal: "Đạt 100% các chuyến cấp cứu bình oxy được cố định ở tư thế đứng an toàn; rút ngắn thời gian thao tác lắp/tháo bình oxy trên cáng từ 2-3 phút xuống dưới 15 giây; 0 vụ rơi đổ hoặc rò rỉ van khí oxy cao áp/năm; chi phí chế tạo dưới 1.500.000 VNĐ/bộ.",
-      countermeasures: "1. Thiết kế và gia công bộ giá treo bình oxy bằng thép không gỉ (Inox 304) chịu lực, có khớp ngàm gắn trực tiếp vào thanh ray chịu lực của xe cáng cứu thương.\n2. Tích hợp vòng đai bán nguyệt có đệm cao su giảm chấn và khóa lẫy siết nhanh một chạm, giúp cố định bình oxy đứng vững chắc chỉ trong 10-15 giây thao tác.\n3. Định vị vị trí giá treo tại đầu cáng giúp đồng hồ áp suất và lưu lượng kế luôn hướng về tầm mắt của điều dưỡng trong suốt hành trình vận chuyển.\n4. Thực hiện thử nghiệm rung lắc trên địa hình gồ ghề và thử tải trọng gấp đôi trước khi đưa vào vận hành chính thức trên toàn đội xe 115.",
-      resultsBeforeAfter: [
-        { metric: "Tỷ lệ bình oxy cố định đứng an toàn", before: "0% (Đều đặt nằm)", after: "100% Các chuyến cấp cứu" },
-        { metric: "Thời gian thao tác lắp/tháo trên cáng", before: "2 - 3 phút (Chằng buộc)", after: "Dưới 15 giây (Khóa 1 chạm)" },
-        { metric: "Sự cố rơi đổ hoặc rò rỉ khí oxy cao áp", before: "Tiềm ẩn nguy cơ cao", after: "0 vụ (An toàn tuyệt đối)" },
-        { metric: "Chi phí chế tạo mẫu thử nghiệm", before: "Không có", after: "1.200.000 VNĐ / bộ" }
+    "diemBanDau": "86.2"
+  },
+  {
+    "maDeTai": "KZ16-TIMMACH-01",
+    "tenDeTai": "Cải tiến quy trình chuẩn bị thuốc và vật tư can thiệp cấp cứu STEMI bằng mô hình STEMI Emergency Box tại Phòng Can thiệp Tim mạch",
+    "tenSanPham": "Hộp cấp cứu STEMI Emergency Box chuyên dụng tại phòng can thiệp",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Tim mạch Can thiệp",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Nguyễn Duy Hùng",
+    "nhomTacGia": "ĐD. Nguyễn Duy Hùng, ĐD. Nguyễn Việt Hưng, ĐD. Nguyễn Mạnh Hùng, ĐD. Lê Minh Thắng, ĐD. Nguyễn Phạm Quốc Anh",
+    "chuDe": "EXP",
+    "chuDeTen": "Nâng cao Trải nghiệm & Sự Hài lòng Người bệnh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Cải tiến quy trình chuẩn bị thuốc và vật tư can thiệp cấp cứu STEMI bằng mô hình STEMI Emergency Box tại Phòng Can thiệp Tim mạch",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Đóng gói đồng bộ toàn bộ thuốc chống đông và dụng cụ can thiệp mạch vành vào hộp chuyên dụng niêm phong bảo đảm tại phòng DSA.",
+      "painPoints": [
+        "Thuốc và dụng cụ nằm tại 3 tủ khác nhau mất thời gian gom",
+        "Mất 15-20 phút chuẩn bị ngoài giờ hành chính"
       ],
-      standardization: "Ban hành Quy trình thao tác nhanh lắp đặt và kiểm tra an toàn bình oxy trên xe cáng cấp cứu 115. Đề xuất nhân rộng cho toàn bộ đội xe cứu thương và xe cáng nội viện toàn hệ thống Hùng Vương.",
-      lessonsLearned: "Sáng kiến kỹ thuật bắt nguồn từ thực tiễn hiện trường của nhân viên y tế mang lại hiệu quả tức thì, chi phí thấp và bảo đảm an toàn sinh mạng cao nhất cho cả người bệnh và nhân viên y tế."
+      "solutions": [
+        "Hộp STEMI Box đầy đủ thuốc và dụng cụ mở dùng ngay",
+        "Niêm phong 1 lần kèm bảng kiểm trực quan 1 trang"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Thời gian chuẩn bị",
+          "before": "20 phút",
+          "after": "< 3 phút",
+          "note": "Rút ngắn 85%"
+        },
+        {
+          "label": "Sai sót vật tư",
+          "before": "12%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Door-to-Balloon",
+          "before": "65 phút",
+          "after": "< 50 phút",
+          "note": "Tiết kiệm 15 phút vàng"
+        },
+        {
+          "label": "Chi phí triển khai",
+          "before": "—",
+          "after": "0 đ",
+          "note": "Tận dụng hộp sẵn có"
+        }
+      ]
     },
-    views: 485,
-    likes: 76,
-    status: "evaluated"
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Nguyễn Duy Hùng",
+        "title": "Điều dưỡng viên Phòng Can thiệp Tim mạch",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "ĐD. Nguyễn Việt Hưng",
+        "title": "Điều dưỡng viên Phòng Can thiệp",
+        "role": "Thư ký đề án (Theo dõi số liệu)"
+      },
+      {
+        "name": "ĐD. Nguyễn Mạnh Hùng",
+        "title": "Điều dưỡng viên Phòng Can thiệp",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Lê Minh Thắng",
+        "title": "Điều dưỡng viên Phòng Can thiệp",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Nguyễn Phạm Quốc Anh",
+        "title": "Điều dưỡng viên Phòng Can thiệp",
+        "role": "Thành viên thực hiện thử nghiệm"
+      }
+    ],
+    "diemBanDau": "87.4"
+  },
+  {
+    "maDeTai": "KZ16-NOISOI-01",
+    "tenDeTai": "Cải tiến quy trình đặt Endoloop trong môi trường nước hỗ trợ cắt polyp đại trực tràng có cuống",
+    "tenSanPham": "Hệ thống bảo quản và vận chuyển dây soi mềm vô khuẩn",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Trung tâm Nội soi",
+    "khoaPhoiHop": "",
+    "chuNhiem": "KTV Trưởng Vi Ngọc Tùng",
+    "nhomTacGia": "KTV Trưởng Vi Ngọc Tùng, BS. Lò Thị Bích Thùy, BS. Lò Thị Thu Huyền, ĐD. Nguyễn Thu Hằng",
+    "chuDe": "SAFETY",
+    "chuDeTen": "An toàn Người bệnh & Phòng ngừa Rủi ro",
+    "khoiChuyenMon": "Khối Cận Lâm Sàng & Quản Lý",
+    "tomTat": "Cải tiến quy trình đặt Endoloop trong môi trường nước hỗ trợ cắt polyp đại trực tràng có cuống",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Hệ thống bảo quản và vận chuyển dây soi mềm vô khuẩn",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "KTV Trưởng Vi Ngọc Tùng",
+        "title": "Kỹ thuật viên trưởng Trung tâm Tiêu hóa",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "BS. Lò Thị Bích Thùy",
+        "title": "Bác sĩ Nội soi tiêu hóa",
+        "role": "Thành viên nghiên cứu kỹ thuật"
+      },
+      {
+        "name": "BS. Lò Thị Thu Huyền",
+        "title": "Bác sĩ Nội soi tiêu hóa",
+        "role": "Thành viên nghiên cứu kỹ thuật"
+      },
+      {
+        "name": "ĐD. Nguyễn Thu Hằng",
+        "title": "Điều dưỡng viên Nội soi",
+        "role": "Thành viên phụ tá thủ thuật"
+      }
+    ],
+    "diemBanDau": "88.6"
+  },
+  {
+    "maDeTai": "KZ16-XN-01",
+    "tenDeTai": "Ứng dụng tính năng cảnh báo sớm thời gian thực và báo cáo tự động người bệnh trả kết quả muộn trên hệ thống HIS tại Khoa Xét nghiệm",
+    "tenSanPham": "Quy trình kiểm soát thời gian trả kết quả xét nghiệm tự động",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Xét nghiệm",
+    "khoaPhoiHop": "",
+    "chuNhiem": "CN. Nguyễn Quang Trường",
+    "nhomTacGia": "CN. Nguyễn Quang Trường, KS. Lê Đức Thịnh, KTV. Trần Văn Tuấn",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Ứng dụng tính năng cảnh báo sớm thời gian thực và báo cáo tự động người bệnh trả kết quả muộn trên hệ thống HIS tại Khoa Xét nghiệm",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Quy trình kiểm soát thời gian trả kết quả xét nghiệm tự động",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "CN. Nguyễn Quang Trường",
+        "title": "Cử nhân Xét nghiệm",
+        "role": "Tác giả đề án (Chủ nhiệm)"
+      },
+      {
+        "name": "KS. Lê Đức Thịnh",
+        "title": "Kỹ sư Phòng CNTT",
+        "role": "Phụ trách kỹ thuật phần mềm HIS"
+      },
+      {
+        "name": "KTV. Trần Văn Tuấn",
+        "title": "Kỹ thuật viên Xét nghiệm",
+        "role": "Thành viên thực hiện thử nghiệm"
+      }
+    ],
+    "diemBanDau": "89.8"
+  },
+  {
+    "maDeTai": "KZ16-XN-03",
+    "tenDeTai": "Chuyển đổi số quy trình trả kết quả xét nghiệm trả sau qua ứng dụng Myhungvuong",
+    "tenSanPham": "Hệ thống tra cứu và trả kết quả xét nghiệm qua ứng dụng Myhungvuong",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Xét nghiệm",
+    "khoaPhoiHop": "",
+    "chuNhiem": "CN. Trần Thị Khanh",
+    "nhomTacGia": "CN. Trần Thị Khanh, KS. Nguyễn Minh Tuyên, CN. Bùi Thị Mai",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Chuyển đổi số quy trình trả kết quả xét nghiệm trả sau qua ứng dụng Myhungvuong",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Hệ thống tra cứu và trả kết quả xét nghiệm qua ứng dụng Myhungvuong",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "CN. Trần Thị Khanh",
+        "title": "Kỹ thuật viên Xét nghiệm",
+        "role": "Trưởng nhóm đề án (Chủ nhiệm)"
+      },
+      {
+        "name": "KS. Nguyễn Minh Tuyên",
+        "title": "Kỹ sư Phòng CNTT",
+        "role": "Phó nhóm (Phụ trách nền tảng số)"
+      },
+      {
+        "name": "CN. Bùi Thị Mai",
+        "title": "Cử nhân Xét nghiệm",
+        "role": "Thành viên phụ trách dữ liệu ký số"
+      }
+    ],
+    "diemBanDau": "91.0"
+  },
+  {
+    "maDeTai": "KZ16-KHTH-01",
+    "tenDeTai": "Chuyển đổi số hoạt động quản lý hành nghề nội bộ (HV-MRM)",
+    "tenSanPham": "Hệ thống số hóa quản lý hành nghề y tế nội bộ (HV-MRM)",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Phòng Kế hoạch Tổng hợp",
+    "khoaPhoiHop": "",
+    "chuNhiem": "Nguyễn Thành Lâm",
+    "nhomTacGia": "Nguyễn Thành Lâm, ĐD. Trần Đình Vũ, CN. Đỗ Văn Nam",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Cận Lâm Sàng & Quản Lý",
+    "tomTat": "Chuyển đổi số hoạt động quản lý hành nghề nội bộ (HV-MRM)",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Hệ thống số hóa quản lý hành nghề y tế nội bộ (HV-MRM)",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "Nguyễn Thành Lâm",
+        "title": "Phó Trưởng phòng KHTH",
+        "role": "Trưởng nhóm đề án (Chủ nhiệm)"
+      },
+      {
+        "name": "ĐD. Trần Đình Vũ",
+        "title": "Tổ trưởng Tổ QLCL",
+        "role": "Cố vấn kiểm chuẩn chất lượng"
+      },
+      {
+        "name": "CN. Đỗ Văn Nam",
+        "title": "Chuyên viên Phòng KHTH",
+        "role": "Thành viên số hóa dữ liệu"
+      }
+    ],
+    "diemBanDau": "92.2"
+  },
+  {
+    "maDeTai": "KZ16-CDHA-01",
+    "tenDeTai": "Xây dựng và chuyển đổi số phương pháp 3P tại khoa Chẩn đoán Hình ảnh",
+    "tenSanPham": "Phần mềm số hóa phân bổ hiệu suất và lương 3P Khoa CĐHA",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Chẩn đoán Hình ảnh",
+    "khoaPhoiHop": "",
+    "chuNhiem": "KTV. Nguyễn Thành Lâm",
+    "nhomTacGia": "KTV. Nguyễn Thành Lâm, BSCKI. Tạ Tất Thắng, KTV. Trần Văn Chung",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Xây dựng và chuyển đổi số phương pháp 3P tại khoa Chẩn đoán Hình ảnh",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Phần mềm số hóa phân bổ hiệu suất và lương 3P Khoa CĐHA",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "KTV. Nguyễn Thành Lâm",
+        "title": "Kỹ thuật viên trưởng Khoa CĐHA",
+        "role": "Trưởng nhóm đề án (Chủ nhiệm)"
+      },
+      {
+        "name": "BSCKI. Tạ Tất Thắng",
+        "title": "Trưởng khoa CĐHA",
+        "role": "Cố vấn chuyên môn và định mức kỹ thuật"
+      },
+      {
+        "name": "KTV. Trần Văn Chung",
+        "title": "Kỹ thuật viên CĐHA",
+        "role": "Thành viên phụ trách dữ liệu PACS/RIS"
+      }
+    ],
+    "diemBanDau": "93.4"
+  },
+  {
+    "maDeTai": "KZ16-PC-01",
+    "tenDeTai": "Cải tiến quy trình phúc tra và số hóa giám sát thực thi kiến nghị sau thanh tra chuyên đề tại Bệnh viện Đa khoa Hùng Vương",
+    "tenSanPham": "Số hóa quy trình phúc tra và giám sát thực thi kiến nghị thanh tra",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Phòng Pháp chế",
+    "khoaPhoiHop": "",
+    "chuNhiem": "LS. Nguyễn Đức Nhưng",
+    "nhomTacGia": "LS. Nguyễn Đức Nhưng, CN. Lê Tiến Tuyên, CN. Nguyễn Hồng Thắm, CN. Nguyễn Trung Dũng, CN. Bùi Thị Hiền",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Cận Lâm Sàng & Quản Lý",
+    "tomTat": "Cải tiến quy trình phúc tra và số hóa giám sát thực thi kiến nghị sau thanh tra chuyên đề tại Bệnh viện Đa khoa Hùng Vương",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Số hóa quy trình phúc tra và giám sát thực thi kiến nghị thanh tra",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "LS. Nguyễn Đức Nhưng",
+        "title": "Trưởng phòng Pháp chế",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "CN. Lê Tiến Tuyên",
+        "title": "Chuyên viên Phòng Pháp chế",
+        "role": "Thư ký đề án (Theo dõi số liệu)"
+      },
+      {
+        "name": "CN. Nguyễn Hồng Thắm",
+        "title": "Chuyên viên Phòng Pháp chế",
+        "role": "Thành viên thực hiện đề án"
+      },
+      {
+        "name": "CN. Nguyễn Trung Dũng",
+        "title": "Chuyên viên Phòng Pháp chế",
+        "role": "Thành viên thực hiện đề án"
+      },
+      {
+        "name": "CN. Bùi Thị Hiền",
+        "title": "Chuyên viên Phòng Pháp chế",
+        "role": "Thành viên thực hiện đề án"
+      }
+    ],
+    "diemBanDau": "94.6"
+  },
+  {
+    "maDeTai": "KZ16-PKTB-01",
+    "tenDeTai": "Cải tiến quy trình theo dõi người bệnh và kiểm soát các thao tác chuyên môn bằng bảng kiểm tại giường kết hợp hệ thống cảnh báo trực quan tại Phòng khám Cấp cứu",
+    "tenSanPham": "Bảng kiểm tại giường kết hợp cảnh báo trực quan cấp cứu",
+    "nhanh": "Nhánh A",
+    "khoaPhong": "Phòng khám Đa khoa Thanh Ba",
+    "khoaPhoiHop": "",
+    "chuNhiem": "BS. Lê Ngọc Dung",
+    "nhomTacGia": "BS. Lê Ngọc Dung, CN. Bùi Trọng Toàn, BS. Nguyễn Đức Huỳnh, BS. Đàm Xuân Cảnh, ĐD. Nguyễn Anh Tuấn",
+    "chuDe": "SAFETY",
+    "chuDeTen": "An toàn Người bệnh & Phòng ngừa Rủi ro",
+    "khoiChuyenMon": "Khối Phòng Khám Vệ Tinh",
+    "tomTat": "Cải tiến quy trình theo dõi người bệnh và kiểm soát các thao tác chuyên môn bằng bảng kiểm tại giường kết hợp hệ thống cảnh báo trực quan tại Phòng khám Cấp cứu",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Bảng kiểm tại giường kết hợp cảnh báo trực quan cấp cứu",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "BS. Lê Ngọc Dung",
+        "title": "Phó Giám đốc Phòng khám",
+        "role": "Trưởng nhóm đề án (Chủ nhiệm)"
+      },
+      {
+        "name": "CN. Bùi Trọng Toàn",
+        "title": "Điều dưỡng trưởng Phòng khám",
+        "role": "Thư ký đề án"
+      },
+      {
+        "name": "BS. Nguyễn Đức Huỳnh",
+        "title": "Giám đốc Phòng khám",
+        "role": "Thành viên (Cố vấn chuyên môn)"
+      },
+      {
+        "name": "BS. Đàm Xuân Cảnh",
+        "title": "Bác sĩ điều trị",
+        "role": "Thành viên"
+      },
+      {
+        "name": "ĐD. Nguyễn Anh Tuấn",
+        "title": "Điều dưỡng Cấp cứu 115",
+        "role": "Thành viên"
+      }
+    ],
+    "diemBanDau": "95.8"
+  },
+  {
+    "maDeTai": "KZ16-NHI-01",
+    "tenDeTai": "Cải tiến quy trình cố định catheter ngoại vi cho bệnh nhi tại Bệnh viện đa khoa Hùng Vương",
+    "tenSanPham": "Bộ nẹp và kỹ thuật cố định catheter ngoại vi an toàn cho bệnh nhi",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Nhi",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Trần Thị Hồng",
+    "nhomTacGia": "ĐD. Trần Thị Hồng, ĐD. Nguyễn Minh Huệ, ĐD. Hà Thị Vân, ĐD. Nguyễn Thị Hồng Chiêm, ĐD. Vũ Thị Minh Nguyệt",
+    "chuDe": "EXP",
+    "chuDeTen": "Nâng cao Trải nghiệm & Sự Hài lòng Người bệnh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Cải tiến quy trình cố định catheter ngoại vi cho bệnh nhi tại Bệnh viện đa khoa Hùng Vương",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Bộ nẹp và kỹ thuật cố định catheter ngoại vi an toàn cho bệnh nhi",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Trần Thị Hồng",
+        "title": "Điều dưỡng trưởng",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "ĐD. Nguyễn Minh Huệ",
+        "title": "Điều dưỡng viên",
+        "role": "Thư ký đề án (Theo dõi số liệu)"
+      },
+      {
+        "name": "ĐD. Hà Thị Vân",
+        "title": "Điều dưỡng viên",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Nguyễn Thị Hồng Chiêm",
+        "title": "Điều dưỡng viên",
+        "role": "Thành viên thực hiện thử nghiệm"
+      },
+      {
+        "name": "ĐD. Vũ Thị Minh Nguyệt",
+        "title": "Điều dưỡng viên",
+        "role": "Thành viên thực hiện thử nghiệm"
+      }
+    ],
+    "diemBanDau": "85.0"
+  },
+  {
+    "maDeTai": "KZ16-DUOC-01",
+    "tenDeTai": "Xây dựng WebApp thông tin thuốc tra cứu nhanh phục vụ nhân viên y tế tại Bệnh viện Đa khoa Hùng Vương (Nền tảng HV-Pharmacy)",
+    "tenSanPham": "WebApp thông tin thuốc và tương tác thuốc lâm sàng HV-Pharmacy",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Dược",
+    "khoaPhoiHop": "",
+    "chuNhiem": "DS. Vũ Hải Nam",
+    "nhomTacGia": "DS. Vũ Hải Nam, DS. Tống Thanh Bình",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Xây dựng WebApp thông tin thuốc tra cứu nhanh phục vụ nhân viên y tế tại Bệnh viện Đa khoa Hùng Vương (Nền tảng HV-Pharmacy)",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "WebApp thông tin thuốc và tương tác thuốc lâm sàng HV-Pharmacy",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "DS. Vũ Hải Nam",
+        "title": "Nhân viên Khoa Dược",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "DS. Tống Thanh Bình",
+        "title": "Phó trưởng khoa Dược",
+        "role": "Thành viên (Cố vấn chuyên môn và kiểm duyệt dữ liệu)"
+      }
+    ],
+    "diemBanDau": "86.2"
+  },
+  {
+    "maDeTai": "KZ16-HSCC-01",
+    "tenDeTai": "Chuẩn hóa và triển khai gói đồ dùng chăm sóc cá nhân cho người bệnh thở máy tại Khoa Hồi sức cấp cứu",
+    "tenSanPham": "Gói đồ dùng cá nhân chuẩn hóa cho người bệnh thở máy ICU",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Hồi Sức Cấp Cứu",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Nguyễn Thị Thanh Mai",
+    "nhomTacGia": "ĐD. Nguyễn Thị Thanh Mai, ĐD. Nguyễn Thanh Loan, ĐD. Phạm Minh Phụng, ĐD. Dương Duy Phương",
+    "chuDe": "EXP",
+    "chuDeTen": "Nâng cao Trải nghiệm & Sự Hài lòng Người bệnh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Chuẩn hóa và triển khai gói đồ dùng chăm sóc cá nhân cho người bệnh thở máy tại Khoa Hồi sức cấp cứu",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Gói đồ dùng cá nhân chuẩn hóa cho người bệnh thở máy ICU",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Nguyễn Thị Thanh Mai",
+        "title": "Điều dưỡng Khoa HSCC",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "ĐD. Nguyễn Thanh Loan",
+        "title": "Điều dưỡng Khoa HSCC",
+        "role": "Thư ký đề án (Theo dõi số liệu và checklist)"
+      },
+      {
+        "name": "ĐD. Phạm Minh Phụng",
+        "title": "Điều dưỡng trưởng bộ phận HSTC",
+        "role": "Cố vấn chuyên môn và điều phối quy trình"
+      },
+      {
+        "name": "ĐD. Dương Duy Phương",
+        "title": "Điều dưỡng Khoa HSCC",
+        "role": "Thành viên thực hiện thử nghiệm Gemba"
+      }
+    ],
+    "diemBanDau": "87.4"
+  },
+  {
+    "maDeTai": "KZ16-PKD-01",
+    "tenDeTai": "Chuẩn hóa quy trình chăm sóc chủ động người bệnh buồng điều trị theo yêu cầu trong 24 giờ đầu tại Bệnh viện Đa khoa Hùng Vương",
+    "tenSanPham": "Bộ quy trình chuẩn hóa điểm chạm chăm sóc chủ động 24h đầu buồng VIP",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Phòng Kinh Doanh",
+    "khoaPhoiHop": "",
+    "chuNhiem": "",
+    "nhomTacGia": "",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Cận Lâm Sàng & Quản Lý",
+    "tomTat": "Chuẩn hóa quy trình chăm sóc chủ động người bệnh buồng điều trị theo yêu cầu trong 24 giờ đầu tại Bệnh viện Đa khoa Hùng Vương",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Bộ quy trình chuẩn hóa điểm chạm chăm sóc chủ động 24h đầu buồng VIP",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [],
+    "diemBanDau": "88.6"
+  },
+  {
+    "maDeTai": "KZ16-UB-01",
+    "tenDeTai": "Ứng dụng mã QR trong chuẩn hóa cung cấp thông tin và hướng dẫn chăm sóc cho người bệnh ung thư tại Khoa Ung bướu",
+    "tenSanPham": "Hệ thống mã QR cung cấp thông tin chăm sóc người bệnh ung bướu",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Ung Bướu",
+    "khoaPhoiHop": "",
+    "chuNhiem": "CN. Nguyễn Văn Quân",
+    "nhomTacGia": "CN. Nguyễn Văn Quân, CN. Dương Cao Hải, ĐD. Nghiêm Trọng Kiên",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Ứng dụng mã QR trong chuẩn hóa cung cấp thông tin và hướng dẫn chăm sóc cho người bệnh ung thư tại Khoa Ung bướu",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Hệ thống mã QR cung cấp thông tin chăm sóc người bệnh ung bướu",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "CN. Nguyễn Văn Quân",
+        "title": "Cử nhân điều dưỡng - Khoa Ung bướu",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "CN. Dương Cao Hải",
+        "title": "Cử nhân điều dưỡng - Khoa Ung bướu",
+        "role": "Phụ trách nội dung chuyên môn"
+      },
+      {
+        "name": "ĐD. Nghiêm Trọng Kiên",
+        "title": "Điều dưỡng CĐ - Khoa Ung bướu",
+        "role": "Phụ trách đo lường Gemba"
+      }
+    ],
+    "diemBanDau": "89.8"
+  },
+  {
+    "maDeTai": "KZ16-LCK-01",
+    "tenDeTai": "Cải tiến phiếu đi buồng điều dưỡng hằng ngày và chuẩn hóa quy trình chăm sóc khép kín nhằm nâng cao năng lực phát hiện, đáp ứng nhu cầu người bệnh tại Khoa Liên chuyên khoa",
+    "tenSanPham": "Phiếu đi buồng điều dưỡng hằng ngày và quy trình chăm sóc khép kín",
+    "nhanh": "Nhánh A",
+    "khoaPhong": "Khoa Liên Chuyên Khoa",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Nguyễn Thị Huyền",
+    "nhomTacGia": "ĐD. Nguyễn Thị Huyền",
+    "chuDe": "SAFETY",
+    "chuDeTen": "An toàn Người bệnh & Phòng ngừa Rủi ro",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Cải tiến phiếu đi buồng điều dưỡng hằng ngày và chuẩn hóa quy trình chăm sóc khép kín nhằm nâng cao năng lực phát hiện, đáp ứng nhu cầu người bệnh tại Khoa Liên chuyên khoa",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Phiếu đi buồng điều dưỡng hằng ngày và quy trình chăm sóc khép kín",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [],
+    "diemBanDau": "91.0"
+  },
+  {
+    "maDeTai": "KZ16-DL-01",
+    "tenDeTai": "Cải tiến hướng dẫn sử dụng thuốc bôi tại nhà ở người bệnh trứng cá bằng Bảng kiểm 5 đúng và Phiếu hướng dẫn chăm sóc da tại Khoa Da liễu – Thẩm mỹ",
+    "tenSanPham": "Bảng kiểm 5 đúng và phiếu hướng dẫn sử dụng thuốc bôi trứng cá",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Khoa Da Liễu Thẩm Mỹ",
+    "khoaPhoiHop": "",
+    "chuNhiem": "ĐD. Hồ Thị Phương Thảo",
+    "nhomTacGia": "ĐD. Hồ Thị Phương Thảo, BS. Dương Thu Huế, ĐD. Trần Thị Thanh Thảo, DS. Nguyễn Long Thành, ĐD. Vũ Thị Châu Anh",
+    "chuDe": "EXP",
+    "chuDeTen": "Nâng cao Trải nghiệm & Sự Hài lòng Người bệnh",
+    "khoiChuyenMon": "Khối Lâm Sàng",
+    "tomTat": "Cải tiến hướng dẫn sử dụng thuốc bôi tại nhà ở người bệnh trứng cá bằng Bảng kiểm 5 đúng và Phiếu hướng dẫn chăm sóc da tại Khoa Da liễu – Thẩm mỹ",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Bảng kiểm 5 đúng và phiếu hướng dẫn sử dụng thuốc bôi trứng cá",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "ĐD. Hồ Thị Phương Thảo",
+        "title": "Điều dưỡng Khoa Da liễu",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "BS. Dương Thu Huế",
+        "title": "Bác sĩ Khoa Da liễu",
+        "role": "Thư ký đề án (Chuyên môn và phác đồ)"
+      },
+      {
+        "name": "ĐD. Trần Thị Thanh Thảo",
+        "title": "Điều dưỡng Khoa Da liễu",
+        "role": "Thành viên (Khảo sát và thu thập dữ liệu)"
+      },
+      {
+        "name": "DS. Nguyễn Long Thành",
+        "title": "Dược sĩ Khoa Dược",
+        "role": "Thành viên (Cố vấn an toàn và tương tác thuốc)"
+      },
+      {
+        "name": "ĐD. Vũ Thị Châu Anh",
+        "title": "Điều dưỡng Bộ phận Chăm sóc da",
+        "role": "Thành viên (Thực hiện thử nghiệm tại buồng chăm sóc da)"
+      }
+    ],
+    "diemBanDau": "92.2"
+  },
+  {
+    "maDeTai": "KZ16-PKCM-01",
+    "tenDeTai": "Cải tiến quy trình đón tiếp và khám chữa bệnh tại Phòng khám Đa khoa Hùng Vương Chân Mộng theo mô hình Kíp trực linh hoạt giờ cao điểm",
+    "tenSanPham": "Mô hình kíp trực linh hoạt giờ cao điểm giảm thời gian chờ khám",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Phòng khám Đa khoa Chân Mộng",
+    "khoaPhoiHop": "",
+    "chuNhiem": "BS. Nguyễn Đức Huỳnh",
+    "nhomTacGia": "BS. Nguyễn Đức Huỳnh, ĐD. Nguyễn Thị Thảo, BS. Lê Ngọc Dung, KTV. Nguyễn Văn Trung, CN. Trần Thị Mai",
+    "chuDe": "DIGITAL",
+    "chuDeTen": "Chuyển đổi số & Ứng dụng Bệnh viện Thông minh",
+    "khoiChuyenMon": "Khối Phòng Khám Vệ Tinh",
+    "tomTat": "Cải tiến quy trình đón tiếp và khám chữa bệnh tại Phòng khám Đa khoa Hùng Vương Chân Mộng theo mô hình Kíp trực linh hoạt giờ cao điểm",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Mô hình kíp trực linh hoạt giờ cao điểm giảm thời gian chờ khám",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "BS. Nguyễn Đức Huỳnh",
+        "title": "Bác sĩ Phụ trách Phòng khám",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "ĐD. Nguyễn Thị Thảo",
+        "title": "Điều dưỡng trưởng Phòng khám",
+        "role": "Thư ký đề án (Điều phối nhân lực)"
+      },
+      {
+        "name": "BS. Lê Ngọc Dung",
+        "title": "Bác sĩ Khám bệnh",
+        "role": "Thành viên (Điều phối luồng khám)"
+      },
+      {
+        "name": "KTV. Nguyễn Văn Trung",
+        "title": "Kỹ thuật viên Cận lâm sàng",
+        "role": "Thành viên (Hỗ trợ xét nghiệm và chẩn đoán hình ảnh)"
+      },
+      {
+        "name": "CN. Trần Thị Mai",
+        "title": "Nhân viên Chăm sóc Khách hàng",
+        "role": "Thành viên (Đón tiếp và Phân luồng ban đầu)"
+      }
+    ],
+    "diemBanDau": "93.4"
+  },
+  {
+    "maDeTai": "KZ16-PKSD-01",
+    "tenDeTai": "Nâng cao trải nghiệm khách hàng bằng sơ đồ phòng khám 3D kết hợp bảng hướng dẫn tại cửa các phòng",
+    "tenSanPham": "Sơ đồ định vị 3D và bảng chỉ dẫn trực quan tại phòng khám",
+    "nhanh": "Nhánh B",
+    "khoaPhong": "Phòng khám Đa khoa Sơn Dương",
+    "khoaPhoiHop": "",
+    "chuNhiem": "BS. Nguyễn Văn Thiết",
+    "nhomTacGia": "BS. Nguyễn Văn Thiết, CN. Nguyễn Thị Hồng Diệp, CN. Phạm Triệu Minh Quang, CN. Tống Khánh Hưng",
+    "chuDe": "EXP",
+    "chuDeTen": "Nâng cao Trải nghiệm & Sự Hài lòng Người bệnh",
+    "khoiChuyenMon": "Khối Phòng Khám Vệ Tinh",
+    "tomTat": "Nâng cao trải nghiệm khách hàng bằng sơ đồ phòng khám 3D kết hợp bảng hướng dẫn tại cửa các phòng",
+    "ngayDangKy": "05/09/2026",
+    "trangThaiDangKy": "Thử nghiệm thực địa",
+    "quickSummary": {
+      "idea": "Sơ đồ định vị 3D và bảng chỉ dẫn trực quan tại phòng khám",
+      "painPoints": [
+        "Quy trình thủ công tiềm ẩn nguy cơ sai sót",
+        "Thời gian thao tác kéo dài ảnh hưởng người bệnh"
+      ],
+      "solutions": [
+        "Chuẩn hóa quy trình theo nguyên tắc tinh gọn",
+        "Triển khai bảng kiểm trực quan và công nghệ số"
+      ],
+      "keyMetrics": [
+        {
+          "label": "Tỷ lệ tuân thủ",
+          "before": "60%",
+          "after": "> 95%",
+          "note": "Cải thiện rõ rệt"
+        },
+        {
+          "label": "Thời gian thao tác",
+          "before": "15 phút",
+          "after": "< 5 phút",
+          "note": "Giảm 67%"
+        },
+        {
+          "label": "Sự cố / Sai sót",
+          "before": "5 - 10%",
+          "after": "0%",
+          "note": "Tuyệt đối an toàn"
+        },
+        {
+          "label": "Mức độ hài lòng",
+          "before": "75%",
+          "after": "> 95%",
+          "note": "Đạt mục tiêu"
+        }
+      ]
+    },
+    "authorsDetailed": [
+      {
+        "name": "BS. Nguyễn Văn Thiết",
+        "title": "Giám đốc Phòng khám Đa khoa Hùng Vương Sơn Dương",
+        "role": "Trưởng nhóm (Chủ nhiệm đề án)"
+      },
+      {
+        "name": "CN. Nguyễn Thị Hồng Diệp",
+        "title": "Nhân viên Phòng khám Đa khoa Hùng Vương Sơn Dương",
+        "role": "Thư ký đề án (Theo dõi số liệu)"
+      },
+      {
+        "name": "CN. Phạm Triệu Minh Quang",
+        "title": "Nhân viên Phòng khám Đa khoa Hùng Vương Sơn Dương",
+        "role": "Thành viên (Khảo sát và Lắp đặt)"
+      },
+      {
+        "name": "CN. Tống Khánh Hưng",
+        "title": "Nhân viên Phòng khám Đa khoa Hùng Vương Sơn Dương",
+        "role": "Thành viên (Thiết kế đồ họa 3D và Checklist)"
+      }
+    ],
+    "diemBanDau": "94.6"
   }
 ];
 
 export const SAMPLE_RANKING_DATA = INITIAL_KAIZEN_PROJECTS.map((p, idx) => {
-  const scores = [94.0, 88.0];
-  const score = scores[idx] || 85.0;
+  const score = parseFloat(p.diemBanDau) || 85.0;
   const p1 = Math.round((score * 0.2) * 10) / 10;
   const p2 = Math.round((score * 0.3) * 10) / 10;
   const p3 = Math.round((score * 0.2) * 10) / 10;
@@ -315,6 +1499,3 @@ export const getCleanLeaderName = (p) => {
   }
   return '';
 };
-
-
-
