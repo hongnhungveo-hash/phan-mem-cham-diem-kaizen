@@ -52,22 +52,22 @@
   }
 }
 
-/* UNIFIED COMPACT HEADER (HỢP NHẤT THANH CÔNG CỤ & KHUNG TIÊU ĐỀ THÀNH 1 KHỐI) */
+/* ULTRA-CLEAN HEADER: ONLY PRODUCT TITLE, RESPONSIBLE UNIT & CLOSE BUTTON */
 .a3-unified-header {
-  background: linear-gradient(135deg, #071e3d 0%, #003B73 70%, #005a9e 100%);
+  background: linear-gradient(135deg, #071e3d 0%, #003B73 75%, #005a9e 100%);
   color: #ffffff;
-  padding: 0.75rem 1.25rem 0 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.85rem 1.35rem 0 1.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .unified-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .unified-info-col {
@@ -75,118 +75,40 @@
   min-width: 0;
 }
 
-.unified-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.25rem;
-}
-
-.a3-project-id {
-  font-size: 0.76rem;
-  font-weight: 800;
-  font-family: monospace;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-}
-
-.a3-branch-badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-}
-
-.a3-branch-badge.branch-a {
-  background: #0284c7;
-  color: #ffffff;
-}
-
-.a3-branch-badge.branch-b {
-  background: #d97706;
-  color: #ffffff;
-}
-
-.a3-status-approved {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #166534;
-  background: #dcfce7;
-  border: 1px solid #86efac;
-  padding: 0.15rem 0.5rem;
-  border-radius: 9999px;
-  white-space: nowrap;
-}
-
 .unified-project-title {
-  font-size: 1.12rem;
+  font-size: 1.18rem;
   font-weight: 700;
   line-height: 1.35;
-  margin: 0;
+  margin: 0 0 0.25rem 0;
   color: #ffffff;
+  letter-spacing: -0.01em;
 }
 
 .unified-sub-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.85);
-  flex-wrap: wrap;
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.88);
 }
 
-.meta-dot {
-  opacity: 0.4;
-}
-
-.meta-cat {
-  color: #7dd3fc;
-  font-weight: 600;
-}
-
-/* ACTIONS */
-.unified-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  flex-shrink: 0;
-}
-
-.btn-compact {
-  padding: 0.28rem 0.7rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.15);
+.unified-sub-meta strong {
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-compact:hover {
-  background: #ffffff;
-  color: #003B73;
+  font-weight: 600;
 }
 
 .a3-close-btn {
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
 .a3-close-btn:hover {
@@ -201,15 +123,14 @@
   gap: 0.35rem;
   overflow-x: auto;
   padding-bottom: 0;
-  margin-top: 0.2rem;
 }
 
 .unified-tab-btn {
   background: transparent;
   border: none;
   color: rgba(255, 255, 255, 0.8);
-  padding: 0.42rem 0.85rem;
-  font-size: 0.84rem;
+  padding: 0.48rem 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 3px solid transparent;
