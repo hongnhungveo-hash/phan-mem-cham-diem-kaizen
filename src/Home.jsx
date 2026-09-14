@@ -134,48 +134,41 @@ export default function Home({
           </div>
         </div>
 
-        {/* DANH SÁCH ĐỀ TÀI DẠNG LIST TINH GỌN, CHUẨN THỂ THỨC */}
-        <div className="registered-project-list">
+        {/* DANH SÁCH ĐỀ TÀI DẠNG LƯỚI 2 CỘT TINH GỌN (BỎ MÃ ĐỀ ÁN & PHÂN NHÁNH) */}
+        <div className="registered-project-grid-2col">
           {topProjects.map((p, idx) => (
-            <div key={p.maDeTai} className="registered-project-row">
-              <div className="project-row-num">
-                {(idx + 1).toString().padStart(2, '0')}
-              </div>
-
-              <div className="project-row-main">
-                <div className="project-row-top">
-                  <span className="project-row-code">{p.maDeTai}</span>
-                  <span className="project-row-branch">{p.nhanh}</span>
-                </div>
-
-                <h3 className="project-row-title">
+            <div key={p.maDeTai} className="registered-project-card-2col">
+              <div className="project-card-top-row">
+                <span className="project-card-idx">{(idx + 1).toString().padStart(2, '0')}</span>
+                <h3 className="project-card-title">
                   {p.tenDeTai || p.tenSanPham}
                 </h3>
-
-                <div className="project-row-meta">
-                  <span className="meta-item">
-                    <span className="meta-lbl">Khoa/Phòng:</span>
-                    <strong className="meta-val">{p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''}</strong>
-                  </span>
-                  <span className="meta-sep">•</span>
-                  <span className="meta-item">
-                    <span className="meta-lbl">Tác giả:</span>
-                    <strong className="meta-val">{getCleanLeaderName(p)}</strong>
-                  </span>
-                </div>
               </div>
 
-              <div className="project-row-action">
-                <button 
-                  type="button" 
-                  className="btn-view-detail"
-                  onClick={() => onSelectProject && onSelectProject(p)}
-                >
-                  <span>Xem Chi Tiết</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </button>
+              <div className="project-card-bottom-row">
+                <div className="project-card-meta">
+                  <div className="meta-line">
+                    <span className="meta-lbl">Khoa/Phòng:</span>
+                    <strong className="meta-val">{p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''}</strong>
+                  </div>
+                  <div className="meta-line">
+                    <span className="meta-lbl">Tác giả:</span>
+                    <strong className="meta-val">{getCleanLeaderName(p)}</strong>
+                  </div>
+                </div>
+
+                <div className="project-card-action">
+                  <button 
+                    type="button" 
+                    className="btn-view-detail-compact"
+                    onClick={() => onSelectProject && onSelectProject(p)}
+                  >
+                    <span>Xem Chi Tiết</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
