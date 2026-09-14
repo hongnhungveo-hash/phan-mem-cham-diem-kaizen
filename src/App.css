@@ -52,22 +52,75 @@
 }
 
 .header-org-title {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  font-size: 0.86rem;
+  font-family: 'Montserrat', 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-size: 1.02rem;
   color: #003B73;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.055em;
   line-height: 1.25;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.18rem;
+  text-shadow: 0 1px 1px rgba(0, 59, 115, 0.06);
+  transition: all 0.25s ease;
+}
+
+.header-org-title.font-playfair {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+}
+
+.header-slogan-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .header-slogan-title {
-  font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
-  font-size: 0.88rem;
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.95rem;
   color: #0085db;
   font-weight: 600;
   line-height: 1.25;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+}
+
+.header-slogan-title.font-script {
+  font-family: 'Dancing Script', cursive, sans-serif;
+  font-style: normal;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0085db;
+  letter-spacing: 0.02em;
+}
+
+.header-font-cycle-btn {
+  background: rgba(0, 133, 219, 0.07);
+  border: 1px solid rgba(0, 133, 219, 0.22);
+  color: #0085db;
+  padding: 0.1rem 0.4rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+}
+
+.header-font-cycle-btn:hover {
+  opacity: 1;
+  background: #0085db;
+  color: #ffffff;
+  border-color: #0085db;
+  transform: translateY(-1px);
 }
 
 /* Nav Tabs & Right Nav - Đổi font chữ Be Vietnam Pro sắc nét, tương phản cao */

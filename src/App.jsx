@@ -268,6 +268,27 @@ function App() {
     }
   };
 
+  // Tùy biến bộ font thương hiệu: Tiêu ngữ Bệnh viện & Slogan
+  const BRAND_FONT_PRESETS = [
+    { id: 'modern', name: 'Hiện đại & Quý phái (Montserrat + Lora)', orgClass: '', sloganClass: '' },
+    { id: 'royal', name: 'Hoàng gia Cổ điển (Playfair Display + Lora)', orgClass: 'font-playfair', sloganClass: '' },
+    { id: 'script', name: 'Thư pháp Nghệ thuật (Montserrat + Dancing Script)', orgClass: '', sloganClass: 'font-script' },
+  ];
+
+  const [brandFontIdx, setBrandFontIdx] = useState(() => {
+    const saved = localStorage.getItem('hv_brand_font_idx');
+    return saved !== null ? parseInt(saved, 10) % BRAND_FONT_PRESETS.length : 0;
+  });
+
+  const currentBrandFont = BRAND_FONT_PRESETS[brandFontIdx];
+
+  const handleCycleBrandFont = (e) => {
+    e.stopPropagation();
+    const nextIdx = (brandFontIdx + 1) % BRAND_FONT_PRESETS.length;
+    setBrandFontIdx(nextIdx);
+    localStorage.setItem('hv_brand_font_idx', nextIdx.toString());
+  };
+
   return (
     <div className="app-container">
       {/* Header Web App */}
@@ -281,8 +302,22 @@ function App() {
               onError={(e) => { e.currentTarget.src = './logo.png' }}
             />
             <div className="header-text-block">
-              <span className="header-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</span>
-              <span className="header-slogan-title">Thân thiện — Chuyên nghiệp — Chu đáo</span>
+              <span className={`header-org-title ${currentBrandFont.orgClass}`}>
+                BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG
+              </span>
+              <div className="header-slogan-row">
+                <span className={`header-slogan-title ${currentBrandFont.sloganClass}`}>
+                  Thân thiện — Chuyên nghiệp — Chu đáo
+                </span>
+                <button
+                  type="button"
+                  className="header-font-cycle-btn"
+                  onClick={handleCycleBrandFont}
+                  title={`Kiểu chữ: ${currentBrandFont.name}\nBấm để đổi kiểu font khác`}
+                >
+                  Aa
+                </button>
+              </div>
             </div>
           </div>
           
@@ -483,7 +518,7 @@ function App() {
               <div className="footer-line-sub">
                 <span>Trụ sở: Thôn Phượng Hùng 1, Xã Chí Đám, Tỉnh Phú Thọ</span>
                 <span className="footer-sep">•</span>
-                <span>Khẩu hiệu: Thân thiện — Chuyên nghiệp — Chu đáo</span>
+                <span>Khẩu hiệu: <em className="footer-slogan-styled">Thân thiện — Chuyên nghiệp — Chu đáo</em></span>
                 <span className="footer-sep">•</span>
                 <span>Hotline: 1800 9415</span>
                 <span className="footer-sep">•</span>
