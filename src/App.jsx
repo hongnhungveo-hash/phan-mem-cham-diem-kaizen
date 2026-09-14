@@ -299,22 +299,23 @@ function App() {
                 type="button"
                 className={`nav-btn ${activeTab === 'showcase' ? 'active' : ''}`}
                 onClick={() => setActiveTab('showcase')}
+                title="Khám phá các sản phẩm và sáng kiến cải tiến y tế"
               >
-                Thư Viện Đề Tài
+                Giới Thiệu Sản Phẩm
               </button>
               <button 
                 type="button"
                 className={`nav-btn ${activeTab === 'ranking' ? 'active' : ''}`}
                 onClick={() => setActiveTab('ranking')}
-                title="Bảng tổng hợp điểm thẩm định hồ sơ sơ bộ của Tổ QLCL"
+                title="Theo dõi danh sách các đề án đang đăng ký và tiếp nhận"
               >
-                Điểm Thẩm Định Sơ Bộ
+                Tiến Độ Tiếp Nhận
               </button>
               <button 
                 type="button"
                 className={`nav-btn ${activeTab === 'score' ? 'active' : ''}`}
                 onClick={() => setActiveTab('score')}
-                title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức"
+                title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức tại Vòng Chung kết"
               >
                 Ban Giám Khảo Chấm Điểm
               </button>
@@ -364,7 +365,7 @@ function App() {
           />
         )}
 
-        {/* TAB 2: THƯ VIỆN ĐỀ TÀI SHOWCASE */}
+        {/* TAB 2: GIỚI THIỆU SẢN PHẨM / THƯ VIỆN ĐỀ TÀI */}
         {activeTab === 'showcase' && (
           <KaizenShowcase
             projects={showcaseProjects}
@@ -373,23 +374,22 @@ function App() {
           />
         )}
 
-        {/* TAB 3: BẢNG ĐIỂM THẨM ĐỊNH SƠ BỘ */}
+        {/* TAB 3: TIẾN ĐỘ TIẾP NHẬN ĐỀ ÁN */}
         {activeTab === 'ranking' && (
           <div className="glass-panel" style={{ padding: '1.25rem 1.5rem' }}>
             <div className="ranking-top-bar screen-only" style={{ marginBottom: '1rem' }}>
               <div>
                 <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#003B73' }}>
-                  Bảng Điểm Thẩm Định Sơ Bộ Đề Án Cải Tiến (Vòng 1)
+                  Danh Mục Tiếp Nhận & Tiến Độ Đề Án Cải Tiến
                 </h2>
                 <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '3px' }}>
-                  Kết quả đánh giá hồ sơ ban đầu của Tổ Quản lý Chất lượng (Phòng KHTH) — Chưa phải điểm xếp hạng của Ban Giám khảo
+                  Theo dõi các đề án đã nộp hồ sơ và đang triển khai thử nghiệm thực địa tại Bệnh viện
                 </div>
               </div>
               <div className="ranking-badge-group">
-                <span className="badge badge-excellent">Loại A (Xuất sắc: 90-100)</span>
-                <span className="badge badge-good">Loại A (Giỏi: 80-89)</span>
-                <span className="badge badge-fair">Loại B (Khá: 70-79)</span>
-                <span className="badge badge-pass">Đạt (&lt;70)</span>
+                <span className="badge" style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700 }}>
+                  Giai đoạn: Đăng ký & Thử nghiệm hiện trường
+                </span>
               </div>
             </div>
 

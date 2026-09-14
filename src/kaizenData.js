@@ -76,13 +76,31 @@ export const INITIAL_KAIZEN_PROJECTS = [
     khoiChuyenMon: "Khối Nội - Tim mạch Can thiệp",
     tomTat: "Xây dựng mô hình hộp cấp cứu đóng gói sẵn tích hợp đầy đủ thuốc và dụng cụ can thiệp mạch vành, rút ngắn 85% thời gian chuẩn bị ngoài giờ hành chính từ 20 phút xuống dưới 3 phút, tối ưu hóa thời gian Door-to-Balloon cứu sống người bệnh.",
     
-    // THÔNG TIN THẨM ĐỊNH SƠ BỘ BAN ĐẦU (TỔ QLCL)
-    diemThamDinhBanDau: 94.0,
-    xepLoaiThamDinh: "Đạt Loại A (Xuất sắc) — Phê duyệt thực nghiệm",
-    vanBanPheDuyet: "Thông báo số 16/TB-QLCL-KAIZEN (Ngày 05/09/2026)",
-    nguoiPheDuyet: "Trần Đình Vũ — Tổ trưởng Tổ Quản lý Chất lượng (Phòng KHTH)",
-    tinhTrangTienDo: "Đang triển khai thử nghiệm thực địa tại Phòng Can thiệp DSA (06/09 - 22/09/2026)",
-    tienDoPhanTram: 65,
+    // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
+    tenSanPham: "Mô hình “STEMI Emergency Box” — Hộp Cấp Cứu Mạch Vành Khẩn Cấp",
+    ngayDangKy: "05/09/2026",
+    trangThaiDangKy: "Đã tiếp nhận & Đang thử nghiệm thực địa",
+    
+    // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
+    quickSummary: {
+      idea: "Đóng gói toàn bộ 100% thuốc chống đông, dây dẫn và ống thông can thiệp vào một hộp chuyên dụng có niêm phong, đặt sẵn ngay cửa phòng can thiệp DSA.",
+      painPoints: [
+        "Trước đây: Thuốc và vật tư để ở 3 tủ khác nhau theo danh mục kế toán kho.",
+        "Mất từ 15 đến 20 phút để kíp trực ngoài giờ gom đủ thuốc và dụng cụ.",
+        "Nguy cơ thiếu hoặc nhầm vật tư phụ trong ca can thiệp ban đêm khoảng 12%."
+      ],
+      solutions: [
+        "Thiết kế hộp cấp cứu STEMI Box chuyên dụng, mở dùng ngay trong 30 giây.",
+        "Niêm phong bảo đảm 1 lần (Security Seal) kèm bảng kiểm trực quan 1 trang.",
+        "Khoa Dược cấp bù hoàn nguyên hộp thuốc trong vòng 02 giờ sau ca can thiệp."
+      ],
+      keyMetrics: [
+        { label: "Thời gian chuẩn bị", before: "20 phút", after: "Dưới 3 phút", note: "Nhanh hơn 85%" },
+        { label: "Sai sót, nhầm thuốc", before: "12%", after: "0%", note: "An toàn tuyệt đối" },
+        { label: "Door-to-Balloon", before: "65 phút", after: "< 50 phút", note: "Tiết kiệm 15 phút vàng" },
+        { label: "Chi phí triển khai", before: "—", after: "0 VNĐ", note: "Tận dụng tủ hộp sẵn có" }
+      ]
+    },
     
     // ĐIỂM SÁNG NỔI BẬT
     keyHighlights: [
@@ -164,13 +182,31 @@ export const INITIAL_KAIZEN_PROJECTS = [
     khoiChuyenMon: "Khối Hồi sức Cấp cứu",
     tomTat: "Sáng chế và gia công giá treo cơ khí Inox 304 có khớp ngàm gắn trực tiếp vào xe cáng cứu thương, cố định bình oxy đứng vững chắc với khóa lẫy một chạm, rút ngắn thời gian thao tác từ 3 phút xuống dưới 15 giây và triệt tiêu 100% nguy cơ rơi đổ.",
     
-    // THÔNG TIN THẨM ĐỊNH SƠ BỘ BAN ĐẦU (TỔ QLCL)
-    diemThamDinhBanDau: 88.0,
-    xepLoaiThamDinh: "Đạt Loại A (Xuất sắc) — Phê duyệt thực nghiệm",
-    vanBanPheDuyet: "Thông báo số 15/TB-QLCL-KAIZEN (Ngày 05/09/2026)",
-    nguoiPheDuyet: "Trần Đình Vũ — Tổ trưởng Tổ Quản lý Chất lượng (Phòng KHTH)",
-    tinhTrangTienDo: "Đang triển khai thử nghiệm thực địa trên 02 xe cứu thương 115 (06/09 - 22/09/2026)",
-    tienDoPhanTram: 60,
+    // THÔNG TIN NGẮN GỌN & DỄ HIỂU CHO NGƯỜI XEM ĐẠI CHÚNG
+    tenSanPham: "Sáng chế Bộ Giá Treo Bình Oxy Đứng Đa Năng Inox 304 Khóa 1 Chạm",
+    ngayDangKy: "05/09/2026",
+    trangThaiDangKy: "Đã tiếp nhận & Đang thử nghiệm thực địa",
+    
+    // TÓM TẮT SÚC TÍCH TRONG 30 GIÂY
+    quickSummary: {
+      idea: "Gia công bộ giá treo cơ khí Inox 304 gắn thẳng vào thanh ray xe cáng cứu thương, có đệm cao su và khóa lẫy một chạm, giữ bình oxy đứng vững chắc suốt hành trình vận chuyển.",
+      painPoints: [
+        "Trước đây: 100% chuyến cấp cứu phải đặt bình oxy nằm ngang dưới chân bệnh nhân.",
+        "Khi xe cấp cứu chạy nhanh hoặc xóc nảy, bình oxy rất dễ lăn trượt, va đập gãy van khí nén.",
+        "Mất 2-3 phút chằng buộc dây tạm bợ; điều dưỡng khó quan sát đồng hồ áp suất khi đang ép tim."
+      ],
+      solutions: [
+        "Chế tạo giá Inox 304 ngàm kẹp trực tiếp vào kết cấu khung cáng, không làm vướng lối đi.",
+        "Khóa lẫy bán nguyệt siết nhanh một chạm, chỉ mất 10 - 15 giây để lắp hoặc tháo bình.",
+        "Định vị bình oxy tại đầu cáng, đồng hồ áp suất luôn hướng thẳng vào mắt điều dưỡng."
+      ],
+      keyMetrics: [
+        { label: "An toàn rơi đổ", before: "Nguy cơ cao", after: "100% An toàn", note: "Triệt tiêu rơi vỡ van khí" },
+        { label: "Thời gian lắp/tháo", before: "2 - 3 phút", after: "< 15 giây", note: "Khóa nhanh một chạm" },
+        { label: "Quan sát đồng hồ", before: "Bị che khuất", after: "Trực diện mắt", note: "Kiểm soát oxy liên tục" },
+        { label: "Chi phí chế tạo", before: "—", after: "1.200.000 đ", note: "Inox 304 chịu lực cao" }
+      ]
+    },
     
     // ĐIỂM SÁNG NỔI BẬT
     keyHighlights: [

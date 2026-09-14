@@ -11,7 +11,6 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
   useEffect(() => {
     if (project) {
       setActiveTab('overview');
-      // Load thảo luận từ localStorage hoặc seed ban đầu
       try {
         const storageKey = `hv_kaizen_discussion_${project.maDeTai}`;
         const saved = localStorage.getItem(storageKey);
@@ -29,7 +28,23 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
   if (!isOpen || !project) return null;
 
   const a3 = project.a3Report || {};
-  const highlights = project.keyHighlights || [];
+  const qs = project.quickSummary || {
+    idea: project.tomTat || "Sáng kiến cải tiến chất lượng và tối ưu hóa vận hành.",
+    painPoints: [
+      "Quy trình cũ còn nhiều bước thủ công, phân tán vật tư.",
+      "Mất nhiều thời gian thao tác ngoài giờ trực.",
+      "Tiềm ẩn rủi ro sai sót trong quá trình vận hành."
+    ],
+    solutions: [
+      "Thiết kế mô hình/dụng cụ chuyên dụng chuẩn hóa thao tác.",
+      "Áp dụng bảng kiểm trực quan và quy trình 1 chạm.",
+      "Phối hợp liên khoa hoàn nguyên vật tư nhanh chóng."
+    ],
+    keyMetrics: [
+      { label: "Thời gian xử lý", before: "Kéo dài", after: "Rút ngắn 80%", note: "Tối ưu hóa thời gian" },
+      { label: "Mức độ an toàn", before: "Tiềm ẩn rủi ro", after: "100% An toàn", note: "Triệt tiêu sai sót" }
+    ]
+  };
   const authors = project.authorsDetailed || [];
   const timeline = project.timeline || [];
   const fiveWhys = project.fiveWhys || [];
@@ -66,7 +81,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
   return (
     <div className="a3-modal-overlay" onClick={onClose}>
       <div className="a3-modal-dialog" onClick={(e) => e.stopPropagation()}>
-        {/* MODAL HEADER: ĐẲNG CẤP & ĐỊNH DANH ĐỀ ÁN */}
+        {/* TOP BAR */}
         <div className="a3-modal-header screen-only">
           <div className="a3-header-meta">
             <span className="a3-project-id">{project.maDeTai}</span>
@@ -77,7 +92,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
             {project.khoaPhoiHop && (
               <span className="a3-partner-badge">+ {project.khoaPhoiHop}</span>
             )}
-            <span className="a3-status-approved">Đã Phê Duyệt Thực Nghiệm</span>
+            <span className="a3-status-approved">Đang Thử Nghiệm Thực Tế</span>
           </div>
 
           <div className="a3-header-actions">
@@ -100,10 +115,12 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           </div>
         </div>
 
-        {/* TIÊU ĐỀ ĐỀ ÁN TRÊN MÀN HÌNH */}
+        {/* HERO TIÊU ĐỀ SẢN PHẨM */}
         <div className="project-detail-hero screen-only">
-          <div className="hero-topic-tag">{project.chuDeTen || 'Đề Án Cải Tiến Chất Lượng'}</div>
-          <h2 className="hero-project-title">{project.tenDeTai}</h2>
+          <div className="hero-topic-tag">{project.chuDeTen || 'Sáng Kiến Cải Tiến Y Tế'}</div>
+          <h2 className="hero-project-title">
+            {project.tenSanPham || project.tenDeTai}
+          </h2>
           
           <div className="hero-info-pills">
             <div className="hero-pill">
@@ -115,141 +132,129 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               <span className="pill-val">{authors[0]?.name || project.nhomTacGia}</span>
             </div>
             <div className="hero-pill highlight-pill">
-              <span className="pill-label">Điểm Thẩm Định Sơ Bộ (Tổ QLCL):</span>
-              <span className="pill-val font-bold">{project.diemThamDinhBanDau || project.tongDiem} / 100</span>
+              <span className="pill-label">Tình trạng đề tài:</span>
+              <span className="pill-val font-bold">Đã tiếp nhận & Phê duyệt thử nghiệm</span>
             </div>
           </div>
 
-          {/* THANH ĐIỀU HƯỚNG TABS CHI TIẾT */}
+          {/* TABS ĐIỀU HƯỚNG */}
           <div className="project-detail-nav-tabs">
             <button 
               type="button" 
               className={`detail-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
               onClick={() => setActiveTab('overview')}
             >
-              Tổng Quan & Điểm Sáng
+              Giới Thiệu Sản Phẩm
             </button>
             <button 
               type="button" 
               className={`detail-tab-btn ${activeTab === 'a3' ? 'active' : ''}`}
               onClick={() => setActiveTab('a3')}
             >
-              Báo Cáo A3 Chuẩn PDCA
+              Báo Cáo A3 (PDCA)
             </button>
             <button 
               type="button" 
               className={`detail-tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
               onClick={() => setActiveTab('timeline')}
             >
-              Tiến Độ & Thẩm Định
+              Tiến Độ Triển Khai
             </button>
             <button 
               type="button" 
               className={`detail-tab-btn ${activeTab === 'documents' ? 'active' : ''}`}
               onClick={() => setActiveTab('documents')}
             >
-              Hồ Sơ & Minh Chứng ({docs.length})
+              Hồ Sơ Đăng Ký ({docs.length})
             </button>
             <button 
               type="button" 
               className={`detail-tab-btn ${activeTab === 'discussion' ? 'active' : ''}`}
               onClick={() => setActiveTab('discussion')}
             >
-              Thảo Luận & Học Hỏi ({commentsList.length})
+              Góp Ý & Học Hỏi ({commentsList.length})
             </button>
           </div>
         </div>
 
-        {/* NỘI DUNG CHÍNH CỦA MODAL (SCROLL ĐƯỢC TRÊN MÀN HÌNH) */}
+        {/* THÂN MODAL CUỘN ĐƯỢC */}
         <div className="modal-scroll-body screen-only">
-          {/* TAB 1: TỔNG QUAN & ĐIỂM SÁNG */}
+          {/* TAB 1: GIỚI THIỆU SẢN PHẨM NGẮN GỌN DỄ HIỂU (30 GIÂY) */}
           {activeTab === 'overview' && (
             <div className="tab-pane overview-pane">
-              {/* LƯU Ý PHÂN BIỆT ĐIỂM THẨM ĐỊNH BAN ĐẦU */}
-              <div className="eval-notice-card">
-                <div className="notice-icon">ℹ️</div>
-                <div className="notice-text">
-                  <strong>Thông tin chuyên môn:</strong> Điểm số <strong>{project.diemThamDinhBanDau || project.tongDiem}/100</strong> là 
-                  <strong> Kết quả Thẩm định Hồ sơ Ban đầu</strong> do Tổ Quản lý Chất lượng (Phòng KHTH) đánh giá để phê duyệt đề cương 
-                  triển khai thực nghiệm (theo <em>{project.vanBanPheDuyet || 'Quyết định của Tổ QLCL'}</em>). 
-                  Điểm số và xếp hạng chính thức từ Ban Giám khảo sẽ được chấm độc lập tại Vòng Chung kết.
+              {/* KHỐI 1: Ý TƯỞNG CỐT LÕI */}
+              <div className="idea-banner-card">
+                <div className="idea-badge">Ý TƯỞNG & ĐỘT PHÁ SẢN PHẨM</div>
+                <h3 className="idea-title">{project.tenDeTai}</h3>
+                <p className="idea-text">{qs.idea}</p>
+              </div>
+
+              {/* KHỐI 2: SO SÁNH TRƯỚC VÀ SAU (NGẮN GỌN 2 CỘT) */}
+              <div className="quick-compare-grid">
+                <div className="quick-card pain-box">
+                  <div className="box-tag red-tag">⚠️ BẤT CẬP TRƯỚC ĐÂY</div>
+                  <h4 className="box-title">Khó khăn tại hiện trường</h4>
+                  <ul className="quick-list">
+                    {qs.painPoints.map((pt, idx) => (
+                      <li key={idx}>
+                        <span className="bullet-icon red-bullet">✕</span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="quick-card solution-box">
+                  <div className="box-tag green-tag">✅ GIẢI PHÁP ĐÃ LÀM</div>
+                  <h4 className="box-title">Sáng kiến cải tiến thực tế</h4>
+                  <ul className="quick-list">
+                    {qs.solutions.map((sol, idx) => (
+                      <li key={idx}>
+                        <span className="bullet-icon green-bullet">✓</span>
+                        <span>{sol}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
-              {/* GRID 4 ĐIỂM SÁNG NỔI BẬT */}
-              <div className="highlights-grid">
-                {highlights.map((h, idx) => (
-                  <div key={idx} className="highlight-card">
-                    <div className="highlight-icon">{h.icon || '✦'}</div>
-                    <div className="highlight-title">{h.label}</div>
-                    <div className="highlight-desc">{h.desc}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* KHỐI NỖI ĐAU LÂM SÀNG & GIẢI PHÁP ĐỘT PHÁ */}
-              <div className="overview-two-col-grid">
-                <div className="overview-card pain-card">
-                  <div className="card-header-badge red-badge">NỖI ĐAU THỰC TẾ & BẤT CẬP HIỆN TRƯỜNG</div>
-                  <h4 className="overview-card-title">Điểm Nghẽn Trước Cải Tiến</h4>
-                  <p className="overview-card-body">{a3.background}</p>
-                  <div className="overview-data-point">
-                    <span className="data-point-label">Số liệu đo lường ban đầu:</span>
-                    <p className="data-point-val">{a3.baselineData}</p>
-                  </div>
-                </div>
-
-                <div className="overview-card solution-card">
-                  <div className="card-header-badge green-badge">SÁNG KIẾN CẢI TIẾN & ĐỐI SÁCH</div>
-                  <h4 className="overview-card-title">Giải Pháp Đột Phá Đã Áp Dụng</h4>
-                  <p className="overview-card-body" style={{ whiteSpace: 'pre-line' }}>{a3.countermeasures}</p>
-                  <div className="overview-data-point">
-                    <span className="data-point-label">Mục tiêu cam kết (SMART):</span>
-                    <p className="data-point-val text-success">{a3.smartGoal}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* BẢNG SO SÁNH TRỰC QUAN BEFORE VS AFTER */}
-              <div className="comparison-section">
-                <h3 className="section-sub-heading">Hiệu Quả Đo Lường Thực Tế Trước & Sau Cải Tiến</h3>
-                <div className="comparison-table-wrapper">
-                  <table className="comparison-table">
-                    <thead>
-                      <tr>
-                        <th>Chỉ số đo lường</th>
-                        <th style={{ width: '32%' }}>Trước cải tiến (Baseline)</th>
-                        <th style={{ width: '35%' }}>Sau khi áp dụng cải tiến</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {a3.resultsBeforeAfter && a3.resultsBeforeAfter.map((r, idx) => (
-                        <tr key={idx}>
-                          <td className="font-semibold">{r.metric}</td>
-                          <td className="text-muted before-val">{r.before}</td>
-                          <td className="after-val text-success font-bold">{r.after}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* DANH SÁCH NHÓM TÁC GIẢ */}
-              <div className="authors-section">
-                <h3 className="section-sub-heading">Nhóm Tác Giả Thực Hiện Đề Án</h3>
-                <div className="authors-grid">
-                  {authors.map((auth, idx) => (
-                    <div key={idx} className="author-card">
-                      <div className="author-avatar">{auth.name.charAt(auth.name.lastIndexOf(' ') + 1) || 'NV'}</div>
-                      <div className="author-info">
-                        <div className="author-name">{auth.name}</div>
-                        <div className="author-role">{auth.role}</div>
-                        <div className="author-title">{auth.title}</div>
+              {/* KHỐI 3: 4 CON SỐ BIẾT NÓI (HIỆU QUẢ NHANH) */}
+              <div className="metrics-showcase-section">
+                <div className="section-mini-title">KẾT QUẢ ĐO LƯỜNG NỔI BẬT</div>
+                <div className="metrics-cards-row">
+                  {qs.keyMetrics.map((km, idx) => (
+                    <div key={idx} className="metric-badge-item">
+                      <div className="metric-item-name">{km.label}</div>
+                      <div className="metric-compare-line">
+                        <span className="val-before">{km.before}</span>
+                        <span className="val-arrow">➔</span>
+                        <span className="val-after">{km.after}</span>
                       </div>
+                      <div className="metric-item-note">{km.note}</div>
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* KHỐI 4: NHÓM TÁC GIẢ THỰC HIỆN */}
+              <div className="authors-simple-box">
+                <div className="section-mini-title">NHÓM TÁC GIẢ THỰC HIỆN</div>
+                <div className="authors-simple-flex">
+                  {authors.map((auth, idx) => (
+                    <div key={idx} className="author-pill-item">
+                      <span className="author-role-tag">{idx === 0 ? '⭐ Chủ nhiệm' : 'Thành viên'}:</span>
+                      <strong className="author-full-name">{auth.name}</strong>
+                      <span className="author-dept-text">({auth.title})</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="tab-switch-hint">
+                💡 Muốn xem đề cương kỹ thuật chi tiết theo chu trình PDCA? 
+                <button type="button" className="inline-tab-link" onClick={() => setActiveTab('a3')}>
+                  Xem Báo cáo A3 đầy đủ ➔
+                </button>
               </div>
             </div>
           )}
@@ -265,7 +270,6 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               </div>
 
               <div className="a3-screen-grid">
-                {/* CỘT 1: PLAN */}
                 <div className="a3-screen-col">
                   <div className="a3-card">
                     <div className="a3-card-title">1. Bối Cảnh & Lý Do Chọn Đề Tài</div>
@@ -295,7 +299,6 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                   </div>
                 </div>
 
-                {/* CỘT 2: DO - CHECK - ACT */}
                 <div className="a3-screen-col">
                   <div className="a3-card">
                     <div className="a3-card-title">5. Biện Pháp Cải Tiến Đã Thực Hiện</div>
@@ -338,8 +341,8 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
               <div className="timeline-header-card">
                 <div className="progress-overview">
                   <div className="progress-text-row">
-                    <span className="progress-title">Tiến Độ Triển Khai Thực Nghiệm</span>
-                    <span className="progress-pct">{project.tienDoPhanTram || 65}%</span>
+                    <span className="progress-title">Giai Đoạn Triển Khai Thực Nghiệm</span>
+                    <span className="progress-pct">{project.tienDoPhanTram || 65}% hoàn thành</span>
                   </div>
                   <div className="progress-track">
                     <div className="progress-fill" style={{ width: `${project.tienDoPhanTram || 65}%` }}></div>
@@ -350,7 +353,6 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* TRỤC THỜI GIAN THEO DÕI CÁC VÒNG DỰ ÁN */}
               <div className="roadmap-stepper">
                 {timeline.map((step, idx) => {
                   const isDone = step.status === 'completed';
@@ -374,47 +376,16 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                   );
                 })}
               </div>
-
-              {/* THÔNG TIN BIÊN BẢN THẨM ĐỊNH SƠ BỘ */}
-              <div className="appraisal-certificate-card">
-                <div className="cert-header">
-                  <span className="cert-tag">HỒ SƠ THẨM ĐỊNH CHUYÊN MÔN</span>
-                  <span className="cert-status">PHÊ DUYỆT THỰC NGHIỆM</span>
-                </div>
-                <div className="cert-grid">
-                  <div className="cert-item">
-                    <span className="cert-label">Căn cứ pháp lý:</span>
-                    <span className="cert-val">Kế hoạch Hội thi Đề án Cải tiến Chất lượng 16 Năm Hùng Vương</span>
-                  </div>
-                  <div className="cert-item">
-                    <span className="cert-label">Cơ quan thẩm định:</span>
-                    <span className="cert-val">Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng</span>
-                  </div>
-                  <div className="cert-item">
-                    <span className="cert-label">Văn bản ban hành:</span>
-                    <span className="cert-val">{project.vanBanPheDuyet || 'Thông báo Thẩm định Đề cương A3'}</span>
-                  </div>
-                  <div className="cert-item">
-                    <span className="cert-label">Điểm thẩm định ban đầu:</span>
-                    <span className="cert-val score-highlight">{project.diemThamDinhBanDau || project.tongDiem} / 100 điểm ({project.xepLoaiThamDinh || 'Loại A'})</span>
-                  </div>
-                  <div className="cert-item full-width">
-                    <span className="cert-label">Người phê duyệt:</span>
-                    <span className="cert-val font-bold">{project.nguoiPheDuyet || 'Trần Đình Vũ — Tổ trưởng Tổ Quản lý Chất lượng'}</span>
-                  </div>
-                </div>
-              </div>
             </div>
           )}
 
-          {/* TAB 4: HỒ SƠ & MINH CHỨNG */}
+          {/* TAB 4: HỒ SƠ ĐĂNG KÝ & MINH CHỨNG */}
           {activeTab === 'documents' && (
             <div className="tab-pane docs-pane">
               <div className="docs-intro-box">
-                <div className="docs-intro-title">Danh Mục Hồ Sơ Lưu Trữ & Tham Khảo Đề Án</div>
+                <div className="docs-intro-title">Hồ Sơ Đề Án Đã Tiếp Nhận</div>
                 <p className="docs-intro-desc">
-                  Toàn bộ hồ sơ đề cương, phiếu đăng ký, biên bản thẩm định và bản vẽ kỹ thuật được đồng bộ và lưu trữ tại 
-                  thư mục tiếp nhận đề án của Bệnh viện. Quý đồng nghiệp có thể tham khảo trực tiếp làm tài liệu học tập.
+                  Toàn bộ tài liệu đăng ký, đề cương A3 và quy trình kỹ thuật đã được lưu trữ an toàn tại hệ thống Tiếp nhận Đề án.
                 </p>
               </div>
 
@@ -433,37 +404,30 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                       <p className="doc-desc">{doc.desc}</p>
                     </div>
                     <div className="doc-action">
-                      <span className="doc-stored-tag">Đã Lưu Trữ</span>
+                      <span className="doc-stored-tag">Đã Tiếp Nhận</span>
                     </div>
                   </div>
                 ))}
               </div>
-
-              <div className="storage-location-hint">
-                📁 <strong>Đường dẫn lưu trữ trên hệ sinh thái Bệnh viện:</strong>
-                <br />
-                <code>DỰ ÁN QLCL BV / 02 Cải tiến Liên tục CQI / Tiếp nhận Đề án / {project.maDeTai}</code>
-              </div>
             </div>
           )}
 
-          {/* TAB 5: THẢO LUẬN & HỌC HỎI CHUYÊN MÔN */}
+          {/* TAB 5: GÓP Ý & THẢO LUẬN */}
           {activeTab === 'discussion' && (
             <div className="tab-pane discussion-pane">
               <div className="discussion-intro-box">
-                <h3 className="section-sub-heading">Góc Chia Sẻ & Trao Đổi Chuyên Môn Giữa Các Khoa/Phòng</h3>
+                <h3 className="section-sub-heading">Góc Chia Sẻ & Trao Đổi Chuyên Môn</h3>
                 <p className="text-muted">
-                  Kaizen là học hỏi liên tục. Hãy để lại ý kiến đóng góp, câu hỏi hoặc kinh nghiệm phối hợp liên khoa để cùng hoàn thiện đề án!
+                  Để lại lời nhắn động viên hoặc góp ý cải tiến cho nhóm tác giả!
                 </p>
               </div>
 
-              {/* FORM GỬI Ý KIẾN */}
               <form className="comment-input-form" onSubmit={handleAddComment}>
                 <div className="form-row-two">
                   <input 
                     type="text" 
                     className="form-control" 
-                    placeholder="Họ và tên đồng nghiệp (VD: BS. Nguyễn Văn A)..." 
+                    placeholder="Họ và tên (VD: BS. Nguyễn Văn A)..." 
                     value={newAuthor}
                     onChange={(e) => setNewAuthor(e.target.value)}
                     required
@@ -471,7 +435,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                   <input 
                     type="text" 
                     className="form-control" 
-                    placeholder="Khoa / Phòng công tác (VD: Khoa Khám bệnh)..." 
+                    placeholder="Khoa / Phòng công tác..." 
                     value={newRole}
                     onChange={(e) => setNewRole(e.target.value)}
                   />
@@ -479,21 +443,20 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                 <textarea 
                   className="form-control mt-2" 
                   rows="3" 
-                  placeholder="Nhập nhận xét, câu hỏi hoặc lời nhắn động viên nhóm tác giả..."
+                  placeholder="Nhập nội dung góp ý hoặc câu hỏi..."
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   required
                 ></textarea>
                 <div className="form-submit-row">
-                  <span className="submit-hint">* Ý kiến được lưu trực tiếp trên hệ thống tham khảo nội bộ.</span>
-                  <button type="submit" className="btn btn-primary btn-sm">Gửi Ý Kiến Góp Ý</button>
+                  <span className="submit-hint">* Ý kiến được lưu trực tiếp trên hệ thống tham khảo.</span>
+                  <button type="submit" className="btn btn-primary btn-sm">Gửi Góp Ý</button>
                 </div>
               </form>
 
-              {/* DANH SÁCH Ý KIẾN */}
               <div className="comments-stream">
                 {commentsList.length === 0 ? (
-                  <div className="no-comments">Chưa có ý kiến góp ý nào. Hãy là người đầu tiên để lại phản hồi!</div>
+                  <div className="no-comments">Chưa có ý kiến góp ý nào.</div>
                 ) : (
                   commentsList.map((c) => (
                     <div key={c.id} className="comment-bubble-card">
@@ -513,9 +476,7 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           )}
         </div>
 
-        {/* ====================================================================== */}
-        {/* KHỐI BÁO CÁO A3 CHUẨN IN ẤN (CHỈ HIỆN KHI IN - KHỔ GIẤY A4/A3 ĐỨNG/NGANG) */}
-        {/* ====================================================================== */}
+        {/* PRINT ONLY A3 CONTENT */}
         <div className="a3-printable-content print-only">
           <div className="a3-print-official-header">
             <div className="a3-print-col-left">
@@ -548,42 +509,38 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           <div className="a3-grid-layout">
             <div className="a3-col">
               <div className="a3-box">
-                <div className="a3-box-header">1. Bối Cảnh & Lý Do Chọn Đề Tài (Background)</div>
+                <div className="a3-box-header">1. Bối Cảnh & Lý Do Chọn Đề Tài</div>
                 <div className="a3-box-body"><p>{a3.background}</p></div>
               </div>
-
               <div className="a3-box">
-                <div className="a3-box-header">2. Số Liệu Đo Lường Hiện Trạng (Baseline Data)</div>
+                <div className="a3-box-header">2. Số Liệu Đo Lường Hiện Trạng</div>
                 <div className="a3-box-body"><p>{a3.baselineData}</p></div>
               </div>
-
               <div className="a3-box">
                 <div className="a3-box-header">3. Phân Tích Nguyên Nhân Gốc Rễ (5 Whys)</div>
                 <div className="a3-box-body"><p style={{ whiteSpace: 'pre-line' }}>{a3.rootCause}</p></div>
               </div>
-
               <div className="a3-box">
-                <div className="a3-box-header">4. Mục Tiêu Cải Tiến Cụ Thể (SMART Goal)</div>
+                <div className="a3-box-header">4. Mục Tiêu Cải Tiến Cụ Thể (SMART)</div>
                 <div className="a3-box-body"><p>{a3.smartGoal}</p></div>
               </div>
             </div>
 
             <div className="a3-col">
               <div className="a3-box">
-                <div className="a3-box-header">5. Biện Pháp Cải Tiến Đã Thực Hiện (Countermeasures)</div>
+                <div className="a3-box-header">5. Biện Pháp Cải Tiến Đã Thực Hiện</div>
                 <div className="a3-box-body"><p style={{ whiteSpace: 'pre-line' }}>{a3.countermeasures}</p></div>
               </div>
-
               <div className="a3-box">
-                <div className="a3-box-header">6. Hiệu Quả Đo Lường Thực Tế (Before vs. After)</div>
+                <div className="a3-box-header">6. Hiệu Quả Đo Lường Thực Tế</div>
                 <div className="a3-box-body">
                   {a3.resultsBeforeAfter && a3.resultsBeforeAfter.length > 0 ? (
                     <table className="a3-table">
                       <thead>
                         <tr>
-                          <th>Chỉ số đo lường</th>
-                          <th style={{ width: '30%' }}>Trước cải tiến</th>
-                          <th style={{ width: '30%' }}>Sau cải tiến</th>
+                          <th>Chỉ số</th>
+                          <th>Trước cải tiến</th>
+                          <th>Sau cải tiến</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -597,13 +554,12 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
                       </tbody>
                     </table>
                   ) : (
-                    <p>Đang cập nhật số liệu Before vs After.</p>
+                    <p>Đang cập nhật số liệu.</p>
                   )}
                 </div>
               </div>
-
               <div className="a3-box">
-                <div className="a3-box-header">7. Chuẩn Hóa Quy Trình (SOP) & Nhân Rộng</div>
+                <div className="a3-box-header">7. Chuẩn Hóa SOP & Nhân Rộng</div>
                 <div className="a3-box-body">
                   <p><strong>Chuẩn hóa:</strong> {a3.standardization}</p>
                   <p style={{ marginTop: '0.4rem' }}><strong>Bài học kinh nghiệm:</strong> {a3.lessonsLearned}</p>
@@ -613,10 +569,10 @@ export default function A3DetailModal({ project, isOpen, onClose }) {
           </div>
         </div>
 
-        {/* MODAL FOOTER */}
+        {/* FOOTER */}
         <div className="a3-modal-footer screen-only">
           <div className="a3-footer-hint">
-            * Cổng thông tin tham khảo Đề án Cải tiến Chất lượng — Bệnh viện Đa khoa Hùng Vương (16 năm thành lập).
+            * Cổng giới thiệu sáng kiến y tế — Bệnh viện Đa khoa Hùng Vương (16 năm thành lập).
           </div>
           <button type="button" className="btn btn-outline" onClick={onClose}>
             Đóng Cửa Sổ

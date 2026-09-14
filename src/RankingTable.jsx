@@ -4,8 +4,6 @@ import './RankingTable.css';
 export default function RankingTable({ 
   data = [], 
   loading = false, 
-  comments = {},
-  onOpenCommentModal,
   onSelectProject,
   onPrint,
   onRefresh
@@ -14,20 +12,21 @@ export default function RankingTable({
   const [searchQuery, setSearchQuery] = useState('');
 
   if (loading) {
-    return <div className="loading-state text-center text-muted">Đang tải dữ liệu...</div>;
+    return <div className="loading-state text-center text-muted">Đang tải danh mục đề án...</div>;
   }
 
   if (data.length === 0) {
-    return <div className="empty-state text-center text-muted">Chưa có dữ liệu đánh giá nào.</div>;
+    return <div className="empty-state text-center text-muted">Chưa có đề án nào trong danh mục tiếp nhận.</div>;
   }
 
   const filteredData = data.filter(row => {
     const matchBranch = filterBranch === 'ALL' || row.nhanh === filterBranch;
     const matchSearch = !searchQuery || 
       (row.tenDeTai && row.tenDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (row.tenSanPham && row.tenSanPham.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (row.maDeTai && row.maDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (row.khoaPhong && row.khoaPhong.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.khoaPhoiHop && row.khoaPhoiHop.toLowerCase().includes(searchQuery.toLowerCase()));
+      (row.nhomTacGia && row.nhomTacGia.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchBranch && matchSearch;
   });
 
@@ -35,23 +34,9 @@ export default function RankingTable({
   const countA = data.filter(r => r.nhanh === 'Nhánh A').length;
   const countB = data.filter(r => r.nhanh === 'Nhánh B').length;
 
-  const getBadgeClass = (score) => {
-    if (score >= 90) return 'badge-excellent';
-    if (score >= 80) return 'badge-good';
-    if (score >= 70) return 'badge-fair';
-    return 'badge-pass';
-  };
-
-  const getLabel = (score) => {
-    if (score >= 90) return 'Loại A (Xuất sắc)';
-    if (score >= 80) return 'Loại A (Giỏi)';
-    if (score >= 70) return 'Loại B (Khá)';
-    return 'Đạt';
-  };
-
   return (
     <div className="ranking-wrapper">
-      {/* KHỐI TIÊU NGỮ HÀNH CHÍNH NGHỊ ĐỊNH 30 THEO SHEET TONGHOP (CHỈ HIỆN KHI IN) */}
+      {/* HEADER NGHỊ ĐỊNH 30 (KHI IN DANH MỤC TIẾP NHẬN) */}
       <div className="print-only print-header-tonghop">
         <table className="print-header-table">
           <tbody>
@@ -60,7 +45,7 @@ export default function RankingTable({
                 <div className="print-org-upper">CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT</div>
                 <div className="print-org-title">BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</div>
                 <div className="print-divider-left"></div>
-                <div className="print-doc-num">Số: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /BC-KHTH-QLCL</div>
+                <div className="print-doc-num">Số: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /DS-KHTH-QLCL</div>
               </td>
               <td style={{width: '54%', textAlign: 'center', verticalAlign: 'top'}}>
                 <div className="print-nation-title">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
@@ -73,50 +58,49 @@ export default function RankingTable({
         </table>
 
         <div className="print-main-title">
-          BẢNG TỔNG HỢP KẾT QUẢ THẨM ĐỊNH SƠ BỘ ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG NĂM 2026
+          DANH MỤC TIẾP NHẬN ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG NĂM 2026
         </div>
         <div className="print-sub-title">
-          (Giai đoạn 1: Tiếp nhận hồ sơ & Thẩm định đề cương phê duyệt thực nghiệm của Tổ QLCL — Chưa phải điểm xếp hạng Ban Giám khảo)
+          (Giai đoạn 1: Tiếp nhận hồ sơ đăng ký và phê duyệt triển khai thử nghiệm thực địa)
         </div>
       </div>
 
-      {/* LƯU Ý PHÂN ĐỊNH ĐIỂM THẨM ĐỊNH BAN ĐẦU TRÊN MÀN HÌNH */}
+      {/* THÔNG BÁO TIẾN ĐỘ TRÊN MÀN HÌNH */}
       <div className="screen-only" style={{
         background: '#eff6ff',
         border: '1px solid #bfdbfe',
         borderLeft: '4px solid #0085db',
         borderRadius: '8px',
         padding: '0.85rem 1.15rem',
-        marginBottom: '1rem',
-        fontSize: '0.85rem',
+        marginBottom: '1.25rem',
+        fontSize: '0.86rem',
         color: '#1e3a8a',
         lineHeight: '1.5'
       }}>
-        <strong>ℹ️ Lưu ý quan trọng:</strong> Điểm số dưới đây là <strong>Kết quả Thẩm định Hồ sơ Ban đầu</strong> do 
-        Tổ Quản lý Chất lượng (thuộc Phòng KHTH) thực hiện nhằm phê duyệt đề cương triển khai thử nghiệm thực địa. 
-        <strong> Bảng điểm chấm chính thức từ Hội đồng Ban Giám khảo</strong> sẽ được chấm độc lập tại Vòng Chung kết sau khi hoàn thành chu trình PDCA.
+        <strong>📢 Thông tin tiến độ Hội thi:</strong> Trang web hiện đang ở <strong>Giai đoạn Tiếp nhận & Giới thiệu Đề án Cải tiến</strong> để các Khoa/Phòng cùng theo dõi và học hỏi lẫn nhau. 
+        <strong> Phần chấm điểm và bảng xếp hạng chính thức</strong> từ Hội đồng Ban Giám khảo sẽ được kích hoạt tại Vòng Chung kết sau khi các đơn vị hoàn tất thử nghiệm thực địa.
       </div>
 
-      {/* Thanh Bộ Lọc & Tìm Kiếm Trên Màn Hình */}
+      {/* BỘ LỌC & TÌM KIẾM */}
       <div className="ranking-controls screen-only">
         <div className="branch-filter-tabs">
           <button 
             className={`filter-tab-btn ${filterBranch === 'ALL' ? 'active' : ''}`}
             onClick={() => setFilterBranch('ALL')}
           >
-            Tất cả <span className="tab-counter">{countAll}</span>
+            Tất cả đề tài <span className="tab-counter">{countAll}</span>
           </button>
           <button 
             className={`filter-tab-btn ${filterBranch === 'Nhánh A' ? 'active' : ''}`}
             onClick={() => setFilterBranch('Nhánh A')}
           >
-            Nhánh A <span className="tab-counter">{countA}</span>
+            Nhánh A (Nội bộ khoa) <span className="tab-counter">{countA}</span>
           </button>
           <button 
             className={`filter-tab-btn ${filterBranch === 'Nhánh B' ? 'active' : ''}`}
             onClick={() => setFilterBranch('Nhánh B')}
           >
-            Nhánh B <span className="tab-counter">{countB}</span>
+            Nhánh B (Liên khoa) <span className="tab-counter">{countB}</span>
           </button>
         </div>
 
@@ -125,7 +109,7 @@ export default function RankingTable({
             <input
               type="text"
               className="ranking-search-input"
-              placeholder="Tìm mã, tên đề tài, khoa..."
+              placeholder="Tìm mã đề tài, tên sản phẩm, khoa..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -135,132 +119,103 @@ export default function RankingTable({
             type="button" 
             className="btn-control-action" 
             onClick={onPrint || (() => window.print())} 
-            title="In bảng điểm thẩm định sơ bộ chuẩn Nghị định 30"
+            title="In danh mục tiếp nhận đề án chuẩn Nghị định 30"
           >
-            In Bảng Điểm
+            In Danh Mục
           </button>
           <button 
             type="button" 
             className="btn-control-action" 
             onClick={onRefresh} 
             disabled={loading}
-            title="Làm mới dữ liệu từ Google Sheets"
+            title="Làm mới danh sách từ dữ liệu tiếp nhận"
           >
             {loading ? 'Đang tải...' : 'Làm mới'}
           </button>
         </div>
       </div>
 
-      {/* Bảng Dữ Liệu 14 Cột Chuẩn Sheet TongHop */}
+      {/* BẢNG SỔ TIẾP NHẬN ĐỀ ÁN (GỌN GÀNG, MINH BẠCH, DỄ HIỂU) */}
       <div className="table-responsive">
         <table className="ranking-table">
           <thead>
             <tr>
-              <th style={{width: '45px', textAlign: 'center'}}>Hạng sơ bộ</th>
-              <th style={{width: '65px', textAlign: 'center'}}>Mã đề tài</th>
-              <th style={{minWidth: '240px'}}>Tên đề án cải tiến (Nhấn để xem chi tiết)</th>
-              <th style={{width: '110px'}}>Nhóm tác giả</th>
-              <th style={{width: '70px', textAlign: 'center'}}>Nhánh</th>
-              <th style={{minWidth: '150px'}}>Khoa/Phòng thực hiện</th>
-              <th className="score-header text-center">Tính cấp thiết<br/>(20)</th>
-              <th className="score-header text-center">Khả thi<br/>(25)</th>
-              <th className="score-header text-center">Hiệu quả<br/>(20)</th>
-              <th className="score-header text-center">Chuẩn hóa SOP<br/>(15)</th>
-              <th className="score-header text-center">An toàn NB<br/>(20)</th>
-              <th style={{width: '80px', textAlign: 'center'}}>Điểm Thẩm Định</th>
-              <th style={{width: '100px', textAlign: 'center'}}>Phê Duyệt</th>
-              <th className="column-comment-header" style={{minWidth: '160px', textAlign: 'center'}}>
-                <span className="screen-only">Thư Ký / Tổ QLCL</span>
-                <span className="print-only">Ý kiến nhận xét của Tổ QLCL</span>
-              </th>
+              <th style={{width: '50px', textAlign: 'center'}}>STT</th>
+              <th style={{width: '95px', textAlign: 'center'}}>Mã đề tài</th>
+              <th style={{minWidth: '260px'}}>Tên sản phẩm & Đề án cải tiến</th>
+              <th style={{minWidth: '160px'}}>Khoa / Phòng chủ trì</th>
+              <th style={{width: '80px', textAlign: 'center'}}>Nhánh</th>
+              <th style={{minWidth: '150px'}}>Chủ nhiệm đề án</th>
+              <th style={{width: '100px', textAlign: 'center'}}>Ngày nộp</th>
+              <th style={{width: '150px', textAlign: 'center'}}>Trạng thái hồ sơ</th>
+              <th className="screen-only" style={{width: '120px', textAlign: 'center'}}>Thao tác</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.length === 0 ? (
               <tr>
-                <td colSpan={14} className="text-center text-muted" style={{padding: '2rem'}}>
-                  Không tìm thấy đề án nào.
+                <td colSpan={9} className="text-center text-muted" style={{padding: '2rem'}}>
+                  Không tìm thấy đề án nào phù hợp.
                 </td>
               </tr>
             ) : (
               filteredData.map((row, index) => {
-                const score = Number(row.tongDiem);
-                const isScored = row.hasScore !== false && score > 0;
-                const commentObj = comments[row.maDeTai];
-                const hasComment = commentObj && commentObj.nhanXet && commentObj.nhanXet.trim().length > 0;
-
                 return (
-                  <tr key={row.maDeTai || index} className={isScored && index < 3 ? 'top-rank-row' : ''}>
+                  <tr key={row.maDeTai || index}>
                     <td className="text-center font-bold rank-cell">
-                      {isScored ? index + 1 : '—'}
+                      {index + 1}
                     </td>
-                    <td className="text-center font-medium text-muted">{row.maDeTai}</td>
+                    <td className="text-center font-mono font-medium text-muted">
+                      {row.maDeTai}
+                    </td>
                     <td 
                       className="project-title-cell"
                       style={{ cursor: 'pointer' }}
                       onClick={() => onSelectProject && onSelectProject(row)}
-                      title="Nhấn để xem giới thiệu chi tiết đề tài và theo dõi dự án"
+                      title="Bấm để xem giới thiệu chi tiết sản phẩm"
                     >
-                      <div className="font-bold text-main project-title-text" style={{ color: '#003B73' }}>
-                        {row.tenDeTai}
+                      <div className="font-bold text-main" style={{ color: '#003B73', fontSize: '0.92rem' }}>
+                        {row.tenSanPham || row.tenDeTai}
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: '#0085db', marginTop: '3px' }} className="screen-only">
-                        🔍 Nhấn để xem toàn diện: Bối cảnh, 5 Whys, Before/After, Tiến độ
-                      </div>
-                      {hasComment && (
-                        <div className="table-comment-preview screen-only" title={commentObj.nhanXet}>
-                          {commentObj.nhanXet}
+                      {row.tenSanPham && (
+                        <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
+                          Đề tài: {row.tenDeTai}
                         </div>
                       )}
                     </td>
-                    <td className="text-muted">{row.nhomTacGia || '—'}</td>
+                    <td>
+                      <div className="font-medium text-main">{row.khoaPhong}</div>
+                      {row.khoaPhoiHop && (
+                        <div style={{ fontSize: '0.75rem', color: '#0284c7' }}>
+                          + {row.khoaPhoiHop}
+                        </div>
+                      )}
+                    </td>
                     <td className="text-center">
                       <span className={`badge ${row.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
                         {row.nhanh}
                       </span>
                     </td>
-                    <td>
-                      <div className="font-medium text-main">{row.khoaPhong}</div>
-                      {row.khoaPhoiHop && (
-                        <div className="partner-dept-text">
-                          + {row.khoaPhoiHop}
-                        </div>
-                      )}
+                    <td className="text-muted">
+                      {row.nhomTacGia?.split(',')[0] || '—'}
                     </td>
-                    <td className="text-center score-col">{row.phan1}</td>
-                    <td className="text-center score-col">{row.phan2}</td>
-                    <td className="text-center score-col">{row.phan3}</td>
-                    <td className="text-center score-col">{row.phan4}</td>
-                    <td className="text-center score-col">{row.phan5}</td>
-                    <td className="text-center font-bold total-score-cell">
-                      {isScored ? score.toFixed(1) : '—'}
+                    <td className="text-center text-muted font-mono" style={{ fontSize: '0.8rem' }}>
+                      {row.ngayDangKy || '05/09/2026'}
                     </td>
                     <td className="text-center">
-                      {isScored ? (
-                        <span className={`badge ${getBadgeClass(score)}`}>
-                          Đã phê duyệt
-                        </span>
-                      ) : (
-                        <span className="badge badge-pass" style={{color: '#94a3b8'}}>Chờ thẩm định</span>
-                      )}
+                      <span className="badge badge-excellent" style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac' }}>
+                        Đang thử nghiệm
+                      </span>
                     </td>
-                    <td className="comment-col-cell">
-                      {/* Trên màn hình: Nút mở Thư Ký */}
-                      <div className="screen-only text-center">
-                        <button 
-                          type="button" 
-                          className={`btn-table-secretary ${hasComment ? 'has-comment' : ''}`}
-                          onClick={() => onOpenCommentModal(row)}
-                          title="Thư ký ghi nhận xét của Tổ QLCL / Hội đồng"
-                        >
-                          {hasComment ? 'Xem nhận xét' : 'Ghi nhận xét'}
-                        </button>
-                      </div>
-
-                      {/* Khi In: Hiển thị đầy đủ nhận xét của Hội đồng */}
-                      <div className="print-only print-comment-text">
-                        {hasComment ? commentObj.nhanXet : 'Đã thẩm định và phê duyệt đề cương thực nghiệm.'}
-                      </div>
+                    <td className="screen-only text-center">
+                      <button 
+                        type="button" 
+                        className="btn-table-secretary"
+                        style={{ background: '#0085db', color: '#ffffff', border: 'none', padding: '0.35rem 0.75rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+                        onClick={() => onSelectProject && onSelectProject(row)}
+                      >
+                        Xem Chi Tiết
+                      </button>
                     </td>
                   </tr>
                 );
@@ -270,22 +225,22 @@ export default function RankingTable({
         </table>
       </div>
 
-      {/* KHỐI CHỮ KÝ CHUẨN NGHỊ ĐỊNH 30 THEO SHEET TONGHOP (CHỈ HIỆN KHI IN) */}
+      {/* CHỮ KÝ NGHỊ ĐỊNH 30 KHI IN */}
       <div className="print-only print-footer-tonghop">
         <table className="print-signature-table">
           <tbody>
             <tr>
               <td style={{width: '50%', textAlign: 'center', verticalAlign: 'top'}}>
-                <div className="print-sign-role">THƯ KÝ BAN TỔ CHỨC</div>
+                <div className="print-sign-role">NGƯỜI LẬP DANH MỤC</div>
                 <div className="print-sign-note">(Ký và ghi rõ họ tên)</div>
                 <div className="print-sign-space"></div>
                 <div className="print-sign-name">Đỗ Thị Hồng Nhung</div>
               </td>
               <td style={{width: '50%', textAlign: 'center', verticalAlign: 'top'}}>
-                <div className="print-sign-role">TRƯỞNG BAN TỔ CHỨC</div>
+                <div className="print-sign-role">TỔ TRƯỞNG TỔ QLCL</div>
                 <div className="print-sign-note">(Ký và ghi rõ họ tên)</div>
                 <div className="print-sign-space"></div>
-                <div className="print-sign-name">ThS. Ma Văn Hoàng</div>
+                <div className="print-sign-name">Trần Đình Vũ</div>
               </td>
             </tr>
           </tbody>

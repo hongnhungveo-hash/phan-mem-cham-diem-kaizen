@@ -89,13 +89,13 @@ export default function KaizenShowcase({
       {/* Header Thư viện */}
       <div className="showcase-header">
         <div>
-          <h1 className="showcase-title">Thư Viện Đề Tài Cải Tiến Kaizen</h1>
+          <h1 className="showcase-title">Không Gian Giới Thiệu Sản Phẩm & Đề Tài Cải Tiến</h1>
           <p className="showcase-subtitle">
-            Không gian chia sẻ sáng kiến, học hỏi kinh nghiệm và lan tỏa giải pháp cải tiến chất lượng toàn viện
+            Xem tham khảo các mô hình, sáng chế kỹ thuật và giải pháp y tế đang được đăng ký và thử nghiệm tại Bệnh viện Đa khoa Hùng Vương
           </p>
         </div>
         <div className="showcase-count-pill">
-          Hiển thị {sortedProjects.length} / {projects.length} đề tài
+          Hiển thị {sortedProjects.length} / {projects.length} sản phẩm
         </div>
       </div>
 
@@ -226,8 +226,13 @@ export default function KaizenShowcase({
                   )}
                 </div>
 
-                {/* Tên Đề tài */}
-                <h3 className="card-title">{p.tenDeTai}</h3>
+                {/* Tên Sản phẩm & Đề tài */}
+                <h3 className="card-title">{p.tenSanPham || p.tenDeTai}</h3>
+                {p.tenSanPham && (
+                  <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem', lineHeight: 1.3 }}>
+                    Đề tài: {p.tenDeTai}
+                  </div>
+                )}
 
                 {/* Khoa Phòng & Tác giả */}
                 <div className="card-dept-box">
@@ -243,29 +248,35 @@ export default function KaizenShowcase({
                   )}
                   {p.nhomTacGia && (
                     <div className="dept-item">
-                      <span className="dept-label">Tác giả:</span>
-                      <span className="dept-val text-muted">{p.nhomTacGia}</span>
+                      <span className="dept-label">Chủ nhiệm:</span>
+                      <span className="dept-val text-muted">{p.nhomTacGia.split(',')[0]}</span>
                     </div>
                   )}
                 </div>
 
-                {/* Tóm tắt vấn đề & giải pháp */}
-                <p className="card-summary">{p.tomTat || (p.a3Report?.background ? p.a3Report.background.substring(0, 130) + '...' : 'Đề án cải tiến chất lượng đang triển khai thử nghiệm.')}</p>
+                {/* Tóm tắt súc tích */}
+                <p className="card-summary">
+                  {p.quickSummary?.idea || p.tomTat || (p.a3Report?.background ? p.a3Report.background.substring(0, 130) + '...' : 'Đề án cải tiến chất lượng đang triển khai thử nghiệm.')}
+                </p>
 
-                {/* Điểm số Thẩm định Sơ bộ & Phê duyệt */}
+                {/* Trạng thái đề tài */}
                 <div className="card-score-strip">
-                  {scoreInfo && scoreInfo.hasScore ? (
-                    <div className="score-badge-box" style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '0.35rem 0.65rem', borderRadius: '6px' }}>
-                      <span className="score-val" style={{ color: '#15803d', fontWeight: 700 }}>
-                        Điểm thẩm định sơ bộ: {scoreInfo.tongDiem} / 100
-                      </span>
-                      <span className="score-rank" style={{ color: '#166534', marginLeft: '6px', fontSize: '0.78rem' }}>
-                        (Đã phê duyệt đề cương)
-                      </span>
-                    </div>
-                  ) : (
-                    <span className="score-evaluating">Đang trong tiến trình thẩm định</span>
-                  )}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <span style={{
+                      background: '#dcfce7',
+                      color: '#15803d',
+                      fontSize: '0.74rem',
+                      fontWeight: 700,
+                      padding: '0.2rem 0.55rem',
+                      borderRadius: '4px',
+                      border: '1px solid #86efac'
+                    }}>
+                      ✓ Đã Tiếp Nhận & Phê Duyệt
+                    </span>
+                    <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
+                      Đang thử nghiệm thực địa
+                    </span>
+                  </div>
                 </div>
 
                 {/* Footer Thẻ: Like, View, Action */}
@@ -275,7 +286,7 @@ export default function KaizenShowcase({
                       type="button" 
                       className={`vote-btn ${isLiked ? 'liked' : ''}`}
                       onClick={(e) => handleToggleLike(p.maDeTai, e)}
-                      title={isLiked ? "Bỏ bình chọn" : "Bình chọn đề tài"}
+                      title={isLiked ? "Bỏ bình chọn" : "Bình chọn sản phẩm"}
                     >
                       <span className="vote-heart">{isLiked ? '♥' : '♡'}</span>
                       <span className="vote-count">{currentLikes}</span>
@@ -292,7 +303,7 @@ export default function KaizenShowcase({
                       onSelectProject(p);
                     }}
                   >
-                    Xem Chi Tiết & Tiến Độ
+                    Xem Chi Tiết Sản Phẩm ➔
                   </button>
                 </div>
               </div>

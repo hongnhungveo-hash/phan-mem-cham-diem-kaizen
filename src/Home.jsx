@@ -120,139 +120,197 @@ export default function Home({
         <div className="metric-card">
           <div className="metric-step-tag">01</div>
           <div className="metric-number">{totalProjects}</div>
-          <div className="metric-label">Đề tài tiếp nhận</div>
-          <div className="metric-sub">Đã phê duyệt đề cương thực nghiệm</div>
+          <div className="metric-label">Đề tài đã đăng ký</div>
+          <div className="metric-sub">Hồ sơ đã tiếp nhận và phê duyệt thử nghiệm</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">02</div>
           <div className="metric-number">{totalDepts}</div>
-          <div className="metric-label">Khoa / Phòng tham gia</div>
-          <div className="metric-sub">Bệnh viện hạt nhân và các vệ tinh</div>
+          <div className="metric-label">Khoa / Phòng chủ trì</div>
+          <div className="metric-sub">Bệnh viện hạt nhân Đoan Hùng & các vệ tinh</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">03</div>
-          <div className="metric-number">{totalScores > 0 ? totalScores : '0'}</div>
-          <div className="metric-label">Phiếu chấm Ban Giám khảo</div>
-          <div className="metric-sub">Sẽ ghi nhận trực tiếp tại Vòng Chung kết</div>
+          <div className="metric-number" style={{ fontSize: '1.45rem', color: '#0085db' }}>Vòng 2</div>
+          <div className="metric-label">Trạng thái hiện tại</div>
+          <div className="metric-sub">Đang triển khai thử nghiệm thực địa</div>
         </div>
 
         <div className="metric-card">
           <div className="metric-step-tag">04</div>
-          <div className="metric-number">{topScore > 0 ? `${topScore}` : '—'}</div>
-          <div className="metric-label">Điểm thẩm định sơ bộ cao nhất</div>
-          <div className="metric-sub">Đánh giá hồ sơ bởi Tổ QLCL (Phòng KHTH)</div>
+          <div className="metric-number" style={{ fontSize: '1.45rem', color: '#16a34a' }}>28/09/2026</div>
+          <div className="metric-label">Kế hoạch Vòng Chung kết</div>
+          <div className="metric-sub">Ban Giám khảo chấm điểm thuyết trình chính thức</div>
         </div>
       </section>
 
-      {/* KẾT QUẢ THẨM ĐỊNH HỒ SƠ BAN ĐẦU CỦA TỔ QLCL */}
-      <section className="section-block top5-section">
+      {/* DANH MỤC SẢN PHẨM & ĐỀ TÀI CẢI TIẾN ĐANG ĐĂNG KÝ */}
+      <section className="section-block registered-products-section">
         <div className="section-header flex-between">
           <div>
-            <div className="section-badge">GIAI ĐOẠN 1: THẨM ĐỊNH HỒ SƠ BAN ĐẦU</div>
-            <h2 className="section-title">Kết Quả Thẩm Định Đề Án Cải Tiến (Tổ QLCL)</h2>
-            <p className="section-desc">Điểm đánh giá sơ bộ hồ sơ để phê duyệt thử nghiệm thực địa (Chưa phải điểm xếp hạng của Ban Giám khảo)</p>
+            <div className="section-badge">KHÔNG GIAN THAM KHẢO & HỌC HỎI</div>
+            <h2 className="section-title">Sản Phẩm & Đề Tài Cải Tiến Đang Đăng Ký</h2>
+            <p className="section-desc">Giới thiệu các sáng kiến, mô hình y tế và giải pháp tinh gọn đang được triển khai thử nghiệm tại các khoa/phòng</p>
           </div>
           <button 
             type="button" 
             className="btn btn-outline btn-sm"
-            onClick={() => onNavigate('ranking')}
+            onClick={() => onNavigate('showcase')}
           >
-            Xem Chi Tiết Bảng Điểm Thẩm Định
+            Xem Thư Viện Tất Cả Sản Phẩm ➔
           </button>
         </div>
 
-        {/* Khung Lưu ý Quan trọng */}
-        <div style={{
-          background: '#eff6ff',
-          border: '1px solid #bfdbfe',
-          borderLeft: '4px solid #0085db',
-          borderRadius: '8px',
-          padding: '0.85rem 1.15rem',
-          marginBottom: '1rem',
-          fontSize: '0.86rem',
-          color: '#1e3a8a',
-          lineHeight: '1.5'
+        {/* LƯỚI THẺ SẢN PHẨM CẢI TIẾN TRỰC QUAN, NGẮN GỌN & DỄ HIỂU */}
+        <div className="registered-cards-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gap: '1.5rem',
+          marginTop: '1rem'
         }}>
-          <strong>ℹ️ Lưu ý chuyên môn:</strong> Điểm số và xếp loại dưới đây là <strong>Kết quả Thẩm định Hồ sơ Ban đầu</strong> do 
-          Tổ Quản lý Chất lượng (Phòng KHTH) thực hiện nhằm phê duyệt đề cương triển khai thực nghiệm. 
-          <strong> Bảng điểm xếp hạng chính thức từ Hội đồng Ban Giám khảo</strong> sẽ được chấm độc lập tại Vòng Chung kết sau khi nghiệm thu A3.
+          {topProjects.map((p) => {
+            const qs = p.quickSummary || {};
+            return (
+              <div 
+                key={p.maDeTai} 
+                className="registered-product-card"
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
+                  boxShadow: '0 4px 6px -1px rgba(0, 59, 115, 0.08)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+                }}
+              >
+                <div>
+                  {/* TAGS HÀNG ĐẦU */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                      <span style={{
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        fontSize: '0.8rem',
+                        color: '#003B73',
+                        background: '#e0f2fe',
+                        padding: '0.2rem 0.55rem',
+                        borderRadius: '4px'
+                      }}>
+                        {p.maDeTai}
+                      </span>
+                      <span style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        color: '#0369a1',
+                        background: '#f0f9ff',
+                        padding: '0.2rem 0.5rem',
+                        borderRadius: '4px'
+                      }}>
+                        {p.nhanh}
+                      </span>
+                    </div>
+
+                    <span style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      color: '#15803d',
+                      background: '#dcfce7',
+                      border: '1px solid #86efac',
+                      padding: '0.2rem 0.6rem',
+                      borderRadius: '999px'
+                    }}>
+                      Đang Thử Nghiệm
+                    </span>
+                  </div>
+
+                  {/* TÊN SẢN PHẨM & ĐỀ TÀI */}
+                  <h3 style={{
+                    fontSize: '1.15rem',
+                    fontWeight: 700,
+                    color: '#003B73',
+                    margin: '0 0 0.4rem 0',
+                    lineHeight: 1.35
+                  }}>
+                    {p.tenSanPham || p.tenDeTai}
+                  </h3>
+
+                  <div style={{ fontSize: '0.84rem', color: '#64748b', marginBottom: '1rem' }}>
+                    <strong>Đơn vị:</strong> {p.khoaPhong} {p.khoaPhoiHop ? `(+ ${p.khoaPhoiHop})` : ''} • <strong>Chủ nhiệm:</strong> {p.nhomTacGia?.split(',')[0]}
+                  </div>
+
+                  {/* KHỐI 3 GẠCH ĐẦU DÒNG CỰC KỲ DỄ HIỂU */}
+                  <div style={{
+                    background: '#f8fafc',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    marginBottom: '1rem',
+                    fontSize: '0.86rem',
+                    lineHeight: '1.5',
+                    color: '#334155'
+                  }}>
+                    <div style={{ marginBottom: '0.5rem' }}>
+                      <strong style={{ color: '#0085db' }}>💡 Ý tưởng: </strong>
+                      {qs.idea || p.tomTat}
+                    </div>
+                    {qs.painPoints && qs.painPoints[0] && (
+                      <div style={{ marginBottom: '0.5rem', color: '#b91c1c' }}>
+                        <strong>⚠️ Trước đây: </strong>
+                        {qs.painPoints[0]}
+                      </div>
+                    )}
+                    {qs.keyMetrics && qs.keyMetrics[0] && (
+                      <div style={{ color: '#15803d', fontWeight: 600 }}>
+                        <strong>✨ Đột phá: </strong>
+                        {qs.keyMetrics[0].label}: Từ {qs.keyMetrics[0].before} ➔ {qs.keyMetrics[0].after} ({qs.keyMetrics[0].note})
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* NÚT XEM CHI TIẾT */}
+                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                    Ngày tiếp nhận: {p.ngayDangKy || '05/09/2026'}
+                  </span>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary btn-sm"
+                    style={{
+                      background: '#0085db',
+                      color: '#ffffff',
+                      fontWeight: 600,
+                      padding: '0.45rem 1rem',
+                      borderRadius: '6px'
+                    }}
+                    onClick={() => onSelectProject && onSelectProject(p)}
+                  >
+                    Xem Chi Tiết Sản Phẩm ➔
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {top5List.length === 0 ? (
-          <div className="empty-top-notice">
-            Các đề án đang trong tiến trình tiếp nhận và thẩm định hồ sơ sơ bộ.
-          </div>
-        ) : (
-          <div className="top5-table-wrapper">
-            <table className="top5-table">
-              <thead>
-                <tr>
-                  <th style={{width: '70px', textAlign: 'center'}}>Hạng sơ bộ</th>
-                  <th style={{width: '100px', textAlign: 'center'}}>Mã đề tài</th>
-                  <th>Tên đề án cải tiến (Nhấn để xem chi tiết & theo dõi)</th>
-                  <th style={{minWidth: '170px'}}>Khoa / Phòng chủ trì</th>
-                  <th style={{width: '85px', textAlign: 'center'}}>Nhánh</th>
-                  <th style={{width: '110px', textAlign: 'center'}}>Điểm Thẩm Định</th>
-                  <th style={{width: '130px', textAlign: 'center'}}>Tình Trạng</th>
-                </tr>
-              </thead>
-              <tbody>
-                {top5List.map((item, idx) => {
-                  const score = Number(item.tongDiem);
-                  return (
-                    <tr 
-                      key={item.maDeTai || idx} 
-                      className={`top5-row rank-${idx + 1}`}
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => onSelectProject && onSelectProject(item)}
-                      title="Nhấn vào hàng này để xem chi tiết đề tài và theo dõi tiến độ"
-                    >
-                      <td className="text-center">
-                        <span className={`rank-pill rank-pill-${idx + 1}`}>
-                          {idx + 1}
-                        </span>
-                      </td>
-                      <td className="text-center font-mono text-muted">{item.maDeTai}</td>
-                      <td className="font-medium project-name-cell">
-                        <div style={{ fontWeight: 600, color: '#003B73' }}>{item.tenDeTai}</div>
-                        <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
-                          Tác giả: {item.nhomTacGia || '—'}
-                        </div>
-                      </td>
-                      <td className="dept-cell">{item.khoaPhong}</td>
-                      <td className="text-center">
-                        <span className={`badge ${item.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
-                          {item.nhanh}
-                        </span>
-                      </td>
-                      <td className="text-center font-bold text-highlight">
-                        <span style={{ fontSize: '1.05rem', color: '#0284c7' }}>{score.toFixed(1)}</span>
-                        <span style={{ fontSize: '0.75rem', color: '#64748b', display: 'block' }}>/ 100 điểm</span>
-                      </td>
-                      <td className="text-center">
-                        <span className={`badge ${getBadgeClass(score)}`}>
-                          Đã phê duyệt
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-
-            <div className="top5-footer-cta">
-              <button 
-                type="button" 
-                className="btn btn-primary"
-                onClick={() => onNavigate('ranking')}
-              >
-                Xem Bảng Tổng Hợp Điểm Thẩm Định Sơ Bộ & Nhận Xét Của Tổ QLCL
-              </button>
-            </div>
-          </div>
-        )}
+        <div style={{
+          marginTop: '1.5rem',
+          textAlign: 'center',
+          background: '#eff6ff',
+          border: '1px dashed #93c5fd',
+          borderRadius: '8px',
+          padding: '1rem',
+          fontSize: '0.86rem',
+          color: '#1e40af'
+        }}>
+          📢 <strong>Thông báo Ban Tổ chức:</strong> Cổng tiếp nhận đề án đang tiếp tục nhận sản phẩm từ các Khoa/Phòng. 
+          Hội đồng Ban Giám khảo sẽ tiến hành chấm thi và xếp hạng chính thức tại Vòng Chung kết sau khi các đơn vị hoàn tất thử nghiệm thực địa.
+        </div>
       </section>
 
       {/* Timeline Section */}
