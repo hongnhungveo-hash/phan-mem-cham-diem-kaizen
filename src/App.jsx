@@ -411,12 +411,6 @@ function App() {
     }
   };
 
-  // Tùy biến bộ font thương hiệu: Tiêu ngữ Bệnh viện & Slogan
-  const BRAND_FONT_PRESETS = [
-    { id: 'modern', name: 'Hiện đại & Quý phái (Montserrat + Lora)', orgClass: '', sloganClass: '' },
-    { id: 'royal', name: 'Hoàng gia Cổ điển (Playfair Display + Lora)', orgClass: 'font-playfair', sloganClass: '' },
-    { id: 'script', name: 'Thư pháp Nghệ thuật (Montserrat + Dancing Script)', orgClass: '', sloganClass: 'font-script' },
-  ];
 
   return (
     <div className="app-shell">
@@ -429,13 +423,17 @@ function App() {
       {/* 1. FLOATING NAVIGATION DOCK */}
       <header className="nav-dock">
         <div className="brand-cluster" onClick={() => setActiveTab('home')} style={{ cursor: 'pointer' }}>
-          <div className="brand-logo-badge">HV</div>
+          <img 
+            src={logoImg} 
+            alt="Logo Bệnh viện Đa khoa Hùng Vương" 
+            className="nav-dock-logo-img" 
+            onError={(e) => { e.currentTarget.src = './logo.png' }}
+          />
           <div className="brand-meta">
             <div className="brand-title">
-              Bệnh Viện Đa Khoa Hùng Vương
-              <span className="brand-tag">KAIZEN OS</span>
+              Bệnh viện Đa khoa Hùng Vương
             </div>
-            <div className="brand-sub">Hội Thi Cải Tiến Chất Lượng Bệnh Viện 2026</div>
+            <div className="brand-sub">Tận tâm - Liêm chính - Nhân văn</div>
           </div>
         </div>
 
@@ -445,23 +443,15 @@ function App() {
             className={`nav-dock-tab ${activeTab === 'home' ? 'active' : ''}`}
             onClick={() => setActiveTab('home')}
           >
-            Trang Chủ
+            Trang chủ
           </button>
           <button 
             type="button" 
             className={`nav-dock-tab ${activeTab === 'showcase' ? 'active' : ''}`}
             onClick={() => setActiveTab('showcase')}
-            title="Khám phá các sản phẩm và sáng kiến cải tiến y tế"
+            title="Danh mục sản phẩm và tiến độ tiếp nhận đề án cải tiến y tế"
           >
-            Sản Phẩm
-          </button>
-          <button 
-            type="button" 
-            className={`nav-dock-tab ${activeTab === 'ranking' ? 'active' : ''}`}
-            onClick={() => setActiveTab('ranking')}
-            title="Theo dõi danh sách các đề án đang đăng ký và tiếp nhận"
-          >
-            Tiến Độ Tiếp Nhận
+            Sản phẩm
           </button>
           <button 
             type="button" 
@@ -469,28 +459,23 @@ function App() {
             onClick={() => setActiveTab('score')}
             title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức tại Vòng Chung kết"
           >
-            Ban Giám Khảo
+            Ban giám khảo
           </button>
           <button 
             type="button" 
             className={`nav-dock-tab ${activeTab === 'secretary' ? 'active' : ''}`}
             onClick={() => setActiveTab('secretary')}
           >
-            Thư Ký
+            Thư ký
           </button>
         </nav>
 
         <div className="nav-actions">
-          <div className="live-status-pill">
-            <span className="live-dot"></span>
-            <span>VÒNG 2 • THỰC ĐỊA ACTIVE</span>
-          </div>
-
           <button 
             type="button" 
             className="theme-toggle-btn" 
             onClick={toggleTheme} 
-            title={theme === 'light' ? "Chuyển sang Chế độ Dark Mode (LED Hội Trường)" : "Chuyển sang Chế độ Light Mode (Lâm Sàng Vô Trùng)"}
+            title={theme === 'light' ? "Chuyển sang chế độ Dark Mode (LED hội trường)" : "Chuyển sang chế độ Light Mode (Lâm sàng vô trùng)"}
           >
             {theme === 'light' ? (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -508,45 +493,11 @@ function App() {
               </svg>
             )}
           </button>
-
-          <a 
-            href="#directorySection" 
-            className="btn-portal-enter"
-            onClick={(e) => {
-              if (activeTab !== 'home') {
-                e.preventDefault();
-                setActiveTab('home');
-                setTimeout(() => {
-                  document.getElementById('directorySection')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }
-            }}
-          >
-            <span>Khám Phá Đề Án</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-
-          {isAuthenticated ? (
-            <button type="button" className="auth-logout-pill" onClick={handleLogout} title="Đăng xuất Hội đồng">
-              Đăng xuất
-            </button>
-          ) : (
-            <button 
-              type="button" 
-              className="auth-login-link-subtle"
-              onClick={() => setActiveTab('score')}
-              title="Đăng nhập dành cho Hội đồng Ban Giám khảo"
-            >
-              Hội đồng
-            </button>
-          )}
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="main-content container mt-4 mb-4">
+      <main className="main-content">
         {/* TAB 1: TRANG CHỦ */}
         {activeTab === 'home' && (
           <Home
@@ -562,30 +513,21 @@ function App() {
           />
         )}
 
-        {/* TAB 2: GIỚI THIỆU SẢN PHẨM / THƯ VIỆN ĐỀ TÀI */}
+        {/* TAB 2: SẢN PHẨM (GỘP SẢN PHẨM & TIẾN ĐỘ TIẾP NHẬN THEO PHONG CÁCH TIẾN ĐỘ TIẾP NHẬN) */}
         {activeTab === 'showcase' && (
-          <KaizenShowcase
-            projects={showcaseProjects}
-            onSelectProject={handleOpenA3Modal}
-            rankingScores={rankingScoresMap}
-          />
-        )}
-
-        {/* TAB 3: TIẾN ĐỘ TIẾP NHẬN ĐỀ ÁN */}
-        {activeTab === 'ranking' && (
-          <div className="glass-panel" style={{ padding: '1.25rem 1.5rem' }}>
-            <div className="ranking-top-bar screen-only" style={{ marginBottom: '1rem' }}>
+          <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', borderRadius: '18px', background: 'var(--bg-glass-card)', border: '1px solid var(--border-subtle)' }}>
+            <div className="ranking-top-bar screen-only" style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#003B73' }}>
-                  Danh Mục Tiếp Nhận & Tiến Độ Đề Án Cải Tiến
+                <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                  Danh mục sản phẩm & tiến độ tiếp nhận đề án cải tiến
                 </h2>
-                <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '3px' }}>
-                  Theo dõi các đề án đã nộp hồ sơ và đang triển khai thử nghiệm thực địa tại Bệnh viện
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '3px' }}>
+                  Theo dõi 19 sản phẩm và đề án sáng kiến y tế đang triển khai thử nghiệm thực địa
                 </div>
               </div>
               <div className="ranking-badge-group">
-                <span className="badge" style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac', fontWeight: 700 }}>
-                  Giai đoạn: Đăng ký & Thử nghiệm hiện trường
+                <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: 'var(--hv-emerald)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.35rem 0.8rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 700 }}>
+                  Giai đoạn: Thử nghiệm thực địa & hoàn thiện SOP
                 </span>
               </div>
             </div>
@@ -602,13 +544,13 @@ function App() {
           </div>
         )}
 
-        {/* TAB 4: GIÁM KHẢO CHẤM ĐIỂM (BẢO VỆ MẬT KHẨU) */}
+        {/* TAB 3: GIÁM KHẢO CHẤM ĐIỂM (BẢO VỆ MẬT KHẨU) */}
         {activeTab === 'score' && (
           isAuthenticated ? (
             <ScoreForm 
               apiUrl={apiUrl} 
               appConfig={appConfig} 
-              onScoreSubmitted={() => setActiveTab('ranking')} 
+              onScoreSubmitted={() => setActiveTab('showcase')} 
             />
           ) : (
             <Login 
@@ -681,8 +623,6 @@ function App() {
               </div>
               <div className="footer-line-sub">
                 <span>Trụ sở: Thôn Phượng Hùng 1, Xã Chí Đám, Tỉnh Phú Thọ</span>
-                <span className="footer-sep">•</span>
-                <span>Khẩu hiệu: <em className="footer-slogan-styled">Thân thiện — Chuyên nghiệp — Chu đáo</em></span>
                 <span className="footer-sep">•</span>
                 <span>Hotline: 1800 9415</span>
                 <span className="footer-sep">•</span>

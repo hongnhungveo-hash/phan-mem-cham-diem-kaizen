@@ -206,7 +206,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
             aria-selected={activeTab === 'chamDiem'} 
             onClick={() => setActiveTab('chamDiem')}
           >
-            ⚖️ Ban Giám Khảo Chấm Điểm
+            ⚖️ Ban giám khảo chấm điểm
           </button>
         </div>
 
@@ -244,7 +244,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
               {((qs.painPoints && qs.painPoints.length > 0) || (qs.solutions && qs.solutions.length > 0)) && (
                 <div className="a3-two-col">
                   <div className="modal-section-card">
-                    <div className="modal-section-title" style={{ color: 'var(--hv-rose)' }}>Điểm đau / Lãng phí</div>
+                    <div className="modal-section-title" style={{ color: 'var(--hv-rose)' }}>Điểm đau / lãng phí</div>
                     <ul className="a3-ul">
                       {(qs.painPoints || []).map((x, i) => <li key={i}>{x}</li>)}
                     </ul>
@@ -484,13 +484,13 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
                   </div>
                   <div style={{ flex: 1, minWidth: '220px' }}>
                     <label style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.35rem' }}>
-                      Giám Khảo Chấm Điểm:
+                      Giám khảo chấm điểm:
                     </label>
                     <input 
                       type="text" 
                       className="scoring-input" 
                       value={judgeName} 
-                      onChange={(e) => setJudgeName(e.target.value)}
+                      onChange={(e) => setJudgeName(e.target.value)} 
                       placeholder="Nhập tên Giám khảo..." 
                       required
                     />
@@ -504,7 +504,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
                 )}
 
                 <div className="modal-section-card">
-                  <div className="modal-section-title">Khung Điểm 5 Tiêu Chí Chuẩn Hội Đồng</div>
+                  <div className="modal-section-title">Khung điểm 5 tiêu chí chuẩn hội đồng</div>
 
                   <div className="score-criteria-list">
                     
@@ -607,7 +607,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
                 </div>
 
                 <div className="modal-section-card" style={{ marginTop: '1rem' }}>
-                  <div className="modal-section-title">Nhận xét & Khuyến nghị của Ban Giám Khảo</div>
+                  <div className="modal-section-title">Nhận xét & khuyến nghị của Ban giám khảo</div>
                   <textarea 
                     className="scoring-textarea" 
                     rows="3" 
@@ -623,7 +623,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
                   </button>
                   <button type="submit" className="btn-glow-primary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Lưu Kết Quả Chấm Điểm</span>
+                    <span>Lưu kết quả chấm điểm</span>
                   </button>
                 </div>
 

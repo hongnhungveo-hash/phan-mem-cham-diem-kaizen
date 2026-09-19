@@ -13,32 +13,32 @@ export default function Home({
   theme = 'light',
   toggleTheme
 }) {
-  // 1. Quản lý Chế độ Quét Kaizen Vision AI Scanner HUD (Giám Sát Chiến Lược Chất Lượng Toàn Viện)
+  // 1. Quản lý Chế độ Quét Kaizen Vision AI Scanner HUD
   const [scanTargetIdx, setScanTargetIdx] = useState(0);
   const [isFastScanning, setIsFastScanning] = useState(false);
 
-  // 3 Trụ cột Giám sát Chiến lược Toàn Viện của Hội Thi Kaizen 2026
+  // 3 Trụ cột Giám sát Chiến lược Toàn Viện của Hội thi Kaizen 2026
   const hudPresets = [
     {
-      tag: 'HỘI THI KAIZEN 2026 • TRỤ CỘT AN TOÀN IPSG',
+      tag: 'Hội thi Kaizen 2026 • Trụ cột an toàn IPSG',
       tagClass: 'tag-emerald',
-      title: 'Giám Sát Rào Chắn Lâm Sàng Toàn Viện & An Toàn Người Bệnh',
-      meta1: '100% Khắc Phục Gốc Rễ RCA',
-      meta2: 'Văn Hóa Không Trách Phạt (Just Culture)'
+      title: 'Giám sát rào chắn lâm sàng toàn viện & an toàn người bệnh',
+      meta1: '100% khắc phục gốc rễ RCA',
+      meta2: 'Văn hóa không trách phạt (Just Culture)'
     },
     {
-      tag: 'HỘI THI KAIZEN 2026 • TRỤ CỘT TINH GỌN LEAN',
+      tag: 'Hội thi Kaizen 2026 • Trụ cột tinh gọn Lean',
       tagClass: 'tag-cyan',
-      title: 'Triệt Tiêu 8 Lãng Phí Muda, Rút Ngắn Chờ Đợi & Tối Ưu Dòng Chảy',
-      meta1: 'Giảm -38.5% Thời Gian Chờ',
-      meta2: 'Tiết Kiệm 1.24 Tỷ Lãng Phí/Năm'
+      title: 'Triệt tiêu 8 lãng phí Muda, rút ngắn chờ đợi & tối ưu dòng chảy',
+      meta1: 'Giảm -38.5% thời gian chờ',
+      meta2: 'Tiết kiệm 1.24 tỷ lãng phí/năm'
     },
     {
-      tag: 'HỘI THI KAIZEN 2026 • CHUYỂN ĐỔI SỐ & LƯƠNG 3P',
+      tag: 'Hội thi Kaizen 2026 • Chuyển đổi số & lương 3P',
       tagClass: 'tag-amber',
-      title: 'Số Hóa Báo Cáo A3, 19 Quy Trình SOP Mới & Thưởng Hiệu Suất wRVU',
-      meta1: '100% Hồ Sơ A3 & EMR',
-      meta2: 'Liên Thông Quỹ Thưởng P3 Hiệu Quả'
+      title: 'Số hóa báo cáo A3, 19 quy trình SOP mới & thưởng hiệu suất wRVU',
+      meta1: '100% hồ sơ A3 & EMR',
+      meta2: 'Liên thông quỹ thưởng P3 hiệu quả'
     }
   ];
 
@@ -51,7 +51,7 @@ export default function Home({
     }, 2400);
   };
 
-  // Hệ thống chấm điểm thực chứng & phân hạng Tier từ Prototype v2
+  // Hệ thống chấm điểm thực chứng & phân hạng Tier
   const getScore = (p) => {
     if (!p) return { score: 0, tier: 'muted', short: 'Đạt', full: 'Đạt' };
     const raw = (typeof p.tongDiemThamDinh === 'number')
@@ -90,20 +90,18 @@ export default function Home({
     return sorted[0];
   }, [topProjects]);
 
-  const spotlightScore = spotlightProject ? getScore(spotlightProject) : { score: 98, tier: 'emerald', short: 'Xuất sắc', full: 'ĐẠT LOẠI A (XUẤT SẮC)' };
+  const spotlightScore = spotlightProject ? getScore(spotlightProject) : { score: 98, tier: 'emerald', short: 'Xuất sắc', full: 'Đạt loại A (Xuất sắc)' };
 
-  // 3. Quản lý Bộ Lọc & Tìm Kiếm Tức Thời (SaaS Directory Search)
+  // 3. Quản lý Bộ Lọc & Tìm Kiếm Tức Thời
   const [filterType, setFilterType] = useState('all'); // 'all' | 'Nhánh A' | 'Nhánh B' | 'scored'
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredProjects = useMemo(() => {
     return (topProjects || []).filter(p => {
-      // Lọc theo nhánh / trạng thái
       if (filterType === 'Nhánh A' && p.nhanh !== 'Nhánh A') return false;
       if (filterType === 'Nhánh B' && p.nhanh !== 'Nhánh B') return false;
       if (filterType === 'scored' && !top5Ids.includes(p.maDeTai)) return false;
 
-      // Tìm kiếm theo từ khóa
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchTitle = (p.tenDeTai || '').toLowerCase().includes(q);
@@ -121,18 +119,12 @@ export default function Home({
     <div className="home-nextgen-wrapper">
       
       {/* ==========================================================================
-          2. HERO SECTION & KAIZEN VISION SCANNER HUD (NEXT-GEN SAAS BENCHMARK)
+          1. HERO SECTION & KAIZEN VISION SCANNER HUD
           ========================================================================== */}
       <section className="hero-grid">
         <div className="hero-intro">
-          <div className="hero-pill-badge">
-            <span>💎 KỸ NĂNG 12 UI/UX PRO MAX</span>
-            <span>•</span>
-            <span>NEXT-GEN VISION AI ARCHITECTURE</span>
-          </div>
-
           <h1 className="hero-title">
-            Chuyển Hóa Chất Lượng Y Tế Bằng <span className="hero-title-shimmer">Kaizen Vision AI</span> & Trí Tuệ Dữ Liệu
+            Chuyển hóa chất lượng y tế bằng <span className="hero-title-shimmer">Kaizen Vision AI</span> & trí tuệ dữ liệu
           </h1>
 
           <p className="hero-desc">
@@ -145,25 +137,25 @@ export default function Home({
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <polygon points="5 3 19 12 5 21 5 3"/>
               </svg>
-              <span>Trải Nghiệm 19 Đề Án</span>
+              <span>Trải nghiệm 19 đề án</span>
             </a>
             <button type="button" className="btn-glass-secondary" onClick={handleSimulateScan}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
               </svg>
-              <span>Quét Lại Kaizen Vision HUD</span>
+              <span>Quét lại Kaizen Vision HUD</span>
             </button>
           </div>
         </div>
 
-        {/* THE NEXT-GEN VISION AI SCANNER HUD - BẢNG ĐIỀU HÀNH CUỘC THI TOÀN VIỆN */}
+        {/* THE NEXT-GEN VISION AI SCANNER HUD */}
         <div className="vision-hud-container">
           <div className="hud-header">
             <div className="hud-title-wrap">
               <div className="hud-status-indicator"></div>
-              <div className="hud-title">HỘI THI KAIZEN 2026 • VISION INTELLIGENCE HUD</div>
+              <div className="hud-title">Hội thi Kaizen 2026 • Vision Intelligence HUD</div>
             </div>
-            <div className="hud-telemetry-badge mono">BẢNG ĐIỀU HÀNH SỐ • LIVE</div>
+            <div className="hud-telemetry-badge mono">Bảng điều hành số • Live</div>
           </div>
 
           <div className="hud-viewport" id="hudViewport">
@@ -195,31 +187,31 @@ export default function Home({
             <div className="hud-metrics-row">
               <div className={`hud-mini-stat ${scanTargetIdx === 0 ? 'active-stat' : ''}`} id="hudStat0">
                 <div className="hud-stat-val mono" style={{ color: 'var(--hv-cyan)' }}>{totalProjects || 19}</div>
-                <div className="hud-stat-lbl">Đề Án Sáng Kiến</div>
+                <div className="hud-stat-lbl">Đề án sáng kiến</div>
                 <div className="hud-stat-sub" style={{ color: 'var(--hv-cyan)' }}>
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-                  <span>100% Khối Lâm Sàng</span>
+                  <span>100% khối lâm sàng</span>
                 </div>
               </div>
               <div className={`hud-mini-stat ${scanTargetIdx === 0 ? 'active-stat' : ''}`} id="hudStat1">
                 <div className="hud-stat-val mono" style={{ color: 'var(--hv-emerald)' }}>{totalDepts || 23}</div>
-                <div className="hud-stat-lbl">Khoa/Phòng Chủ Trì</div>
+                <div className="hud-stat-lbl">Khoa/phòng chủ trì</div>
                 <div className="hud-stat-sub" style={{ color: 'var(--hv-emerald)' }}>
-                  <span>Đồng bộ 2 Cơ sở BV</span>
+                  <span>Đồng bộ 2 cơ sở BV</span>
                 </div>
               </div>
               <div className={`hud-mini-stat ${scanTargetIdx === 1 ? 'active-stat' : ''}`} id="hudStat2">
                 <div className="hud-stat-val mono" style={{ color: 'var(--hv-amber)' }}>1.24 TỶ</div>
-                <div className="hud-stat-lbl">Tiết Kiệm Lãng Phí/Năm</div>
+                <div className="hud-stat-lbl">Tiết kiệm lãng phí/năm</div>
                 <div className="hud-stat-sub" style={{ color: 'var(--hv-amber)' }}>
                   <span>Lean Hospital ROI</span>
                 </div>
               </div>
               <div className={`hud-mini-stat ${scanTargetIdx === 2 ? 'active-stat' : ''}`} id="hudStat3">
                 <div className="hud-stat-val mono" style={{ color: 'var(--hv-purple)' }}>100%</div>
-                <div className="hud-stat-lbl">Liên Thông Lương 3P</div>
+                <div className="hud-stat-lbl">Liên thông lương 3P</div>
                 <div className="hud-stat-sub" style={{ color: 'var(--hv-purple)' }}>
-                  <span>Thưởng Hiệu Suất wRVU</span>
+                  <span>Thưởng hiệu suất wRVU</span>
                 </div>
               </div>
             </div>
@@ -227,28 +219,28 @@ export default function Home({
 
           {/* Target Switcher Dock */}
           <div className="hud-target-dock">
-            <span className="hud-dock-lbl">Trụ Cột Hội Thi:</span>
+            <span className="hud-dock-lbl">Trụ cột hội thi:</span>
             <div className="target-tabs">
               <button 
                 type="button" 
                 className={`target-tab-btn ${scanTargetIdx === 0 ? 'active' : ''}`} 
                 onClick={() => setScanTargetIdx(0)}
               >
-                An Toàn Người Bệnh (IPSG)
+                An toàn người bệnh (IPSG)
               </button>
               <button 
                 type="button" 
                 className={`target-tab-btn ${scanTargetIdx === 1 ? 'active' : ''}`} 
                 onClick={() => setScanTargetIdx(1)}
               >
-                Tinh Gọn Lean Hospital
+                Tinh gọn Lean Hospital
               </button>
               <button 
                 type="button" 
                 className={`target-tab-btn ${scanTargetIdx === 2 ? 'active' : ''}`} 
                 onClick={() => setScanTargetIdx(2)}
               >
-                Chuyển Đổi Số & Lương 3P
+                Chuyển đổi số & lương 3P
               </button>
             </div>
           </div>
@@ -256,58 +248,52 @@ export default function Home({
       </section>
 
       {/* ==========================================================================
-          3. THE BENTO GRID ARCHITECTURE (4 HIGH-IMPACT TILES)
+          2. BENTO GRID MATRIX
           ========================================================================== */}
       <section className="bento-section">
         <div className="section-header-wrap">
-          <div>
-            <div className="section-heading-tag">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 9h6"/></svg>
-              <span>BENTO GRID MATRIX</span>
-            </div>
-            <h2 className="section-main-title">Trọng Tâm Điều Hành Chiến Lược Kaizen</h2>
-          </div>
+          <h2 className="section-main-title">Trọng tâm điều hành chiến lược Kaizen</h2>
         </div>
 
         <div className="bento-grid">
           
-          {/* Bento 1: Strategic Timeline (2x1 Large Span) */}
+          {/* Bento 1: Strategic Timeline */}
           <div className="bento-card bento-timeline">
             <div>
               <div className="bento-header">
-                <span className="bento-tag">LỘ TRÌNH 3 VÒNG THI</span>
-                <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--hv-cyan)' }}>COUNTDOWN: 09 NGÀY CHUNG KẾT</span>
+                <span className="bento-tag">Lộ trình 3 vòng thi</span>
+                <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--hv-cyan)' }}>Đếm ngược: 09 ngày chung kết</span>
               </div>
-              <h3 className="bento-card-title">Tiến Độ Thực Thi Hội Thi 16 Năm Hùng Vương</h3>
+              <h3 className="bento-card-title">Tiến độ thực thi hội thi 16 năm Hùng Vương</h3>
               <p className="bento-card-desc">Giám sát lộ trình từ giai đoạn nộp phiếu đăng ký A3, thử nghiệm thực địa đến vòng thuyết trình trước Hội đồng Thành viên.</p>
             </div>
 
             <div className="timeline-strip">
               <div className="timeline-node completed">
                 <div className="node-header">
-                  <span className="node-round-lbl">VÒNG 1</span>
-                  <span className="node-status-chip chip-done">HOÀN THÀNH</span>
+                  <span className="node-round-lbl">Vòng 1</span>
+                  <span className="node-status-chip chip-done">Hoàn thành</span>
                 </div>
-                <div className="node-name">Khởi Động & Nộp Đề Án</div>
-                <div className="node-date mono">19/19 Đơn Vị Đạt Chuẩn</div>
+                <div className="node-name">Khởi động & nộp đề án</div>
+                <div className="node-date mono">19/19 đơn vị đạt chuẩn</div>
               </div>
 
               <div className="timeline-node active">
                 <div className="node-header">
-                  <span className="node-round-lbl">VÒNG 2</span>
-                  <span className="node-status-chip chip-active">ĐANG DIỄN RA</span>
+                  <span className="node-round-lbl">Vòng 2</span>
+                  <span className="node-status-chip chip-active">Đang diễn ra</span>
                 </div>
-                <div className="node-name">Thực Địa & Thẩm Định</div>
+                <div className="node-name">Thực địa & thẩm định</div>
                 <div className="node-date mono">Điểm TB: {averageScore}đ</div>
               </div>
 
               <div className="timeline-node">
                 <div className="node-header">
-                  <span className="node-round-lbl">VÒNG 3</span>
+                  <span className="node-round-lbl">Vòng 3</span>
                   <span className="node-status-chip chip-upcoming">28/09/2026</span>
                 </div>
-                <div className="node-name">Chung Kết & Trao Giải</div>
-                <div className="node-date mono">Hội đồng BGK Chấm Thi</div>
+                <div className="node-name">Chung kết & trao giải</div>
+                <div className="node-date mono">Hội đồng BGK chấm thi</div>
               </div>
             </div>
           </div>
@@ -318,14 +304,14 @@ export default function Home({
               <div className="bento-header">
                 <span className="gold-badge">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <span>✨ ĐỀ ÁN TIÊU BIỂU VÒNG 1</span>
+                  <span>✨ Đề án tiêu biểu Vòng 1</span>
                 </span>
                 <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--hv-amber)' }}>
                   {spotlightProject?.maDeTai || 'KZ16-KHTH-01'}
                 </span>
               </div>
               <h3 className="bento-card-title">
-                {spotlightProject?.tenDeTai || spotlightProject?.tenSanPham}
+                {spotlightProject?.tenSanPham || spotlightProject?.tenDeTai}
               </h3>
               <p className="bento-card-desc">
                 {spotlightProject?.khoaPhong} • Chủ nhiệm: {spotlightProject ? getCleanLeaderName(spotlightProject) : ''}
@@ -334,10 +320,10 @@ export default function Home({
 
             <div style={{ margin: '1.25rem 0' }}>
               <div className="spotlight-score-badge mono">
-                {spotlightScore.score} <span style={{ fontSize: '1.1rem', fontWeight: 700 }}>ĐIỂM</span>
+                {spotlightScore.score} <span style={{ fontSize: '1.1rem', fontWeight: 700 }}>điểm</span>
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--hv-emerald)', fontWeight: 700 }}>
-                ★ Xếp Loại: {spotlightScore.short} (Tổng Điểm Tự Động Vòng 1)
+                ★ Xếp loại: {spotlightScore.short} (Tổng điểm tự động Vòng 1)
               </div>
             </div>
 
@@ -346,7 +332,7 @@ export default function Home({
               className="btn-view-a3" 
               onClick={() => onSelectProject && spotlightProject && onSelectProject(spotlightProject)}
             >
-              <span>Xem Báo Cáo A3 Chi Tiết</span>
+              <span>Xem báo cáo A3 chi tiết</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </div>
@@ -355,17 +341,11 @@ export default function Home({
       </section>
 
       {/* ==========================================================================
-          4. INTERACTIVE PROJECT DIRECTORY & FILTER ENGINE (SAAS STYLE)
+          3. THƯ VIỆN SẢN PHẨM & ĐỀ ÁN CẢI TIẾN
           ========================================================================== */}
       <section className="directory-section" id="directorySection">
         <div className="section-header-wrap">
-          <div>
-            <div className="section-heading-tag">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <span>KAIZEN REPOSITORY</span>
-            </div>
-            <h2 className="section-main-title">Thư Viện Sản Phẩm & Đề Án Cải Tiến Đang Đăng Ký</h2>
-          </div>
+          <h2 className="section-main-title">Thư viện sản phẩm & đề án cải tiến đang đăng ký</h2>
         </div>
 
         {/* Filter & Search Toolbar */}
@@ -376,28 +356,28 @@ export default function Home({
               className={`filter-chip ${filterType === 'all' ? 'active' : ''}`} 
               onClick={() => setFilterType('all')}
             >
-              Tất Cả ({topProjects.length})
+              Tất cả ({topProjects.length})
             </button>
             <button 
               type="button" 
               className={`filter-chip ${filterType === 'Nhánh A' ? 'active' : ''}`} 
               onClick={() => setFilterType('Nhánh A')}
             >
-              Nhánh A: Nội Bộ (2)
+              Nhánh A: Nội bộ (2)
             </button>
             <button 
               type="button" 
               className={`filter-chip ${filterType === 'Nhánh B' ? 'active' : ''}`} 
               onClick={() => setFilterType('Nhánh B')}
             >
-              Nhánh B: Liên Khoa (17)
+              Nhánh B: Liên khoa (17)
             </button>
             <button 
               type="button" 
               className={`filter-chip ${filterType === 'scored' ? 'active' : ''}`} 
               onClick={() => setFilterType('scored')}
             >
-              Top 5 Điểm Cao Nhất
+              Top 5 điểm cao nhất
             </button>
           </div>
 
@@ -423,7 +403,7 @@ export default function Home({
           </div>
         </div>
 
-        {/* Projects Bento Grid Cards */}
+        {/* Projects Bento Grid Cards - Thiết kế lại khu vực tên đề tài 2 tầng tinh gọn */}
         <div className="projects-bento-grid" id="projectsGrid">
           {filteredProjects.length === 0 ? (
             <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
@@ -435,38 +415,54 @@ export default function Home({
               const isBranchA = p.nhanh === 'Nhánh A';
               const isTop5 = top5Ids.includes(p.maDeTai);
 
+              // Tách Tên sáng kiến nổi bật (Tầng 1) và Mục tiêu lâm sàng (Tầng 2)
+              const hasDistinctProduct = p.tenSanPham && p.tenSanPham !== p.tenDeTai;
+              const mainHeading = hasDistinctProduct ? p.tenSanPham : p.tenDeTai;
+              const subObjective = hasDistinctProduct ? p.tenDeTai : (p.quickSummary?.idea || '');
+
               return (
                 <div key={p.maDeTai || idx} className="project-card">
-                  <div>
+                  <div className="project-card-header">
                     <div className="card-top-row">
-                      <span className={`card-branch-tag ${isBranchA ? 'branch-a' : 'branch-b'}`}>{p.nhanh}</span>
+                      <div className="card-id-cluster">
+                        <span className="card-code-pill mono">{p.maDeTai}</span>
+                        <span className={`card-branch-tag ${isBranchA ? 'branch-a' : 'branch-b'}`}>{p.nhanh}</span>
+                      </div>
                       <span className={`card-score-badge badge-tier-${sc.tier} mono`}>
-                        ★ {sc.score}đ • {sc.short}{isTop5 ? ' • TOP 5' : ''}
+                        ★ {sc.score}đ • {sc.short}{isTop5 ? ' • Top 5' : ''}
                       </span>
                     </div>
-                    <h3 className="project-card-title" style={{ marginTop: '0.75rem' }}>
-                      {p.tenDeTai || p.tenSanPham}
-                    </h3>
+
+                    <div className="project-title-cluster">
+                      <h3 className="project-card-title" title={p.tenDeTai}>
+                        {mainHeading}
+                      </h3>
+                      {hasDistinctProduct && (
+                        <p className="project-card-sub" title={subObjective}>
+                          {subObjective}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
-                  <div>
+                  <div className="project-card-footer">
                     <div className="project-card-meta">
                       <div className="meta-item">
-                        <span style={{ color: 'var(--text-muted)' }}>Khoa/Phòng:</span>
+                        <span className="meta-label">Khoa/phòng:</span>
                         <span className="meta-strong">{p.khoaPhong}{p.khoaPhoiHop ? ` (+ ${p.khoaPhoiHop})` : ''}</span>
                       </div>
                       <div className="meta-item">
-                        <span style={{ color: 'var(--text-muted)' }}>Tác giả:</span>
+                        <span className="meta-label">Tác giả:</span>
                         <span className="meta-strong">{p.tacGia || getCleanLeaderName(p) || 'Nhóm tác giả'}</span>
                       </div>
                     </div>
+
                     <button 
                       type="button" 
                       className="btn-view-a3" 
-                      style={{ marginTop: '1rem' }}
                       onClick={() => onSelectProject && onSelectProject(p)}
                     >
-                      <span>Xem Báo Cáo A3</span>
+                      <span>Xem báo cáo A3</span>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
                   </div>
@@ -481,7 +477,7 @@ export default function Home({
       <footer className="app-footer">
         <p><strong>CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT — BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</strong></p>
         <p style={{ marginTop: '0.3rem' }}>Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng • Sếp Trần Đình Vũ phụ trách</p>
-        <p className="mono" style={{ marginTop: '0.4rem', fontSize: '0.75rem' }}>Prototype Next-Gen Vision AI SaaS Design Architecture • 2026</p>
+        <p className="mono" style={{ marginTop: '0.4rem', fontSize: '0.75rem' }}>Bệnh viện Đa khoa Hùng Vương • 2026</p>
       </footer>
 
     </div>
