@@ -66,6 +66,20 @@ function App() {
   const [selectedProjectForComment, setSelectedProjectForComment] = useState(null)
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
 
+  // Quản lý Chế độ Giao diện Dual Theme (Mặc định mở web là Light Mode, Dark Mode là tùy chọn)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('hv_kaizen_theme') || 'light';
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('hv_kaizen_theme', theme);
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  }
+
   // Tải dữ liệu từ Google Apps Script
   const fetchData = async () => {
     if (!apiUrl) return;
@@ -404,113 +418,130 @@ function App() {
     { id: 'script', name: 'Thư pháp Nghệ thuật (Montserrat + Dancing Script)', orgClass: '', sloganClass: 'font-script' },
   ];
 
-  const [brandFontIdx, setBrandFontIdx] = useState(() => {
-    const saved = localStorage.getItem('hv_brand_font_idx');
-    return saved !== null ? parseInt(saved, 10) % BRAND_FONT_PRESETS.length : 0;
-  });
-
-  const currentBrandFont = BRAND_FONT_PRESETS[brandFontIdx];
-
-  const handleCycleBrandFont = (e) => {
-    e.stopPropagation();
-    const nextIdx = (brandFontIdx + 1) % BRAND_FONT_PRESETS.length;
-    setBrandFontIdx(nextIdx);
-    localStorage.setItem('hv_brand_font_idx', nextIdx.toString());
-  };
-
   return (
-    <div className="app-container">
-      {/* Header Web App */}
-      <header className="header">
-        <div className="container header-container">
-          <div className="header-brand" onClick={() => setActiveTab('home')} style={{ cursor: 'pointer' }}>
-            <img 
-              src={logoImg} 
-              alt="Logo Bệnh viện Đa khoa Hùng Vương" 
-              className="header-logo-img" 
-              onError={(e) => { e.currentTarget.src = './logo.png' }}
-            />
-            <div className="header-text-block">
-              <span className={`header-org-title ${currentBrandFont.orgClass}`}>
-                BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG
-              </span>
-              <div className="header-slogan-row">
-                <span className={`header-slogan-title ${currentBrandFont.sloganClass}`}>
-                  Thân thiện — Chuyên nghiệp — Chu đáo
-                </span>
-                <button
-                  type="button"
-                  className="header-font-cycle-btn"
-                  onClick={handleCycleBrandFont}
-                  title={`Kiểu chữ: ${currentBrandFont.name}\nBấm để đổi kiểu font khác`}
-                >
-                  Aa
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="header-right-nav">
-            <nav className="nav-tabs">
-              <button 
-                type="button"
-                className={`nav-btn ${activeTab === 'home' ? 'active' : ''}`}
-                onClick={() => setActiveTab('home')}
-              >
-                Trang Chủ
-              </button>
-              <button 
-                type="button"
-                className={`nav-btn ${activeTab === 'showcase' ? 'active' : ''}`}
-                onClick={() => setActiveTab('showcase')}
-                title="Khám phá các sản phẩm và sáng kiến cải tiến y tế"
-              >
-                Giới Thiệu Sản Phẩm
-              </button>
-              <button 
-                type="button"
-                className={`nav-btn ${activeTab === 'ranking' ? 'active' : ''}`}
-                onClick={() => setActiveTab('ranking')}
-                title="Theo dõi danh sách các đề án đang đăng ký và tiếp nhận"
-              >
-                Tiến Độ Tiếp Nhận
-              </button>
-              <button 
-                type="button"
-                className={`nav-btn ${activeTab === 'score' ? 'active' : ''}`}
-                onClick={() => setActiveTab('score')}
-                title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức tại Vòng Chung kết"
-              >
-                Ban Giám Khảo Chấm Điểm
-              </button>
-              <button 
-                type="button"
-                className={`nav-btn ${activeTab === 'secretary' ? 'active' : ''}`}
-                onClick={() => setActiveTab('secretary')}
-              >
-                Thư Ký
-              </button>
-            </nav>
+    <div className="app-shell">
+      {/* Ambient Aurora Backdrops */}
+      <div className="aurora-container">
+        <div className="aurora-light-1"></div>
+        <div className="aurora-light-2"></div>
+      </div>
 
-            <div className="auth-status-box">
-              {isAuthenticated ? (
-                <div className="logged-in-badge">
-                  <span className="auth-role">Hội đồng</span>
-                  <button type="button" className="auth-logout-btn" onClick={handleLogout}>
-                    Đăng xuất
-                  </button>
-                </div>
-              ) : (
-                <button 
-                  type="button" 
-                  className="auth-login-link"
-                  onClick={() => setActiveTab('score')}
-                >
-                  Đăng nhập Hội đồng
-                </button>
-              )}
+      {/* 1. FLOATING NAVIGATION DOCK */}
+      <header className="nav-dock">
+        <div className="brand-cluster" onClick={() => setActiveTab('home')} style={{ cursor: 'pointer' }}>
+          <div className="brand-logo-badge">HV</div>
+          <div className="brand-meta">
+            <div className="brand-title">
+              Bệnh Viện Đa Khoa Hùng Vương
+              <span className="brand-tag">KAIZEN OS</span>
             </div>
+            <div className="brand-sub">Hội Thi Cải Tiến Chất Lượng Bệnh Viện 2026</div>
           </div>
+        </div>
+
+        <nav className="nav-dock-tabs">
+          <button 
+            type="button" 
+            className={`nav-dock-tab ${activeTab === 'home' ? 'active' : ''}`}
+            onClick={() => setActiveTab('home')}
+          >
+            Trang Chủ
+          </button>
+          <button 
+            type="button" 
+            className={`nav-dock-tab ${activeTab === 'showcase' ? 'active' : ''}`}
+            onClick={() => setActiveTab('showcase')}
+            title="Khám phá các sản phẩm và sáng kiến cải tiến y tế"
+          >
+            Sản Phẩm
+          </button>
+          <button 
+            type="button" 
+            className={`nav-dock-tab ${activeTab === 'ranking' ? 'active' : ''}`}
+            onClick={() => setActiveTab('ranking')}
+            title="Theo dõi danh sách các đề án đang đăng ký và tiếp nhận"
+          >
+            Tiến Độ Tiếp Nhận
+          </button>
+          <button 
+            type="button" 
+            className={`nav-dock-tab ${activeTab === 'score' ? 'active' : ''}`}
+            onClick={() => setActiveTab('score')}
+            title="Dành cho Hội đồng Ban Giám khảo chấm điểm chính thức tại Vòng Chung kết"
+          >
+            Ban Giám Khảo
+          </button>
+          <button 
+            type="button" 
+            className={`nav-dock-tab ${activeTab === 'secretary' ? 'active' : ''}`}
+            onClick={() => setActiveTab('secretary')}
+          >
+            Thư Ký
+          </button>
+        </nav>
+
+        <div className="nav-actions">
+          <div className="live-status-pill">
+            <span className="live-dot"></span>
+            <span>VÒNG 2 • THỰC ĐỊA ACTIVE</span>
+          </div>
+
+          <button 
+            type="button" 
+            className="theme-toggle-btn" 
+            onClick={toggleTheme} 
+            title={theme === 'light' ? "Chuyển sang Chế độ Dark Mode (LED Hội Trường)" : "Chuyển sang Chế độ Light Mode (Lâm Sàng Vô Trùng)"}
+          >
+            {theme === 'light' ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            )}
+          </button>
+
+          <a 
+            href="#directorySection" 
+            className="btn-portal-enter"
+            onClick={(e) => {
+              if (activeTab !== 'home') {
+                e.preventDefault();
+                setActiveTab('home');
+                setTimeout(() => {
+                  document.getElementById('directorySection')?.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+              }
+            }}
+          >
+            <span>Khám Phá Đề Án</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+
+          {isAuthenticated ? (
+            <button type="button" className="auth-logout-pill" onClick={handleLogout} title="Đăng xuất Hội đồng">
+              Đăng xuất
+            </button>
+          ) : (
+            <button 
+              type="button" 
+              className="auth-login-link-subtle"
+              onClick={() => setActiveTab('score')}
+              title="Đăng nhập dành cho Hội đồng Ban Giám khảo"
+            >
+              Hội đồng
+            </button>
+          )}
         </div>
       </header>
 
@@ -526,6 +557,8 @@ function App() {
             topProjects={rankingData}
             onNavigate={(tabName) => setActiveTab(tabName)}
             onSelectProject={handleOpenA3Modal}
+            theme={theme}
+            toggleTheme={toggleTheme}
           />
         )}
 

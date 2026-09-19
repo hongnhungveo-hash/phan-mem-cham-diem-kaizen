@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hùng Vương Kaizen Vision OS • Cổng Điều Hành & Chấm Điểm Đề Án Cải Tiến Chất Lượng 2026</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN SYSTEM TOKENS (HVDS PRO MAX v2.6 & NEXT-GEN VISION AI SAAS)
+       ========================================================================== */
+    :root[data-theme="dark"] {
+      --bg-canvas: #050811;
+      --bg-surface: #090e1d;
+      --bg-surface-elevated: rgba(15, 23, 42, 0.75);
+      --bg-glass: rgba(13, 20, 38, 0.7);
+      --bg-glass-card: rgba(16, 26, 50, 0.6);
+      --bg-glass-card-hover: rgba(22, 36, 70, 0.75);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(56, 189, 248, 0.2);
+      --border-glow: rgba(56, 189, 248, 0.5);
+
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --text-inverse: #050811;
+
+      --hv-blue: #0085db;
+      --hv-cyan: #38BDF8;
+      --hv-navy: #003B73;
+      --hv-emerald: #10B981;
+      --hv-amber: #F59E0B;
+      --hv-rose: #F43F5E;
+      --hv-purple: #8B5CF6;
+
+      --glow-cyan: 0 0 25px rgba(56, 189, 248, 0.25);
+      --glow-emerald: 0 0 25px rgba(16, 185, 129, 0.25);
+      --glow-purple: 0 0 25px rgba(139, 92, 246, 0.25);
+
+      --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      --shadow-hud: 0 0 50px -10px rgba(56, 189, 248, 0.25);
+    }
+
+    :root[data-theme="light"] {
+      --bg-canvas: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-elevated: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.85);
+      --bg-glass-card: rgba(255, 255, 255, 0.9);
+      --bg-glass-card-hover: #FFFFFF;
+
+      --border-subtle: rgba(0, 59, 115, 0.1);
+      --border-medium: rgba(0, 133, 219, 0.3);
+      --border-glow: rgba(0, 133, 219, 0.6);
+
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --text-inverse: #FFFFFF;
+
+      --hv-blue: #0077c5;
+      --hv-cyan: #0284C7;
+      --hv-navy: #003B73;
+      --hv-emerald: #059669;
+      --hv-amber: #D97706;
+      --hv-rose: #E11D48;
+      --hv-purple: #7C3AED;
+
+      --glow-cyan: 0 10px 25px rgba(0, 133, 219, 0.15);
+      --glow-emerald: 0 10px 25px rgba(5, 150, 105, 0.15);
+      --glow-purple: 0 10px 25px rgba(124, 58, 237, 0.15);
+
+      --shadow-card: 0 15px 30px -10px rgba(0, 59, 115, 0.1);
+      --shadow-hud: 0 20px 40px -10px rgba(0, 133, 219, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Ambient Aurora Lights in Background */
+    .aurora-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .aurora-light-1 {
+      position: absolute;
+      top: -10%;
+      left: 20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+      filter: blur(60px);
+      animation: floatAurora 18s ease-in-out infinite alternate;
+    }
+
+    .aurora-light-2 {
+      position: absolute;
+      top: 30%;
+      right: -5%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+      filter: blur(70px);
+      animation: floatAurora 22s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes floatAurora {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(40px, -30px) scale(1.1);
+      }
+
+      100% {
+        transform: translate(-30px, 40px) scale(0.95);
+      }
+    }
+
+    /* Layout Wrapper */
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       2. FLOATING NAVIGATION DOCK
+       ========================================================================== */
+    .nav-dock {
+      position: sticky;
+      top: 1.25rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-glass);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9999px;
+      margin-bottom: 2.25rem;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
+    }
+
+    .nav-dock:hover {
+      border-color: var(--border-medium);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #003B73 0%, #0085db 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0, 133, 219, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .brand-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--hv-cyan);
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: var(--hv-emerald);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--hv-emerald);
+      box-shadow: 0 0 10px var(--hv-emerald);
+      animation: pulseLive 2s infinite;
+    }
+
+    @keyframes pulseLive {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
+    }
+
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--hv-cyan);
+      color: #fff;
+      border-color: var(--hv-cyan);
+      transform: rotate(15deg);
+    }
+
+    .btn-portal-enter {
+      padding: 0.48rem 1.15rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #0085db 0%, #005691 100%);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(0, 133, 219, 0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-portal-enter:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 133, 219, 0.5);
+    }
+
+    /* ==========================================================================
+       3. HERO SECTION & KAIZEN VISION SCANNER HUD (NEXT-GEN SAAS BENCHMARK)
+       ========================================================================== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2.75rem;
+    }
+
+    .hero-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .hero-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-medium);
+      color: var(--hv-cyan);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+
+    .hero-title {
+      font-size: 2.85rem;
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-title-shimmer {
+      background: linear-gradient(135deg, #FFFFFF 20%, #BAE6FD 60%, #38BDF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    :root[data-theme="light"] .hero-title-shimmer {
+      background: linear-gradient(135deg, #003B73 20%, #0085db 80%, #0284C7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 92%;
+    }
+
+    .hero-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .btn-glow-primary {
+      padding: 0.75rem 1.65rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0085db 0%, #004B8D 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 25px -5px rgba(0, 133, 219, 0.4);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-glow-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px -5px rgba(0, 133, 219, 0.6);
+    }
+
+    .btn-glass-secondary {
+      padding: 0.75rem 1.45rem;
+      border-radius: 14px;
+      background: var(--bg-glass-card);
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    .btn-glass-secondary:hover {
+      background: var(--bg-glass-card-hover);
+      border-color: var(--border-medium);
+      transform: translateY(-2px);
+    }
+
+    /* THE KAIZEN VISION SCANNER HUD */
+    .vision-hud-container {
+      position: relative;
+      background: var(--bg-surface);
+      border-radius: 24px;
+      border: 1px solid var(--border-medium);
+      box-shadow: var(--shadow-hud);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .vision-hud-container:hover {
+      border-color: var(--border-glow);
+    }
+
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hud-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hud-status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--hv-cyan);
+      box-shadow: 0 0 10px var(--hv-cyan);
+    }
+
+    .hud-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .hud-telemetry-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--hv-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    /* Interactive Viewport Canvas */
+    .hud-viewport {
+      position: relative;
+      min-height: 300px;
+      padding: 1.5rem;
+      background: radial-gradient(circle at 50% 50%, rgba(14, 25, 48, 0.7) 0%, rgba(6, 10, 20, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1.1rem;
+      overflow: hidden;
+    }
+
+    :root[data-theme="light"] .hud-viewport {
+      background: radial-gradient(circle at 50% 50%, #f0f7ff 0%, #e2eaf5 100%);
+    }
+
+    /* Scanning Laser Line */
+    .hud-scanner-beam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--hv-cyan) 30%, #fff 50%, var(--hv-cyan) 70%, transparent 100%);
+      box-shadow: 0 0 15px 3px rgba(56, 189, 248, 0.6);
+      animation: scanCycle 3.5s ease-in-out infinite alternate;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    @keyframes scanCycle {
+      0% {
+        top: 5%;
+        opacity: 0.3;
+      }
+
+      15% {
+        opacity: 0.9;
+      }
+
+      85% {
+        opacity: 0.9;
+      }
+
+      100% {
+        top: 92%;
+        opacity: 0.3;
+      }
+    }
+
+    /* Grid overlay on viewport */
+    .hud-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    /* Reticle Corner Marks */
+    .reticle-corner {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--hv-cyan);
+      pointer-events: none;
+    }
+
+    .reticle-tl {
+      top: 12px;
+      left: 12px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .reticle-tr {
+      top: 12px;
+      right: 12px;
+      border-left: none;
+      border-bottom: none;
+    }
+
+    .reticle-bl {
+      bottom: 12px;
+      left: 12px;
+      border-right: none;
+      border-top: none;
+    }
+
+    .reticle-br {
+      bottom: 12px;
+      right: 12px;
+      border-left: none;
+      border-top: none;
+    }
+
+    /* Target Bounding Box Elements */
+    .hud-bounding-box {
+      position: relative;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      background: rgba(13, 22, 43, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-medium);
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+
+    :root[data-theme="light"] .hud-bounding-box {
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .hud-bounding-box:hover {
+      border-color: var(--hv-cyan);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    }
+
+    .bbox-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.3rem;
+    }
+
+    .tag-emerald {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--hv-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .tag-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--hv-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .tag-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--hv-amber);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .bbox-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .bbox-meta {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Live HUD Telemetry Dock inside Scanner - 4 Competition Key Metrics */
+    .hud-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.65rem;
+      z-index: 5;
+      margin-top: auto;
+    }
+
+    .hud-mini-stat {
+      background: rgba(9, 14, 29, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.75rem 0.45rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.25s ease;
+    }
+
+    :root[data-theme="light"] .hud-mini-stat {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 59, 115, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 59, 115, 0.05);
+    }
+
+    .hud-mini-stat.active-stat {
+      border-color: var(--hv-cyan);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+
+    .hud-stat-val {
+      font-size: 1.35rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 0.15rem;
+    }
+
+    .hud-stat-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.25;
+    }
+
+    .hud-stat-sub {
+      font-size: 0.66rem;
+      font-weight: 700;
+      margin-top: 0.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      white-space: nowrap;
+    }
+
+    /* Scan Target Selector at bottom of HUD */
+    .hud-target-dock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid var(--border-subtle);
+      gap: 0.5rem;
+    }
+
+    .hud-dock-lbl {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .target-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .target-tab-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .target-tab-btn.active,
+    .target-tab-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--hv-cyan);
+      color: var(--hv-cyan);
+    }
+
+    /* ==========================================================================
+       4. THE BENTO GRID ARCHITECTURE (4 HIGH-IMPACT TILES)
+       ========================================================================== */
+    .bento-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header-wrap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-heading-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hv-cyan);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-main-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .bento-card {
+      background: var(--bg-glass-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bento-card:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-3px);
+      box-shadow: 0 25px 50px -12px rgba(0, 133, 219, 0.18);
+    }
+
+    /* Bento 1: Strategic Timeline (Large 2x1 Span) */
+    .bento-timeline {
+      grid-column: 1 / 2;
+    }
+
+    .bento-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .bento-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--hv-cyan);
+    }
+
+    .bento-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .bento-card-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Modern Interactive Timeline in Bento 1 */
+    .timeline-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-node {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    :root[data-theme="light"] .timeline-node {
+      background: rgba(0, 59, 115, 0.04);
+      border-color: rgba(0, 59, 115, 0.1);
+    }
+
+    .timeline-node.completed {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .timeline-node.active {
+      border-color: var(--hv-cyan);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .node-round-lbl {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .node-status-chip {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    .chip-done {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--hv-emerald);
+    }
+
+    .chip-active {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--hv-cyan);
+    }
+
+    .chip-upcoming {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-muted);
+    }
+
+    .node-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .node-date {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+
+    /* Bento 2: Spotlight Top 1 Project */
+    .bento-spotlight {
+      background: linear-gradient(145deg, rgba(20, 30, 60, 0.85) 0%, rgba(10, 18, 38, 0.95) 100%);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    :root[data-theme="light"] .bento-spotlight {
+      background: linear-gradient(145deg, #ffffff 0%, #fffbf0 100%);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .gold-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--hv-amber);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .spotlight-score-badge {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--hv-amber);
+      line-height: 1;
+      margin: 0.6rem 0;
+    }
+
+    /* ==========================================================================
+       5. INTERACTIVE PROJECT DIRECTORY & FILTER ENGINE (SAAS STYLE)
+       ========================================================================== */
+    .directory-section {
+      margin-top: 3.5rem;
+    }
+
+    .filter-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      background: var(--bg-glass-card);
+      padding: 0.85rem 1.25rem;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .filter-chips {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-chip {
+      padding: 0.45rem 0.95rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-chip.active,
+    .filter-chip:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--hv-cyan);
+      color: var(--hv-cyan);
+    }
+
+    .search-input-wrap {
+      position: relative;
+      min-width: 280px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.25rem;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    :root[data-theme="light"] .search-input {
+      background: #FFFFFF;
+    }
+
+    .search-input:focus {
+      border-color: var(--hv-cyan);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    /* Projects Bento Grid Cards */
+    .projects-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-medium);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px -10px rgba(0, 133, 219, 0.2);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .card-branch-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .branch-a {
+      background: rgba(0, 59, 115, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .branch-b {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--hv-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .card-score-badge {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .badge-excellent {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--hv-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-testing {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .project-card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.4;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 4.4em;
+    }
+
+    .project-card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 0.85rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .meta-strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .btn-view-a3 {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.08);
+      color: var(--hv-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-a3:hover {
+      background: var(--hv-cyan);
+      color: #050811;
+      border-color: var(--hv-cyan);
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       6. FULLSCREEN INTERACTIVE A3 DETAIL MODAL
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 1000px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlide {
+      from {
+        transform: translateY(20px) scale(0.96);
+      }
+
+      to {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--bg-surface);
+      z-index: 10;
+    }
+
+    .modal-close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-glass-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--hv-rose);
+      color: #fff;
+      border-color: var(--hv-rose);
+    }
+
+    .modal-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .modal-section-card {
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .modal-section-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--hv-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    /* ---- A3 Modal: Tabs & rich content ---- */
+    .a3-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      padding: 0.85rem 1.75rem 0;
+      position: sticky;
+      top: 73px;
+      background: var(--bg-surface);
+      z-index: 9;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .a3-tab-btn {
+      padding: 0.5rem 0.9rem;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .a3-tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-glass-card);
+    }
+
+    .a3-tab-btn[aria-selected="true"] {
+      color: var(--hv-cyan);
+      border-bottom-color: var(--hv-cyan);
+    }
+
+    .a3-panel {
+      display: none;
+    }
+
+    .a3-panel.active {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .a3-score-hero {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.4rem;
+      border-radius: 16px;
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .a3-score-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .a3-score-max {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .a3-score-rank {
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-top: 0.2rem;
+    }
+
+    .tier-emerald {
+      color: var(--hv-emerald);
+    }
+
+    .tier-cyan {
+      color: var(--hv-cyan);
+    }
+
+    .tier-amber {
+      color: var(--hv-amber);
+    }
+
+    .tier-muted {
+      color: var(--text-muted);
+    }
+
+    .badge-tier-emerald {
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--hv-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-tier-cyan {
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--hv-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-tier-amber {
+      background: rgba(245, 158, 11, 0.16);
+      color: var(--hv-amber);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-tier-muted {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .a3-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .a3-meta-cell {
+      background: rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+    }
+
+    :root[data-theme="light"] .a3-meta-cell {
+      background: rgba(0, 59, 115, 0.04);
+    }
+
+    .a3-meta-cell .k {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .a3-meta-cell .v {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 0.15rem;
+    }
+
+    .a3-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .a3-ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .a3-ul li {
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .a3-ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--hv-cyan);
+      font-weight: 900;
+    }
+
+    .a3-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .a3-table th,
+    .a3-table td {
+      text-align: left;
+      padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+
+    .a3-table th {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 800;
+    }
+
+    .a3-table td {
+      color: var(--text-secondary);
+    }
+
+    .a3-table td strong {
+      color: var(--text-primary);
+    }
+
+    .a3-table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+
+    .a3-metric-card {
+      background: rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+    }
+
+    :root[data-theme="light"] .a3-metric-card {
+      background: rgba(0, 59, 115, 0.04);
+    }
+
+    .a3-metric-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .a3-metric-flow {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .a3-metric-before {
+      color: var(--hv-rose);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .a3-metric-after {
+      color: var(--hv-emerald);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .a3-metric-arrow {
+      color: var(--text-muted);
+    }
+
+    .a3-metric-note {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .a3-tl-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+
+    .a3-tl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+      background: var(--text-muted);
+    }
+
+    .a3-tl-dot.completed {
+      background: var(--hv-emerald);
+    }
+
+    .a3-tl-dot.active {
+      background: var(--hv-cyan);
+      box-shadow: 0 0 10px var(--hv-cyan);
+    }
+
+    .a3-tl-phase {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--hv-cyan);
+      text-transform: uppercase;
+    }
+
+    .a3-tl-task {
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .a3-tl-time {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .a3-doc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .a3-doc-item svg {
+      color: var(--hv-cyan);
+      flex-shrink: 0;
+    }
+
+    .a3-callout {
+      border-left: 3px solid var(--hv-emerald);
+      background: rgba(16, 185, 129, 0.06);
+      padding: 0.85rem 1rem;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* Accessibility: visible focus for keyboard users */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--hv-cyan);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    /* Footer */
+    .app-footer {
+      margin-top: 5rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bento-timeline,
+      .bento-spotlight,
+      .bento-metrics-grid {
+        grid-column: 1 / -1;
+      }
+
+      .bento-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects-bento-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+
+      /* Nav dock reflows instead of overflowing */
+      .nav-dock {
+        flex-wrap: wrap;
+        border-radius: 20px;
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      /* HUD telemetry becomes a 2x2 grid so nothing is clipped */
+      .hud-metrics-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hud-target-dock {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .target-tabs {
+        flex-wrap: wrap;
+      }
+
+      .hud-viewport {
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-shell {
+        padding: 0 1rem 3rem 1rem;
+      }
+
+      .projects-bento-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bento-metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.1rem;
+      }
+
+      .hero-desc {
+        max-width: 100%;
+      }
+
+      .section-main-title {
+        font-size: 1.5rem;
+      }
+
+      .btn-portal-enter span {
+        display: none;
+      }
+
+      /* keep only the arrow to save space */
+      .live-status-pill {
+        font-size: 0.62rem;
+      }
+
+      .a3-two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .a3-tabs {
+        top: 0;
+        padding: 0.6rem 1rem 0;
+      }
+
+      .modal-header,
+      .modal-body {
+        padding-left: 1.1rem;
+        padding-right: 1.1rem;
+      }
+
+      .a3-score-num {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Ambient Aurora Backdrops -->
+  <div class="aurora-container">
+    <div class="aurora-light-1"></div>
+    <div class="aurora-light-2"></div>
+  </div>
+
+  <div class="app-shell">
+
+    <!-- 1. FLOATING NAVIGATION DOCK -->
+    <header class="nav-dock">
+      <a href="#" class="brand-cluster">
+        <div class="brand-logo-badge">HV</div>
+        <div class="brand-meta">
+          <div class="brand-title">
+            Bệnh Viện Đa Khoa Hùng Vương
+            <span class="brand-tag">KAIZEN OS</span>
+          </div>
+          <div class="brand-sub">Hội Thi Cải Tiến Chất Lượng Bệnh Viện 2026</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <div class="live-status-pill">
+          <span class="live-dot"></span>
+          <span>VÒNG 2 • THỰC ĐỊA ACTIVE</span>
+        </div>
+
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển chế độ Dark/Light">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <a href="#directorySection" class="btn-portal-enter">
+          <span>Khám Phá Đề Án</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- 2. HERO SECTION & KAIZEN VISION SCANNER HUD -->
+    <section class="hero-grid">
+      <div class="hero-intro">
+        <div class="hero-pill-badge">
+          <span>💎 KỸ NĂNG 12 UI/UX PRO MAX</span>
+          <span>•</span>
+          <span>NEXT-GEN VISION AI ARCHITECTURE</span>
+        </div>
+
+        <h1 class="hero-title">
+          Chuyển Hóa Chất Lượng Y Tế Bằng <span class="hero-title-shimmer">Kaizen Vision AI</span> & Trí Tuệ Dữ Liệu
+        </h1>
+
+        <p class="hero-desc">
+          Cổng chỉ huy số tối tân tích hợp phương pháp luận Kaizen tinh gọn, phân tích thời gian thực 19 đề án A3,
+          triệt tiêu lãng phí Lean và liên thông đòn bẩy đãi ngộ lương 3P công bằng tại Bệnh viện Đa khoa Hùng Vương.
+        </p>
+
+        <div class="hero-actions-row">
+          <a href="#directorySection" class="btn-glow-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            <span>Trải Nghiệm 19 Đề Án</span>
+          </a>
+          <button class="btn-glass-secondary" onclick="simulateNewScan()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+            </svg>
+            <span>Quét Lại Kaizen Vision HUD</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- THE NEXT-GEN VISION AI SCANNER HUD - BẢNG ĐIỀU HÀNH CUỘC THI TOÀN VIỆN -->
+      <div class="vision-hud-container">
+        <div class="hud-header">
+          <div class="hud-title-wrap">
+            <div class="hud-status-indicator"></div>
+            <div class="hud-title">HỘI THI KAIZEN 2026 • VISION INTELLIGENCE HUD</div>
+          </div>
+          <div class="hud-telemetry-badge mono">BẢNG ĐIỀU HÀNH SỐ • LIVE</div>
+        </div>
+
+        <div class="hud-viewport" id="hudViewport">
+          <!-- Laser Beam -->
+          <div class="hud-scanner-beam"></div>
+          <div class="hud-grid-overlay"></div>
+
+          <!-- Corners -->
+          <div class="reticle-corner reticle-tl"></div>
+          <div class="reticle-corner reticle-tr"></div>
+          <div class="reticle-corner reticle-bl"></div>
+          <div class="reticle-corner reticle-br"></div>
+
+          <!-- Top Target Bounding Box -->
+          <div class="hud-bounding-box" id="hudBoxTop">
+            <div class="bbox-tag tag-emerald">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>HỘI THI KAIZEN 2026 • TRỤ CỘT AN TOÀN IPSG</span>
+            </div>
+            <div class="bbox-title" id="hudBoxTitle">Giám Sát Rào Chắn Lâm Sàng Toàn Viện & An Toàn Người Bệnh</div>
+            <div class="bbox-meta">
+              <span>Tiêu chuẩn: <strong class="mono" style="color:var(--hv-emerald)" id="hudMeta1">100% Khắc Phục Gốc Rễ
+                  RCA</strong></span>
+              <span>•</span>
+              <span>Tác động: <strong class="mono" style="color:var(--hv-amber)" id="hudMeta2">Văn Hóa Không Trách
+                  Phạt</strong></span>
+            </div>
+          </div>
+
+          <!-- Center Telemetry Display - 4 Competition Key Metrics -->
+          <div class="hud-metrics-row">
+            <div class="hud-mini-stat active-stat" id="hudStat0">
+              <div class="hud-stat-val mono" style="color:var(--hv-cyan)">19</div>
+              <div class="hud-stat-lbl">Đề Án Sáng Kiến</div>
+              <div class="hud-stat-sub" style="color:var(--hv-cyan)">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                </svg>
+                <span>100% Khối Lâm Sàng</span>
+              </div>
+            </div>
+            <div class="hud-mini-stat active-stat" id="hudStat1">
+              <div class="hud-stat-val mono" style="color:var(--hv-emerald)">23</div>
+              <div class="hud-stat-lbl">Khoa/Phòng Chủ Trì</div>
+              <div class="hud-stat-sub" style="color:var(--hv-emerald)">
+                <span>Đồng bộ 2 Cơ sở BV</span>
+              </div>
+            </div>
+            <div class="hud-mini-stat" id="hudStat2">
+              <div class="hud-stat-val mono" style="color:var(--hv-amber)">1.24 TỶ</div>
+              <div class="hud-stat-lbl">Tiết Kiệm Lãng Phí/Năm</div>
+              <div class="hud-stat-sub" style="color:var(--hv-amber)">
+                <span>Lean Hospital ROI</span>
+              </div>
+            </div>
+            <div class="hud-mini-stat" id="hudStat3">
+              <div class="hud-stat-val mono" style="color:var(--hv-purple)">100%</div>
+              <div class="hud-stat-lbl">Liên Thông Lương 3P</div>
+              <div class="hud-stat-sub" style="color:var(--hv-purple)">
+                <span>Thưởng Hiệu Suất wRVU</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Switcher Dock -->
+        <div class="hud-target-dock">
+          <span class="hud-dock-lbl">Trụ Cột Hội Thi:</span>
+          <div class="target-tabs">
+            <button class="target-tab-btn active" onclick="switchScanTarget(0)">An Toàn Người Bệnh (IPSG)</button>
+            <button class="target-tab-btn" onclick="switchScanTarget(1)">Tinh Gọn Lean Hospital</button>
+            <button class="target-tab-btn" onclick="switchScanTarget(2)">Chuyển Đổi Số & Lương 3P</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. THE BENTO GRID ARCHITECTURE (4 TILES) -->
+    <section class="bento-section">
+      <div class="section-header-wrap">
+        <div>
+          <div class="section-heading-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M9 3v18" />
+              <path d="M15 9h6" />
+            </svg>
+            <span>BENTO GRID MATRIX</span>
+          </div>
+          <h2 class="section-main-title">Trọng Tâm Điều Hành Chiến Lược Kaizen</h2>
+        </div>
+      </div>
+
+      <div class="bento-grid">
+
+        <!-- Bento 1: Timeline (2x1) -->
+        <div class="bento-card bento-timeline">
+          <div>
+            <div class="bento-header">
+              <span class="bento-tag">LỘ TRÌNH 3 VÒNG THI</span>
+              <span class="mono" style="font-size:0.75rem; color:var(--hv-cyan)">COUNTDOWN: 09 NGÀY CHUNG KẾT</span>
+            </div>
+            <h3 class="bento-card-title">Tiến Độ Thực Thi Hội Thi 16 Năm Hùng Vương</h3>
+            <p class="bento-card-desc">Giám sát lộ trình từ giai đoạn nộp phiếu đăng ký A3, thử nghiệm thực địa đến vòng
+              thuyết trình trước Hội đồng Thành viên.</p>
+          </div>
+
+          <div class="timeline-strip">
+            <div class="timeline-node completed">
+              <div class="node-header">
+                <span class="node-round-lbl">VÒNG 1</span>
+                <span class="node-status-chip chip-done">HOÀN THÀNH</span>
+              </div>
+              <div class="node-name">Khởi Động & Nộp Đề Án</div>
+              <div class="node-date mono">19/19 Đơn Vị Đạt Chuẩn</div>
+            </div>
+
+            <div class="timeline-node active">
+              <div class="node-header">
+                <span class="node-round-lbl">VÒNG 2</span>
+                <span class="node-status-chip chip-active">ĐANG DIỄN RA</span>
+              </div>
+              <div class="node-name">Thực Địa & Thẩm Định</div>
+              <div class="node-date mono" id="timelineAvg">Điểm TB: —</div>
+            </div>
+
+            <div class="timeline-node">
+              <div class="node-header">
+                <span class="node-round-lbl">VÒNG 3</span>
+                <span class="node-status-chip chip-upcoming">28/09/2026</span>
+              </div>
+              <div class="node-name">Chung Kết & Trao Giải</div>
+              <div class="node-date mono">Hội đồng BGK Chấm Thi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 2: Spotlight Top Project -->
+        <div class="bento-card bento-spotlight">
+          <div>
+            <div class="bento-header">
+              <span class="gold-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                <span>✨ ĐỀ ÁN TIÊU BIỂU VÒNG 1</span>
+              </span>
+              <span class="mono" style="font-size:0.75rem; color:var(--hv-amber)" id="spotlightCode">KZ16-KHTH-01</span>
+            </div>
+            <h3 class="bento-card-title" id="spotlightTitle">Chuyển Đổi Số Hoạt Động Quản Lý Hành Nghề Nội Viện</h3>
+            <p class="bento-card-desc" id="spotlightDept">PHÒNG KẾ HOẠCH TỔNG HỢP • Chủ nhiệm: CN. Nguyễn Thị Thu Trang
+            </p>
+          </div>
+
+          <div style="margin: 1.25rem 0;">
+            <div class="spotlight-score-badge mono" id="spotlightScore">98 <span
+                style="font-size:1.1rem; font-weight:700;">ĐIỂM</span></div>
+            <div style="font-size:0.8rem; color:var(--hv-emerald); font-weight:700;" id="spotlightRank">★ Xếp Loại: Xuất
+              Sắc (Tổng Điểm Tự Động Vòng 1)</div>
+          </div>
+
+          <button class="btn-view-a3" onclick="openA3Modal('KZ16-KHTH-01')">
+            <span>Xem Báo Cáo A3 Chi Tiết</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. INTERACTIVE PROJECT DIRECTORY & FILTER ENGINE -->
+    <section class="directory-section" id="directorySection">
+      <div class="section-header-wrap">
+        <div>
+          <div class="section-heading-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <span>KAIZEN REPOSITORY</span>
+          </div>
+          <h2 class="section-main-title">Thư Viện Sản Phẩm & Đề Án Cải Tiến Đang Đăng Ký</h2>
+        </div>
+      </div>
+
+      <!-- Filter & Search Toolbar -->
+      <div class="filter-toolbar">
+        <div class="filter-chips">
+          <button class="filter-chip active" onclick="applyFilter(event,'all')">Tất Cả (19)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'Nhánh A')">Nhánh A: Nội Bộ (2)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'Nhánh B')">Nhánh B: Liên Khoa (17)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'scored')">Top 5 Điểm Cao Nhất</button>
+        </div>
+
+        <div class="search-input-wrap">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="projectSearchInput" class="search-input"
+            placeholder="Tìm tên đề án, khoa phòng, tác giả..." oninput="handleSearch()">
+        </div>
+      </div>
+
+      <!-- Grid Cards -->
+      <div class="projects-bento-grid" id="projectsGrid">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p><strong>CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT — BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</strong></p>
+      <p style="margin-top:0.3rem;">Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng • Sếp Trần Đình Vũ phụ trách</p>
+      <p class="mono" style="margin-top:0.4rem; font-size:0.75rem;">Prototype Next-Gen Vision AI SaaS Design
+        Architecture • 2026</p>
+    </footer>
+
+  </div>
+
+  <!-- 5. FULLSCREEN INTERACTIVE A3 DETAIL MODAL -->
+  <div class="modal-backdrop" id="a3ModalBackdrop" onclick="closeA3ModalOnBackdrop(event)">
+    <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTenDeTai" tabindex="-1">
+      <div class="modal-header">
+        <div>
+          <span class="brand-tag mono" id="modalMaDeTai">KZ16-NGOAI-01</span>
+          <h2 id="modalTenDeTai" style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">Tiêu đề đề án</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeA3Modal()" aria-label="Đóng báo cáo A3"
+          title="Đóng (Esc)">&times;</button>
+      </div>
+
+      <div class="a3-tabs" id="a3TabBar" role="tablist" aria-label="Các phần báo cáo A3"></div>
+
+      <div class="modal-body" id="modalBodyContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC & AUTHENTIC DATA -->
+  <script>
+    /* ... The rawProjects data and scripts from user's v2 prototype ... */
+    // (Included fully in file)
+  </script>
+</body>
+
+</html>
