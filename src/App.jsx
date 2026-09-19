@@ -632,10 +632,10 @@ function App() {
           </div>
 
           <div className="footer-compact-right">
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('home')}>Trang Chủ</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('showcase')}>Thư Viện</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('ranking')}>Bảng Xếp Hạng</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('score')}>Chấm Điểm</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('home')}>Trang chủ</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('showcase')}>Sản phẩm</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('score')}>Ban giám khảo</button>
+            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('secretary')}>Thư ký</button>
           </div>
         </div>
       </footer>

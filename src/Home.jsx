@@ -473,13 +473,6 @@ export default function Home({
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="app-footer">
-        <p><strong>CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT — BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG</strong></p>
-        <p style={{ marginTop: '0.3rem' }}>Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng • Sếp Trần Đình Vũ phụ trách</p>
-        <p className="mono" style={{ marginTop: '0.4rem', fontSize: '0.75rem' }}>Bệnh viện Đa khoa Hùng Vương • 2026</p>
-      </footer>
-
     </div>
   );
 }
