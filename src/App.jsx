@@ -617,16 +617,16 @@ function App() {
                 <span className="footer-lbl">CƠ QUAN CHỦ QUẢN:</span> CÔNG TY TNHH PHÁT TRIỂN Y HỌC VIỆT — BỆNH VIỆN ĐA KHOA HÙNG VƯƠNG
               </div>
               <div className="footer-line-btc">
-                <span className="footer-lbl">BAN TỔ CHỨC CHÍNH:</span> Ban Tổ Chức Hội Thi Đề Án Cải Tiến Chất Lượng Năm 2026
+                <span className="footer-lbl">BAN TỔ CHỨC:</span> Hội thi Đề án Cải tiến Chất lượng năm 2026
                 <span className="footer-sep">•</span>
-                <span className="footer-focal-text">Thường trực: Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng</span>
+                <span className="footer-focal-text">Đơn vị thường trực: Phòng Kế hoạch Tổng hợp — Tổ Quản lý Chất lượng</span>
               </div>
               <div className="footer-line-sub">
                 <span>Trụ sở: Thôn Phượng Hùng 1, Xã Chí Đám, Tỉnh Phú Thọ</span>
                 <span className="footer-sep">•</span>
-                <span>Hotline: 1800 9415</span>
+                <span>Tổng đài CSKH: 1800 9415 (Miễn cước)</span>
                 <span className="footer-sep">•</span>
-                <span>© 2026 BVĐK Hùng Vương</span>
+                <span>Bản quyền hệ thống © 2026</span>
               </div>
             </div>
           </div>
