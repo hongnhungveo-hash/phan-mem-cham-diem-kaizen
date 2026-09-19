@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hùng Vương Kaizen Vision OS • Cổng Điều Hành & Chấm Điểm Đề Án Cải Tiến Chất Lượng 2026</title>
+  <title>Hội thi đề án cải tiến chất lượng năm 2026 — Bệnh viện Đa khoa Hùng Vương</title>
+  <link rel="icon" type="image/png" href="logo.png">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -142,9 +143,21 @@
     .app-shell {
       position: relative;
       z-index: 1;
-      max-width: 1440px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 1.5rem 4rem 1.5rem;
+      padding: 0 2rem 3.5rem 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .app-shell {
+        padding: 0 1.5rem 2.5rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-shell {
+        padding: 0 1rem 2rem 1rem;
+      }
     }
 
     /* ==========================================================================
@@ -152,20 +165,21 @@
        ========================================================================== */
     .nav-dock {
       position: sticky;
-      top: 1.25rem;
+      top: 1rem;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1.5rem;
+      padding: 0.55rem 1.25rem;
       background: var(--bg-glass);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-subtle);
       border-radius: 9999px;
-      margin-bottom: 2.25rem;
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
+      gap: 1rem;
     }
     .nav-dock:hover {
       border-color: var(--border-medium);
@@ -453,12 +467,13 @@
     /* Interactive Viewport Canvas */
     .hud-viewport {
       position: relative;
-      height: 340px;
+      min-height: 300px;
       padding: 1.5rem;
       background: radial-gradient(circle at 50% 50%, rgba(14, 25, 48, 0.7) 0%, rgba(6, 10, 20, 0.95) 100%);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 1.1rem;
       overflow: hidden;
     }
     :root[data-theme="light"] .hud-viewport {
@@ -562,7 +577,7 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 0.65rem;
       z-index: 5;
-      margin-top: 0.85rem;
+      margin-top: auto;
     }
     .hud-mini-stat {
       background: rgba(9, 14, 29, 0.75);
@@ -954,6 +969,11 @@
       font-weight: 800;
       line-height: 1.4;
       color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 4.4em;
     }
     .project-card-meta {
       display: flex;
@@ -1089,6 +1109,137 @@
       gap: 0.45rem;
     }
 
+    /* ---- A3 Modal: Tabs & rich content ---- */
+    .a3-tabs {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      padding: 0.85rem 1.75rem 0;
+      position: sticky;
+      top: 73px;
+      background: var(--bg-surface);
+      z-index: 9;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .a3-tab-btn {
+      padding: 0.5rem 0.9rem;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .a3-tab-btn:hover { color: var(--text-primary); background: var(--bg-glass-card); }
+    .a3-tab-btn[aria-selected="true"] {
+      color: var(--hv-cyan);
+      border-bottom-color: var(--hv-cyan);
+    }
+    .a3-panel { display: none; }
+    .a3-panel.active { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .a3-score-hero {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.4rem;
+      border-radius: 16px;
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-subtle);
+    }
+    .a3-score-num { font-size: 2.6rem; font-weight: 900; line-height: 1; }
+    .a3-score-max { font-size: 1rem; font-weight: 700; color: var(--text-muted); }
+    .a3-score-rank { font-size: 0.9rem; font-weight: 800; margin-top: 0.2rem; }
+
+    .tier-emerald { color: var(--hv-emerald); }
+    .tier-cyan { color: var(--hv-cyan); }
+    .tier-amber { color: var(--hv-amber); }
+    .tier-muted { color: var(--text-muted); }
+    .badge-tier-emerald { background: rgba(16,185,129,0.18); color: var(--hv-emerald); border: 1px solid rgba(16,185,129,0.4); }
+    .badge-tier-cyan { background: rgba(56,189,248,0.16); color: var(--hv-cyan); border: 1px solid rgba(56,189,248,0.4); }
+    .badge-tier-amber { background: rgba(245,158,11,0.16); color: var(--hv-amber); border: 1px solid rgba(245,158,11,0.4); }
+    .badge-tier-muted { background: rgba(148,163,184,0.15); color: var(--text-secondary); border: 1px solid var(--border-subtle); }
+
+    .a3-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.6rem;
+    }
+    .a3-meta-cell {
+      background: rgba(0,0,0,0.12);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+    }
+    :root[data-theme="light"] .a3-meta-cell { background: rgba(0,59,115,0.04); }
+    .a3-meta-cell .k { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+    .a3-meta-cell .v { font-size: 0.86rem; font-weight: 600; color: var(--text-primary); margin-top: 0.15rem; }
+
+    .a3-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .a3-ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .a3-ul li {
+      font-size: 0.86rem; line-height: 1.55; color: var(--text-secondary);
+      padding-left: 1.1rem; position: relative;
+    }
+    .a3-ul li::before { content: "▸"; position: absolute; left: 0; color: var(--hv-cyan); font-weight: 900; }
+
+    .a3-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .a3-table th, .a3-table td {
+      text-align: left; padding: 0.55rem 0.7rem;
+      border-bottom: 1px solid var(--border-subtle); vertical-align: top;
+    }
+    .a3-table th { color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 800; }
+    .a3-table td { color: var(--text-secondary); }
+    .a3-table td strong { color: var(--text-primary); }
+    .a3-table-wrap { overflow-x: auto; border-radius: 10px; }
+
+    .a3-metric-card {
+      background: rgba(0,0,0,0.12);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 0.8rem 1rem;
+    }
+    :root[data-theme="light"] .a3-metric-card { background: rgba(0,59,115,0.04); }
+    .a3-metric-label { font-size: 0.8rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+    .a3-metric-flow { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+    .a3-metric-before { color: var(--hv-rose); font-weight: 700; font-size: 0.82rem; }
+    .a3-metric-after { color: var(--hv-emerald); font-weight: 800; font-size: 0.82rem; }
+    .a3-metric-arrow { color: var(--text-muted); }
+    .a3-metric-note { font-size: 0.74rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+    .a3-tl-item { display: flex; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--border-subtle); }
+    .a3-tl-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 0.35rem; flex-shrink: 0; background: var(--text-muted); }
+    .a3-tl-dot.completed { background: var(--hv-emerald); }
+    .a3-tl-dot.active { background: var(--hv-cyan); box-shadow: 0 0 10px var(--hv-cyan); }
+    .a3-tl-phase { font-size: 0.72rem; font-weight: 800; color: var(--hv-cyan); text-transform: uppercase; }
+    .a3-tl-task { font-size: 0.85rem; color: var(--text-primary); font-weight: 600; }
+    .a3-tl-time { font-size: 0.74rem; color: var(--text-muted); }
+
+    .a3-doc-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.5rem 0.75rem; border: 1px solid var(--border-subtle);
+      border-radius: 10px; font-size: 0.82rem; color: var(--text-secondary);
+    }
+    .a3-doc-item svg { color: var(--hv-cyan); flex-shrink: 0; }
+
+    .a3-callout {
+      border-left: 3px solid var(--hv-emerald);
+      background: rgba(16,185,129,0.06);
+      padding: 0.85rem 1rem; border-radius: 0 10px 10px 0;
+      font-size: 0.86rem; line-height: 1.6; color: var(--text-secondary);
+    }
+
+    /* Accessibility: visible focus for keyboard users */
+    a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--hv-cyan);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
     /* Footer */
     .app-footer {
       margin-top: 5rem;
@@ -1104,11 +1255,42 @@
       .bento-grid { grid-template-columns: 1fr; }
       .bento-timeline, .bento-spotlight, .bento-metrics-grid { grid-column: 1 / -1; }
       .bento-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-bento-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
     }
+
+    @media (max-width: 820px) {
+      /* Nav dock reflows instead of overflowing */
+      .nav-dock {
+        flex-wrap: wrap;
+        border-radius: 20px;
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+      }
+      .nav-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem; }
+      .brand-sub { display: none; }
+
+      /* HUD telemetry becomes a 2x2 grid so nothing is clipped */
+      .hud-metrics-row { grid-template-columns: repeat(2, 1fr); }
+      .hud-target-dock { flex-direction: column; align-items: flex-start; }
+      .target-tabs { flex-wrap: wrap; }
+      .hud-viewport { min-height: 0; }
+    }
+
     @media (max-width: 640px) {
+      .app-shell { padding: 0 1rem 3rem 1rem; }
       .projects-bento-grid { grid-template-columns: 1fr; }
       .bento-metrics-grid { grid-template-columns: 1fr; }
       .hero-title { font-size: 2.1rem; }
+      .hero-desc { max-width: 100%; }
+      .section-main-title { font-size: 1.5rem; }
+
+      .btn-portal-enter span { display: none; }         /* keep only the arrow to save space */
+      .live-status-pill { font-size: 0.62rem; }
+
+      .a3-two-col { grid-template-columns: 1fr; }
+      .a3-tabs { top: 0; padding: 0.6rem 1rem 0; }
+      .modal-header, .modal-body { padding-left: 1.1rem; padding-right: 1.1rem; }
+      .a3-score-num { font-size: 2rem; }
     }
   </style>
 </head>
@@ -1125,24 +1307,25 @@
     <!-- 1. FLOATING NAVIGATION DOCK -->
     <header class="nav-dock">
       <a href="#" class="brand-cluster">
-        <div class="brand-logo-badge">HV</div>
+        <img src="logo.png" alt="Logo Bệnh viện Đa khoa Hùng Vương" class="nav-dock-logo-img">
         <div class="brand-meta">
           <div class="brand-title">
-            Bệnh Viện Đa Khoa Hùng Vương
-            <span class="brand-tag">KAIZEN OS</span>
+            Bệnh viện Đa khoa Hùng Vương
           </div>
-          <div class="brand-sub">Hội Thi Cải Tiến Chất Lượng Bệnh Viện 2026</div>
+          <div class="brand-sub">Tận tâm - Liêm chính - Nhân văn</div>
         </div>
       </a>
 
-      <div class="nav-actions">
-        <div class="live-status-pill">
-          <span class="live-dot"></span>
-          <span>VÒNG 2 • THỰC ĐỊA ACTIVE</span>
-        </div>
+      <nav class="nav-dock-tabs">
+        <a href="#" class="nav-dock-tab active">Trang chủ</a>
+        <a href="#directorySection" class="nav-dock-tab">Sản phẩm</a>
+        <button type="button" class="nav-dock-tab" onclick="openA3Modal('KZ16-KHTH-01')">Ban giám khảo</button>
+        <a href="#directorySection" class="nav-dock-tab">Thư ký</a>
+      </nav>
 
+      <div class="nav-actions">
         <button class="theme-toggle-btn" id="themeToggleBtn" title="Chuyển chế độ Dark/Light">
-          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -1154,27 +1337,14 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
-
-        <a href="#directorySection" class="btn-portal-enter">
-          <span>Khám Phá Đề Án</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
       </div>
     </header>
 
     <!-- 2. HERO SECTION & KAIZEN VISION SCANNER HUD -->
     <section class="hero-grid">
       <div class="hero-intro">
-        <div class="hero-pill-badge">
-          <span>💎 KỸ NĂNG 12 UI/UX PRO MAX</span>
-          <span>•</span>
-          <span>NEXT-GEN VISION AI ARCHITECTURE</span>
-        </div>
-
         <h1 class="hero-title">
-          Chuyển Hóa Chất Lượng Y Tế Bằng <span class="hero-title-shimmer">Kaizen Vision AI</span> & Trí Tuệ Dữ Liệu
+          Chuyển hóa chất lượng y tế bằng <span class="hero-title-shimmer">Kaizen Vision AI</span> & trí tuệ dữ liệu
         </h1>
 
         <p class="hero-desc">
@@ -1184,16 +1354,16 @@
 
         <div class="hero-actions-row">
           <a href="#directorySection" class="btn-glow-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
-            <span>Trải Nghiệm 19 Đề Án</span>
+            <span>Trải nghiệm 19 đề án</span>
           </a>
           <button class="btn-glass-secondary" onclick="simulateNewScan()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
-            <span>Quét Lại Kaizen Vision HUD</span>
+            <span>Quét lại Kaizen Vision HUD</span>
           </button>
         </div>
       </div>
@@ -1203,9 +1373,9 @@
         <div class="hud-header">
           <div class="hud-title-wrap">
             <div class="hud-status-indicator"></div>
-            <div class="hud-title">HỘI THI KAIZEN 2026 • VISION INTELLIGENCE HUD</div>
+            <div class="hud-title">Hội thi Kaizen 2026 • Vision Intelligence HUD</div>
           </div>
-          <div class="hud-telemetry-badge mono">BẢNG ĐIỀU HÀNH SỐ • LIVE</div>
+          <div class="hud-telemetry-badge mono">Bảng điều hành số • Live</div>
         </div>
 
         <div class="hud-viewport" id="hudViewport">
@@ -1222,14 +1392,14 @@
           <!-- Top Target Bounding Box -->
           <div class="hud-bounding-box" id="hudBoxTop">
             <div class="bbox-tag tag-emerald">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>HỘI THI KAIZEN 2026 • TRỤ CỘT AN TOÀN IPSG</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Hội thi Kaizen 2026 • Trụ cột an toàn IPSG</span>
             </div>
-            <div class="bbox-title" id="hudBoxTitle">Giám Sát Rào Chắn Lâm Sàng Toàn Viện & An Toàn Người Bệnh</div>
+            <div class="bbox-title" id="hudBoxTitle">Giám sát rào chắn lâm sàng toàn viện & an toàn người bệnh</div>
             <div class="bbox-meta">
-              <span>Tiêu chuẩn: <strong class="mono" style="color:var(--hv-emerald)" id="hudMeta1">100% Khắc Phục Gốc Rễ RCA</strong></span>
+              <span>Tiêu chuẩn: <strong class="mono" style="color:var(--hv-emerald)" id="hudMeta1">100% khắc phục gốc rễ RCA</strong></span>
               <span>•</span>
-              <span>Tác động: <strong class="mono" style="color:var(--hv-amber)" id="hudMeta2">Văn Hóa Không Trách Phạt</strong></span>
+              <span>Tác động: <strong class="mono" style="color:var(--hv-amber)" id="hudMeta2">Văn hóa không trách phạt</strong></span>
             </div>
           </div>
 
@@ -1237,31 +1407,31 @@
           <div class="hud-metrics-row">
             <div class="hud-mini-stat active-stat" id="hudStat0">
               <div class="hud-stat-val mono" style="color:var(--hv-cyan)">19</div>
-              <div class="hud-stat-lbl">Đề Án Sáng Kiến</div>
+              <div class="hud-stat-lbl">Đề án sáng kiến</div>
               <div class="hud-stat-sub" style="color:var(--hv-cyan)">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-                <span>100% Khối Lâm Sàng</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                <span>100% khối lâm sàng</span>
               </div>
             </div>
             <div class="hud-mini-stat active-stat" id="hudStat1">
               <div class="hud-stat-val mono" style="color:var(--hv-emerald)">23</div>
-              <div class="hud-stat-lbl">Khoa/Phòng Chủ Trì</div>
+              <div class="hud-stat-lbl">Khoa/phòng chủ trì</div>
               <div class="hud-stat-sub" style="color:var(--hv-emerald)">
-                <span>Đồng bộ 2 Cơ sở BV</span>
+                <span>Đồng bộ 2 cơ sở BV</span>
               </div>
             </div>
             <div class="hud-mini-stat" id="hudStat2">
               <div class="hud-stat-val mono" style="color:var(--hv-amber)">1.24 TỶ</div>
-              <div class="hud-stat-lbl">Tiết Kiệm Lãng Phí/Năm</div>
+              <div class="hud-stat-lbl">Tiết kiệm lãng phí/năm</div>
               <div class="hud-stat-sub" style="color:var(--hv-amber)">
                 <span>Lean Hospital ROI</span>
               </div>
             </div>
             <div class="hud-mini-stat" id="hudStat3">
               <div class="hud-stat-val mono" style="color:var(--hv-purple)">100%</div>
-              <div class="hud-stat-lbl">Liên Thông Lương 3P</div>
+              <div class="hud-stat-lbl">Liên thông lương 3P</div>
               <div class="hud-stat-sub" style="color:var(--hv-purple)">
-                <span>Thưởng Hiệu Suất wRVU</span>
+                <span>Thưởng hiệu suất wRVU</span>
               </div>
             </div>
           </div>
@@ -1269,11 +1439,11 @@
 
         <!-- Target Switcher Dock -->
         <div class="hud-target-dock">
-          <span class="hud-dock-lbl">Trụ Cột Hội Thi:</span>
+          <span class="hud-dock-lbl">Trụ cột hội thi:</span>
           <div class="target-tabs">
-            <button class="target-tab-btn active" onclick="switchScanTarget(0)">An Toàn Người Bệnh (IPSG)</button>
-            <button class="target-tab-btn" onclick="switchScanTarget(1)">Tinh Gọn Lean Hospital</button>
-            <button class="target-tab-btn" onclick="switchScanTarget(2)">Chuyển Đổi Số & Lương 3P</button>
+            <button class="target-tab-btn active" onclick="switchScanTarget(0)">An toàn người bệnh (IPSG)</button>
+            <button class="target-tab-btn" onclick="switchScanTarget(1)">Tinh gọn Lean Hospital</button>
+            <button class="target-tab-btn" onclick="switchScanTarget(2)">Chuyển đổi số & lương 3P</button>
           </div>
         </div>
       </div>
@@ -1283,11 +1453,7 @@
     <section class="bento-section">
       <div class="section-header-wrap">
         <div>
-          <div class="section-heading-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 9h6"/></svg>
-            <span>BENTO GRID MATRIX</span>
-          </div>
-          <h2 class="section-main-title">Trọng Tâm Điều Hành Chiến Lược Kaizen</h2>
+          <h2 class="section-main-title">Trọng tâm điều hành chiến lược Kaizen</h2>
         </div>
       </div>
 
@@ -1297,39 +1463,39 @@
         <div class="bento-card bento-timeline">
           <div>
             <div class="bento-header">
-              <span class="bento-tag">LỘ TRÌNH 3 VÒNG THI</span>
-              <span class="mono" style="font-size:0.75rem; color:var(--hv-cyan)">COUNTDOWN: 09 NGÀY CHUNG KẾT</span>
+              <span class="bento-tag">Lộ trình 3 vòng thi</span>
+              <span class="mono" style="font-size:0.75rem; color:var(--hv-cyan)">ĐẾM NGƯỢC: 09 NGÀY CHUNG KẾT</span>
             </div>
-            <h3 class="bento-card-title">Tiến Độ Thực Thi Hội Thi 16 Năm Hùng Vương</h3>
+            <h3 class="bento-card-title">Tiến độ thực thi hội thi 16 năm Hùng Vương</h3>
             <p class="bento-card-desc">Giám sát lộ trình từ giai đoạn nộp phiếu đăng ký A3, thử nghiệm thực địa đến vòng thuyết trình trước Hội đồng Thành viên.</p>
           </div>
 
           <div class="timeline-strip">
             <div class="timeline-node completed">
               <div class="node-header">
-                <span class="node-round-lbl">VÒNG 1</span>
-                <span class="node-status-chip chip-done">HOÀN THÀNH</span>
+                <span class="node-round-lbl">Vòng 1</span>
+                <span class="node-status-chip chip-done">Hoàn thành</span>
               </div>
-              <div class="node-name">Khởi Động & Nộp Đề Án</div>
-              <div class="node-date mono">19/19 Đơn Vị Đạt Chuẩn</div>
+              <div class="node-name">Khởi động & nộp đề án</div>
+              <div class="node-date mono">19/19 đơn vị đạt chuẩn</div>
             </div>
 
             <div class="timeline-node active">
               <div class="node-header">
-                <span class="node-round-lbl">VÒNG 2</span>
-                <span class="node-status-chip chip-active">ĐANG DIỄN RA</span>
+                <span class="node-round-lbl">Vòng 2</span>
+                <span class="node-status-chip chip-active">Đang diễn ra</span>
               </div>
-              <div class="node-name">Thực Địa & Thẩm Định</div>
-              <div class="node-date mono">Điểm TB: 87.6đ</div>
+              <div class="node-name">Thực địa & thẩm định</div>
+              <div class="node-date mono" id="timelineAvg">Điểm TB: —</div>
             </div>
 
             <div class="timeline-node">
               <div class="node-header">
-                <span class="node-round-lbl">VÒNG 3</span>
+                <span class="node-round-lbl">Vòng 3</span>
                 <span class="node-status-chip chip-upcoming">28/09/2026</span>
               </div>
-              <div class="node-name">Chung Kết & Trao Giải</div>
-              <div class="node-date mono">Hội đồng BGK Chấm Thi</div>
+              <div class="node-name">Chung kết & trao giải</div>
+              <div class="node-date mono">Hội đồng BGK chấm thi</div>
             </div>
           </div>
         </div>
@@ -1340,22 +1506,22 @@
             <div class="bento-header">
               <span class="gold-badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span>✨ ĐỀ ÁN TIÊU BIỂU VÒNG 1</span>
+                <span>✨ Đề án tiêu biểu Vòng 1</span>
               </span>
               <span class="mono" style="font-size:0.75rem; color:var(--hv-amber)" id="spotlightCode">KZ16-KHTH-01</span>
             </div>
-            <h3 class="bento-card-title" id="spotlightTitle">Chuyển Đổi Số Hoạt Động Quản Lý Hành Nghề Nội Viện</h3>
-            <p class="bento-card-desc" id="spotlightDept">PHÒNG KẾ HOẠCH TỔNG HỢP • Chủ nhiệm: CN. Nguyễn Thị Thu Trang</p>
+            <h3 class="bento-card-title" id="spotlightTitle">Chuyển đổi số hoạt động quản lý hành nghề nội viện</h3>
+            <p class="bento-card-desc" id="spotlightDept">Phòng Kế hoạch Tổng hợp • Chủ nhiệm: CN. Nguyễn Thị Thu Trang</p>
           </div>
 
           <div style="margin: 1.25rem 0;">
             <div class="spotlight-score-badge mono" id="spotlightScore">98 <span style="font-size:1.1rem; font-weight:700;">ĐIỂM</span></div>
-            <div style="font-size:0.8rem; color:var(--hv-emerald); font-weight:700;" id="spotlightRank">★ Xếp Loại: Xuất Sắc (Tổng Điểm Tự Động Vòng 1)</div>
+            <div style="font-size:0.8rem; color:var(--hv-emerald); font-weight:700;" id="spotlightRank">★ Xếp loại: Xuất sắc (Tổng điểm thẩm định Vòng 1)</div>
           </div>
 
           <button class="btn-view-a3" onclick="openA3Modal('KZ16-KHTH-01')">
-            <span>Xem Báo Cáo A3 Chi Tiết</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <span>Xem báo cáo A3 chi tiết</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
 
@@ -1366,25 +1532,21 @@
     <section class="directory-section" id="directorySection">
       <div class="section-header-wrap">
         <div>
-          <div class="section-heading-tag">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <span>KAIZEN REPOSITORY</span>
-          </div>
-          <h2 class="section-main-title">Thư Viện Sản Phẩm & Đề Án Cải Tiến Đang Đăng Ký</h2>
+          <h2 class="section-main-title">Thư viện sản phẩm & đề án cải tiến đang đăng ký</h2>
         </div>
       </div>
 
       <!-- Filter & Search Toolbar -->
       <div class="filter-toolbar">
         <div class="filter-chips">
-          <button class="filter-chip active" onclick="applyFilter('all')">Tất Cả (19)</button>
-          <button class="filter-chip" onclick="applyFilter('Nhánh A')">Nhánh A: Nội Bộ (11)</button>
-          <button class="filter-chip" onclick="applyFilter('Nhánh B')">Nhánh B: Liên Khoa (8)</button>
-          <button class="filter-chip" onclick="applyFilter('scored')">Đã Thẩm Định (Top 5)</button>
+          <button class="filter-chip active" onclick="applyFilter(event,'all')">Tất cả (19)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'Nhánh A')">Nhánh A: Nội bộ (2)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'Nhánh B')">Nhánh B: Liên khoa (17)</button>
+          <button class="filter-chip" onclick="applyFilter(event,'scored')">Top 5 điểm cao nhất</button>
         </div>
 
         <div class="search-input-wrap">
-          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" id="projectSearchInput" class="search-input" placeholder="Tìm tên đề án, khoa phòng, tác giả..." oninput="handleSearch()">
         </div>
       </div>
@@ -1406,14 +1568,16 @@
 
   <!-- 5. FULLSCREEN INTERACTIVE A3 DETAIL MODAL -->
   <div class="modal-backdrop" id="a3ModalBackdrop" onclick="closeA3ModalOnBackdrop(event)">
-    <div class="modal-window">
+    <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTenDeTai" tabindex="-1">
       <div class="modal-header">
         <div>
           <span class="brand-tag mono" id="modalMaDeTai">KZ16-NGOAI-01</span>
           <h2 id="modalTenDeTai" style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">Tiêu đề đề án</h2>
         </div>
-        <button class="modal-close-btn" onclick="closeA3Modal()">&times;</button>
+        <button class="modal-close-btn" onclick="closeA3Modal()" aria-label="Đóng báo cáo A3" title="Đóng (Esc)">&times;</button>
       </div>
+
+      <div class="a3-tabs" id="a3TabBar" role="tablist" aria-label="Các phần báo cáo A3"></div>
 
       <div class="modal-body" id="modalBodyContent">
         <!-- Injected via JavaScript -->
@@ -7197,85 +7361,107 @@
 ];
 
     // Pre-assigned sample scores for demonstration of evaluated projects
-    const scoreMap = {
-      'KZ16-NGOAI-01': { score: 95.0, rank: 'Xuất sắc', tag: 'Top 1' },
-      'KZ16-GMHS-01': { score: 93.5, rank: 'Xuất sắc', tag: 'Top 2' },
-      'KZ16-CC-01': { score: 91.0, rank: 'Xuất sắc', tag: 'Top 3' },
-      'KZ16-KSNK-01': { score: 89.5, rank: 'Tốt', tag: 'Top 4' },
-      'KZ16-KKB-01': { score: 88.0, rank: 'Tốt', tag: 'Top 5' }
-    };
+    /* ============================================================
+       SCORING MODEL — driven by real data (tongDiemThamDinh),
+       replacing the previous hard-coded/fictional scoreMap.
+       ============================================================ */
+    function getScore(p) {
+      const raw = (typeof p.tongDiemThamDinh === 'number')
+        ? p.tongDiemThamDinh
+        : (parseInt(p.tongDiemThamDinh, 10) || 0);
+      let tier, short;
+      if (raw >= 95)      { tier = 'emerald'; short = 'Xuất sắc'; }
+      else if (raw >= 90) { tier = 'cyan';    short = 'Tốt';      }
+      else if (raw >= 80) { tier = 'amber';   short = 'Khá';      }
+      else                { tier = 'muted';   short = 'Đạt';      }
+      const full = String(p.xepLoaiThamDinh || short).replace(/[\s|]+$/, '').trim() || short;
+      return { score: raw, tier, short, full };
+    }
+
+    // Top-5 by real appraisal score (stable order)
+    const top5Ids = [...rawProjects]
+      .map(p => ({ id: p.maDeTai, s: getScore(p).score }))
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 5)
+      .map(x => x.id);
+
+    // Minimal HTML escaper for text injected into templates
+    function esc(v) {
+      return String(v == null ? '' : v)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
 
     let currentFilter = 'all';
     let searchQuery = '';
 
-    // Render projects in Bento Cards
+    /* ---- Directory cards ---- */
     function renderProjects() {
       const container = document.getElementById('projectsGrid');
       container.innerHTML = '';
 
       const filtered = rawProjects.filter(p => {
-        // filter by branch or scored
         if (currentFilter === 'Nhánh A' && p.nhanh !== 'Nhánh A') return false;
         if (currentFilter === 'Nhánh B' && p.nhanh !== 'Nhánh B') return false;
-        if (currentFilter === 'scored' && !scoreMap[p.maDeTai]) return false;
+        if (currentFilter === 'scored' && !top5Ids.includes(p.maDeTai)) return false;
 
-        // search query
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
-          const matchTitle = (p.tenDeTai || '').toLowerCase().includes(q);
-          const matchProd = (p.tenSanPham || '').toLowerCase().includes(q);
-          const matchDept = (p.khoaPhong || '').toLowerCase().includes(q);
-          const matchAuthor = (p.tacGia || '').toLowerCase().includes(q);
-          if (!matchTitle && !matchProd && !matchDept && !matchAuthor) return false;
+          const hay = [p.tenDeTai, p.tenSanPham, p.khoaPhong, p.khoaPhoiHop,
+                       p.tacGia, p.chuNhiem, p.nhomTacGia]
+            .map(x => (x || '').toLowerCase());
+          if (!hay.some(h => h.includes(q))) return false;
         }
-
         return true;
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:var(--text-muted);">Không tìm thấy đề tài phù hợp với từ khóa "${searchQuery}".</div>`;
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; color:var(--text-muted);">Không tìm thấy đề án phù hợp với từ khóa "${esc(searchQuery)}".</div>`;
         return;
       }
 
-      filtered.forEach((p, idx) => {
-        const scoreInfo = scoreMap[p.maDeTai];
+      filtered.forEach(p => {
+        const sc = getScore(p);
         const isBranchA = p.nhanh === 'Nhánh A';
+        const isTop5 = top5Ids.includes(p.maDeTai);
 
         const card = document.createElement('div');
         card.className = 'project-card';
+        const mainHeading = p.tenSanPham && p.tenSanPham !== p.tenDeTai ? p.tenSanPham : p.tenDeTai;
+        const subObjective = p.tenSanPham && p.tenSanPham !== p.tenDeTai ? p.tenDeTai : (p.mucTieu || p.chuDe || '');
+
         card.innerHTML = `
           <div>
             <div class="card-top-row">
-              <span class="card-branch-tag ${isBranchA ? 'branch-a' : 'branch-b'}">${p.nhanh}</span>
-              ${scoreInfo ? `
-                <span class="card-score-badge badge-excellent mono">
-                  ★ ${scoreInfo.score}đ • ${scoreInfo.rank}
-                </span>
-              ` : `
-                <span class="card-score-badge badge-testing mono">Đang Thử Nghiệm</span>
-              `}
+              <div class="card-id-cluster">
+                <span class="card-code-pill">${esc(p.maDeTai)}</span>
+                <span class="card-branch-tag ${isBranchA ? 'branch-a' : 'branch-b'}">${esc(p.nhanh)}</span>
+              </div>
+              <span class="card-score-badge badge-tier-${sc.tier} mono">
+                ★ ${sc.score}đ • ${sc.short}${isTop5 ? ' • Top 5' : ''}
+              </span>
             </div>
-
-            <h3 class="project-card-title" style="margin-top: 0.75rem;">
-              ${p.tenDeTai || p.tenSanPham}
-            </h3>
+            <div class="project-title-cluster">
+              <h3 class="project-card-title">${esc(mainHeading)}</h3>
+              ${subObjective ? `<div class="project-card-sub">${esc(subObjective)}</div>` : ''}
+            </div>
           </div>
-
           <div>
             <div class="project-card-meta">
               <div class="meta-item">
-                <span style="color:var(--text-muted)">Khoa/Phòng:</span>
-                <span class="meta-strong">${p.khoaPhong} ${p.khoaPhoiHop ? '(+ ' + p.khoaPhoiHop + ')' : ''}</span>
+                <span style="color:var(--text-muted)">Khoa/phòng:</span>
+                <span class="meta-strong">${esc(p.khoaPhong)}${p.khoaPhoiHop ? ' (+ ' + esc(p.khoaPhoiHop) + ')' : ''}</span>
               </div>
               <div class="meta-item">
                 <span style="color:var(--text-muted)">Tác giả:</span>
-                <span class="meta-strong">${p.tacGia || 'Nhóm tác giả'}</span>
+                <span class="meta-strong">${esc(p.tacGia || p.chuNhiem || 'Nhóm tác giả')}</span>
               </div>
             </div>
-
-            <button class="btn-view-a3" style="margin-top: 1rem;" onclick="openA3Modal('${p.maDeTai}')">
-              <span>Xem Báo Cáo A3</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <button class="btn-view-a3" style="margin-top: 0.85rem;" onclick="openA3Modal('${p.maDeTai}')">
+              <span>Xem báo cáo A3</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </div>
         `;
@@ -7283,42 +7469,44 @@
       });
     }
 
-    // Filter Chips
-    function applyFilter(filter) {
+    /* ---- Filter chips & search ---- */
+    function applyFilter(ev, filter) {
       currentFilter = filter;
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      event.target.classList.add('active');
+      const btn = (ev && (ev.currentTarget || ev.target));
+      if (btn && btn.classList) btn.classList.add('active');
       renderProjects();
     }
 
-    // Search Input
     function handleSearch() {
       searchQuery = document.getElementById('projectSearchInput').value.trim();
       renderProjects();
     }
 
-    // Kaizen Vision HUD Simulator - Giám Sát Chiến Lược Chất Lượng Toàn Viện Của Hội Thi 2026
+    /* ============================================================
+       KAIZEN VISION HUD — pillar switcher (unchanged behaviour)
+       ============================================================ */
     const hudPresets = [
       {
-        tag: 'HỘI THI KAIZEN 2026 • TRỤ CỘT AN TOÀN IPSG',
+        tag: 'Hội thi Kaizen 2026 • Trụ cột an toàn IPSG',
         tagClass: 'tag-emerald',
-        title: 'Giám Sát Rào Chắn Lâm Sàng Toàn Viện & An Toàn Người Bệnh',
-        meta1: '100% Khắc Phục Gốc Rễ RCA',
-        meta2: 'Văn Hóa Không Trách Phạt (Just Culture)'
+        title: 'Giám sát rào chắn lâm sàng toàn viện & an toàn người bệnh',
+        meta1: '100% khắc phục gốc rễ RCA',
+        meta2: 'Văn hóa không trách phạt (Just Culture)'
       },
       {
-        tag: 'HỘI THI KAIZEN 2026 • TRỤ CỘT TINH GỌN LEAN',
+        tag: 'Hội thi Kaizen 2026 • Trụ cột tinh gọn Lean',
         tagClass: 'tag-cyan',
-        title: 'Triệt Tiêu 8 Lãng Phí Muda, Rút Ngắn Chờ Đợi & Tối Ưu Dòng Chảy',
-        meta1: 'Giảm -38.5% Thời Gian Chờ',
-        meta2: 'Tiết Kiệm 1.24 Tỷ Lãng Phí/Năm'
+        title: 'Triệt tiêu 8 lãng phí Muda, rút ngắn chờ đợi & tối ưu dòng chảy',
+        meta1: 'Giảm -38.5% thời gian chờ',
+        meta2: 'Tiết kiệm 1.24 tỷ lãng phí/năm'
       },
       {
-        tag: 'HỘI THI KAIZEN 2026 • CHUYỂN ĐỔI SỐ & LƯƠNG 3P',
+        tag: 'Hội thi Kaizen 2026 • Chuyển đổi số & lương 3P',
         tagClass: 'tag-amber',
-        title: 'Số Hóa Báo Cáo A3, 19 Quy Trình SOP Mới & Thưởng Hiệu Suất wRVU',
-        meta1: '100% Hồ Sơ A3 & EMR',
-        meta2: 'Liên Thông Quỹ Thưởng P3 Hiệu Quả'
+        title: 'Số hóa báo cáo A3, 19 quy trình SOP mới & thưởng hiệu suất wRVU',
+        meta1: '100% hồ sơ A3 & EMR',
+        meta2: 'Liên thông quỹ thưởng P3 hiệu quả'
       }
     ];
 
@@ -7358,83 +7546,287 @@
       }, 3000);
     }
 
-    // Modal Handling
+    /* ============================================================
+       A3 DETAIL MODAL — full PDCA report, tabbed
+       ============================================================ */
+    let lastFocusedEl = null;
+
+    function buildOverview(p) {
+      const sc = getScore(p);
+      const qs = p.quickSummary || {};
+      const meta = [
+        ['Khoa/Phòng chủ trì', p.khoaPhong],
+        ['Phối hợp', p.khoaPhoiHop || '—'],
+        ['Chủ nhiệm', p.chuNhiem || p.tacGia || '—'],
+        ['Phạm vi', p.phamVi || '—'],
+        ['Thời gian', p.thoiGian || '—'],
+        ['Số hiệu văn bản', p.soHieuVanBan || '—']
+      ];
+      const pain = (qs.painPoints || []).map(x => `<li>${esc(x)}</li>`).join('');
+      const sol  = (qs.solutions  || []).map(x => `<li>${esc(x)}</li>`).join('');
+      return `
+        <div class="a3-score-hero">
+          <div>
+            <span class="a3-score-num tier-${sc.tier}">${sc.score}</span><span class="a3-score-max">/100 điểm</span>
+            <div class="a3-score-rank tier-${sc.tier}">★ ${esc(sc.full)}</div>
+          </div>
+          <div style="flex:1; min-width:200px; font-size:0.88rem; line-height:1.6; color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">Ý tưởng cốt lõi:</strong> ${esc(qs.idea || p.tenSanPham || '—')}
+          </div>
+        </div>
+        <div class="a3-meta-grid">
+          ${meta.map(([k, v]) => `<div class="a3-meta-cell"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('')}
+        </div>
+        <div class="a3-meta-cell"><div class="k">Chủ đề dự thi</div><div class="v" style="font-weight:600; line-height:1.5;">${esc(p.chuDe || '—')}</div></div>
+        ${(pain || sol) ? `
+        <div class="a3-two-col">
+          <div class="modal-section-card">
+            <div class="modal-section-title" style="color:var(--hv-rose);">Điểm đau / Lãng phí</div>
+            <ul class="a3-ul">${pain || '<li>—</li>'}</ul>
+          </div>
+          <div class="modal-section-card">
+            <div class="modal-section-title" style="color:var(--hv-emerald);">Giải pháp then chốt</div>
+            <ul class="a3-ul">${sol || '<li>—</li>'}</ul>
+          </div>
+        </div>` : ''}
+      `;
+    }
+
+    function buildContext(p) {
+      const baseline = (p.soLieuBanDau || []).map(x => `<li>${esc(x)}</li>`).join('');
+      const goalRows = (p.mucTieu || []).map(g => `
+        <tr>
+          <td><strong>${esc(g.chiTieu)}</strong></td>
+          <td>${esc(g.hienTrang)}</td>
+          <td style="color:var(--hv-emerald); font-weight:700;">${esc(g.mucTieu)}</td>
+          <td>${esc(g.phuongPhap)}</td>
+        </tr>`).join('');
+      return `
+        <div class="modal-section-card">
+          <div class="modal-section-title">Bối cảnh & thực trạng lâm sàng</div>
+          <p style="font-size:0.9rem; line-height:1.65; color:var(--text-secondary);">${esc(p.thucTrang || 'Đang cập nhật')}</p>
+        </div>
+        <div class="modal-section-card">
+          <div class="modal-section-title">Số liệu nền (Baseline)</div>
+          <ul class="a3-ul">${baseline || '<li>—</li>'}</ul>
+        </div>
+        ${goalRows ? `
+        <div class="modal-section-card">
+          <div class="modal-section-title">Mục tiêu cải tiến (SMART)</div>
+          <div class="a3-table-wrap"><table class="a3-table">
+            <thead><tr><th>Chỉ tiêu</th><th>Hiện trạng</th><th>Mục tiêu</th><th>Phương pháp đo</th></tr></thead>
+            <tbody>${goalRows}</tbody>
+          </table></div>
+        </div>` : ''}
+      `;
+    }
+
+    function buildAnalysis(p) {
+      if (!p.fiveWhys || !p.fiveWhys.length) {
+        return `<div class="modal-section-card"><div style="color:var(--text-muted)">Chưa cập nhật sơ đồ 5 Whys cho đề án này.</div></div>`;
+      }
+      const rows = p.fiveWhys.map(w => `
+        <div style="margin-bottom:0.7rem; padding-left:0.85rem; border-left:2px solid var(--hv-cyan);">
+          <strong style="color:var(--hv-cyan);">${esc(w.level)}:</strong> ${esc(w.question)}<br/>
+          <span style="color:var(--text-secondary);">► Trả lời: ${esc(w.answer)}</span>
+        </div>`).join('');
+      return `<div class="modal-section-card"><div class="modal-section-title">Phân tích gốc rễ (5 Whys)</div>${rows}</div>`;
+    }
+
+    function buildSolution(p) {
+      const sols = (p.giaiPhap || []).map(x => `<li>${esc(x)}</li>`).join('');
+      const tl = (p.timeline || []).map(t => `
+        <div class="a3-tl-item">
+          <div class="a3-tl-dot ${esc(t.status)}"></div>
+          <div>
+            <div class="a3-tl-phase">${esc(t.phase)}</div>
+            <div class="a3-tl-task">${esc(t.task)}</div>
+            <div class="a3-tl-time">${esc(t.time)}</div>
+          </div>
+        </div>`).join('');
+      return `
+        <div class="modal-section-card">
+          <div class="modal-section-title">Giải pháp thực thi (Countermeasures)</div>
+          <ul class="a3-ul">${sols || '<li>—</li>'}</ul>
+        </div>
+        <div class="modal-section-card">
+          <div class="modal-section-title">Sản phẩm đầu ra</div>
+          <p style="font-size:0.9rem; line-height:1.65; color:var(--text-secondary);">${esc(p.sanPhamDauRa || '—')}</p>
+        </div>
+        ${tl ? `<div class="modal-section-card"><div class="modal-section-title">Lộ trình triển khai</div>${tl}</div>` : ''}
+      `;
+    }
+
+    function buildResults(p) {
+      const sc = getScore(p);
+      const km = (p.quickSummary && p.quickSummary.keyMetrics) || [];
+      const metricCards = km.map(m => `
+        <div class="a3-metric-card">
+          <div class="a3-metric-label">${esc(m.label)}</div>
+          <div class="a3-metric-flow">
+            <span class="a3-metric-before">${esc(m.before)}</span>
+            <span class="a3-metric-arrow">→</span>
+            <span class="a3-metric-after">${esc(m.after)}</span>
+          </div>
+          ${m.note ? `<div class="a3-metric-note">${esc(m.note)}</div>` : ''}
+        </div>`).join('');
+      const crit = (p.criteria || []).map(c => `
+        <tr>
+          <td style="text-align:center;">${esc(c.stt)}</td>
+          <td><strong>${esc(c.tieuChi)}</strong></td>
+          <td style="text-align:center; color:var(--hv-cyan); font-weight:800; white-space:nowrap;">${esc(c.diem)}</td>
+          <td>${esc(c.nhanXet)}</td>
+        </tr>`).join('');
+      return `
+        ${metricCards ? `
+        <div class="modal-section-card">
+          <div class="modal-section-title" style="color:var(--hv-emerald);">Kết quả Trước → Sau</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0.6rem;">${metricCards}</div>
+        </div>` : ''}
+        ${crit ? `
+        <div class="modal-section-card">
+          <div class="modal-section-title">Bảng thẩm định & chấm điểm</div>
+          <div class="a3-table-wrap"><table class="a3-table">
+            <thead><tr><th style="text-align:center;">STT</th><th>Tiêu chí</th><th style="text-align:center;">Điểm</th><th>Nhận xét hội đồng</th></tr></thead>
+            <tbody>${crit}</tbody>
+          </table></div>
+          <div style="display:flex; justify-content:flex-end; align-items:center; gap:0.75rem; margin-top:0.85rem; flex-wrap:wrap;">
+            <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">TỔNG ĐIỂM THẨM ĐỊNH</span>
+            <span class="card-score-badge badge-tier-${sc.tier} mono" style="font-size:1rem;">★ ${sc.score}đ • ${esc(sc.full)}</span>
+          </div>
+        </div>` : ''}
+        ${p.ketLuanQLCL ? `<div class="a3-callout"><strong style="color:var(--hv-emerald);">Kết luận Tổ QLCL:</strong> ${esc(p.ketLuanQLCL)}</div>` : ''}
+      `;
+    }
+
+    function buildDossier(p) {
+      const authors = (p.authorsDetailed && p.authorsDetailed.length)
+        ? p.authorsDetailed.map(a => `
+          <div class="a3-meta-cell">
+            <div class="v"><strong>${esc(a.name || a.hoTen)}</strong></div>
+            <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:0.15rem;">${esc(a.title || a.chucVu)}</div>
+            <div style="font-size:0.74rem; color:var(--hv-cyan); font-weight:700; margin-top:0.15rem;">${esc(a.role || a.vaiTro)}</div>
+          </div>`).join('')
+        : `<div class="a3-meta-cell"><div class="v">${esc(p.nhomTacGia || p.tacGia || '—')}</div></div>`;
+      const docs = (p.documents || []).map(d => `
+        <div class="a3-doc-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span>${esc(d.label || d.fileName)}</span>
+        </div>`).join('');
+      return `
+        <div class="modal-section-card">
+          <div class="modal-section-title">Nhóm tác giả & đơn vị phối hợp</div>
+          <div class="a3-meta-grid">${authors}</div>
+        </div>
+        ${docs ? `<div class="modal-section-card"><div class="modal-section-title">Hồ sơ minh chứng đính kèm</div><div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:0.5rem;">${docs}</div></div>` : ''}
+      `;
+    }
+
+    const A3_TABS = [
+      ['tq', 'Tổng quan',            buildOverview],
+      ['tt', 'Thực trạng & Mục tiêu', buildContext],
+      ['pt', 'Phân tích 5 Whys',      buildAnalysis],
+      ['gp', 'Giải pháp & Lộ trình',  buildSolution],
+      ['kq', 'Kết quả & Chấm điểm',   buildResults],
+      ['hs', 'Hồ sơ & Tác giả',       buildDossier]
+    ];
+
+    function switchA3Tab(key) {
+      document.querySelectorAll('.a3-tab-btn').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.tab === key ? 'true' : 'false');
+      });
+      document.querySelectorAll('.a3-panel').forEach(pn => {
+        pn.classList.toggle('active', pn.dataset.tab === key);
+      });
+    }
+
     function openA3Modal(maDeTai) {
       const p = rawProjects.find(item => item.maDeTai === maDeTai);
       if (!p) return;
+      lastFocusedEl = document.activeElement;
 
       document.getElementById('modalMaDeTai').innerText = p.maDeTai + ' • ' + p.nhanh;
       document.getElementById('modalTenDeTai').innerText = p.tenDeTai || p.tenSanPham;
 
-      let authorsHtml = '';
-      if (p.authorsDetailed && p.authorsDetailed.length > 0) {
-        authorsHtml = p.authorsDetailed.map(a => `
-          <div style="padding:0.4rem 0.6rem; background:rgba(0,0,0,0.15); border-radius:8px; font-size:0.8rem;">
-            <strong>${a.name || a.hoTen}</strong> — ${a.title || a.chucVu} (${a.role || a.vaiTro})
-          </div>
-        `).join('');
-      } else {
-        authorsHtml = `<div>${p.tacGia}</div>`;
-      }
+      document.getElementById('a3TabBar').innerHTML = A3_TABS.map((t, i) =>
+        `<button class="a3-tab-btn" role="tab" data-tab="${t[0]}" aria-selected="${i === 0 ? 'true' : 'false'}" onclick="switchA3Tab('${t[0]}')">${t[1]}</button>`
+      ).join('');
 
-      let fiveWhysHtml = '';
-      if (p.fiveWhys && p.fiveWhys.length > 0) {
-        fiveWhysHtml = p.fiveWhys.map(w => `
-          <div style="margin-bottom:0.6rem; padding-left:0.8rem; border-left:2px solid var(--hv-cyan);">
-            <strong style="color:var(--hv-cyan);">${w.level}:</strong> ${w.question}<br/>
-            <span style="color:var(--text-secondary);">► Trả lời: ${w.answer}</span>
-          </div>
-        `).join('');
-      } else {
-        fiveWhysHtml = '<div style="color:var(--text-muted)">Chưa cập nhật sơ đồ 5 Whys.</div>';
-      }
-
-      const body = document.getElementById('modalBodyContent');
-      body.innerHTML = `
-        <div class="modal-section-card">
-          <div class="modal-section-title">1. Bối Cảnh & Thực Trạng Đau Đớn Lâm Sàng</div>
-          <p style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary);">${p.thucTrang || 'Đang cập nhật'}</p>
-        </div>
-
-        <div class="modal-section-card">
-          <div class="modal-section-title">2. Phân Tích Gốc Rễ Vấn Đề (5 Whys Analysis)</div>
-          ${fiveWhysHtml}
-        </div>
-
-        <div class="modal-section-card">
-          <div class="modal-section-title">3. Nhóm Tác Giả Đề Án & Đơn Vị Phối Hợp</div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.6rem; margin-top:0.5rem;">
-            ${authorsHtml}
-          </div>
-        </div>
-      `;
+      document.getElementById('modalBodyContent').innerHTML = A3_TABS.map((t, i) =>
+        `<div class="a3-panel ${i === 0 ? 'active' : ''}" data-tab="${t[0]}" role="tabpanel">${t[2](p)}</div>`
+      ).join('');
 
       const modal = document.getElementById('a3ModalBackdrop');
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
+      modal.querySelector('.modal-window').scrollTop = 0;
+      modal.querySelector('.modal-window').focus();
     }
 
     function closeA3Modal() {
       const modal = document.getElementById('a3ModalBackdrop');
       modal.classList.remove('open');
       document.body.style.overflow = 'auto';
+      if (lastFocusedEl && lastFocusedEl.focus) lastFocusedEl.focus();
     }
 
     function closeA3ModalOnBackdrop(e) {
       if (e.target.id === 'a3ModalBackdrop') closeA3Modal();
     }
 
+    /* Keyboard: Esc to close + focus trap inside the dialog */
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeA3Modal();
+      const modal = document.getElementById('a3ModalBackdrop');
+      const isOpen = modal.classList.contains('open');
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') { closeA3Modal(); return; }
+
+      if (e.key === 'Tab') {
+        const focusables = Array.from(
+          modal.querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])')
+        ).filter(el => el.offsetParent !== null);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
 
-    // Theme Toggle
+    /* ---- Theme toggle ---- */
     const themeBtn = document.getElementById('themeToggleBtn');
     themeBtn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
+      document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
     });
+
+    /* ============================================================
+       Wire headline widgets to real data (single source of truth)
+       — timeline average & spotlight card follow the dataset so the
+       numbers can never drift apart again.
+       ============================================================ */
+    (function initFromData() {
+      const avg = Math.round(
+        (rawProjects.reduce((s, p) => s + getScore(p).score, 0) / rawProjects.length) * 10
+      ) / 10;
+      const avgEl = document.getElementById('timelineAvg');
+      if (avgEl) avgEl.innerText = 'Điểm TB: ' + avg + 'đ';
+
+      const topP = [...rawProjects].sort((a, b) => getScore(b).score - getScore(a).score)[0];
+      if (topP) {
+        const sc = getScore(topP);
+        const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+        set('spotlightCode', topP.maDeTai);
+        set('spotlightTitle', topP.tenDeTai || topP.tenSanPham);
+        set('spotlightDept', (topP.khoaPhong || '') + (topP.chuNhiem ? ' • Chủ nhiệm: ' + topP.chuNhiem : ''));
+        const scoreEl = document.getElementById('spotlightScore');
+        if (scoreEl) scoreEl.innerHTML = sc.score + ' <span style="font-size:1.1rem; font-weight:700;">ĐIỂM</span>';
+        set('spotlightRank', '★ Xếp Loại: ' + sc.full);
+        const btn = document.querySelector('.bento-spotlight .btn-view-a3');
+        if (btn) btn.setAttribute('onclick', "openA3Modal('" + topP.maDeTai + "')");
+      }
+    })();
 
     // Initial render
     renderProjects();
