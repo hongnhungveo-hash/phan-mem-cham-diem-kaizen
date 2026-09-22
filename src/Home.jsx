@@ -269,31 +269,46 @@ export default function Home({
             </div>
 
             <div className="timeline-strip">
-              <div className="timeline-node completed">
+              <div 
+                className="timeline-node completed"
+                style={{ cursor: 'pointer' }}
+                onClick={() => onNavigate && onNavigate('showcase', 'step1')}
+                title="Bấm để xem Bước 1: Nộp đề án & Điểm sơ khảo của 19 đề án"
+              >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 1</span>
                   <span className="node-status-chip chip-done">Hoàn thành</span>
                 </div>
                 <div className="node-name">Khởi động & nộp đề án</div>
-                <div className="node-date mono">19/19 đơn vị đạt chuẩn</div>
+                <div className="node-date mono">19/19 đơn vị đạt chuẩn ➔</div>
               </div>
 
-              <div className="timeline-node active">
+              <div 
+                className="timeline-node active"
+                style={{ cursor: 'pointer' }}
+                onClick={() => onNavigate && onNavigate('showcase', 'step2')}
+                title="Bấm để xem Bước 2: Bảng kiểm Thực địa & Thẩm định dành cho Thư ký"
+              >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 2</span>
                   <span className="node-status-chip chip-active">Đang diễn ra</span>
                 </div>
                 <div className="node-name">Thực địa & thẩm định</div>
-                <div className="node-date mono">Điểm TB: {averageScore}đ</div>
+                <div className="node-date mono">Bảng kiểm Thư ký BTC ➔</div>
               </div>
 
-              <div className="timeline-node">
+              <div 
+                className="timeline-node"
+                style={{ cursor: 'pointer' }}
+                onClick={() => onNavigate && onNavigate('showcase', 'step3')}
+                title="Bấm để xem Bước 3: Vòng Chung kết & Chấm thi Ban Giám Khảo"
+              >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 3</span>
                   <span className="node-status-chip chip-upcoming">28/09/2026</span>
                 </div>
                 <div className="node-name">Chung kết & trao giải</div>
-                <div className="node-date mono">Hội đồng BGK chấm thi</div>
+                <div className="node-date mono">Hội đồng BGK chấm thi ➔</div>
               </div>
             </div>
           </div>

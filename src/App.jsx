@@ -247,10 +247,51 @@ function App() {
     return Math.max(...scoredList.map(r => Number(r.tongDiem)));
   }, [rankingData]);
 
+  // Quản lý bước tiến độ trong Workflow 3 Bước ('step1' | 'step2' | 'step3')
+  const [workflowStep, setWorkflowStep] = useState('step1');
+
+  // Quản lý dữ liệu Bảng kiểm thực địa Gemba của Thư ký
+  const [gembaChecklists, setGembaChecklists] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('hv_kaizen_gemba_checklists') || '{}');
+    } catch {
+      return {};
+    }
+  });
+
+  const handleSaveGembaChecklist = (maDeTai, checklistData) => {
+    setGembaChecklists(prev => {
+      const next = { ...prev, [maDeTai]: checklistData };
+      try {
+        localStorage.setItem('hv_kaizen_gemba_checklists', JSON.stringify(next));
+      } catch (e) {
+        console.warn('Lỗi khi lưu bảng kiểm thực địa:', e);
+      }
+      return next;
+    });
+  };
+
+  const [initialA3Tab, setInitialA3Tab] = useState('tq');
+
   // Mở modal A3 chi tiết
-  const handleOpenA3Modal = (project) => {
+  const handleOpenA3Modal = (project, tab = 'tq') => {
     setSelectedProjectForA3(project);
+    setInitialA3Tab(tab || 'tq');
     setIsA3ModalOpen(true);
+  };
+
+  // Mở chấm điểm trực tiếp cho đề án từ Bước 3 Chung kết
+  const handleOpenScoreForProject = (project) => {
+    setSelectedProjectForA3(project);
+    setInitialA3Tab('chamDiem');
+    setIsA3ModalOpen(true);
+  };
+
+  const handleNavigate = (tabName, stepName) => {
+    setActiveTab(tabName);
+    if (stepName) {
+      setWorkflowStep(stepName);
+    }
   };
 
   // Xử lý lưu điểm trực tiếp từ Giám khảo trong Modal chi tiết đề án
@@ -449,9 +490,9 @@ function App() {
             type="button" 
             className={`nav-dock-tab ${activeTab === 'showcase' ? 'active' : ''}`}
             onClick={() => setActiveTab('showcase')}
-            title="Danh mục sản phẩm và tiến độ tiếp nhận đề án cải tiến y tế"
+            title="Quy trình 3 bước: Nộp đề án, Thực địa & Thẩm định, Chung kết"
           >
-            Sản phẩm
+            Tiến độ đề án
           </button>
           <button 
             type="button" 
@@ -506,32 +547,16 @@ function App() {
             totalScores={rawScoreRows.length}
             topScore={topScoreValue}
             topProjects={rankingData}
-            onNavigate={(tabName) => setActiveTab(tabName)}
+            onNavigate={handleNavigate}
             onSelectProject={handleOpenA3Modal}
             theme={theme}
             toggleTheme={toggleTheme}
           />
         )}
 
-        {/* TAB 2: SẢN PHẨM (GỘP SẢN PHẨM & TIẾN ĐỘ TIẾP NHẬN THEO PHONG CÁCH TIẾN ĐỘ TIẾP NHẬN) */}
+        {/* TAB 2: TIẾN ĐỘ ĐỀ ÁN & WORKFLOW 3 BƯỚC */}
         {activeTab === 'showcase' && (
           <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', borderRadius: '18px', background: 'var(--bg-glass-card)', border: '1px solid var(--border-subtle)' }}>
-            <div className="ranking-top-bar screen-only" style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-              <div>
-                <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Danh mục sản phẩm & tiến độ tiếp nhận đề án cải tiến
-                </h2>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '3px' }}>
-                  Theo dõi 19 sản phẩm và đề án sáng kiến y tế đang triển khai thử nghiệm thực địa
-                </div>
-              </div>
-              <div className="ranking-badge-group">
-                <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: 'var(--hv-emerald)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.35rem 0.8rem', borderRadius: '9999px', fontSize: '0.78rem', fontWeight: 700 }}>
-                  Giai đoạn: Thử nghiệm thực địa & hoàn thiện SOP
-                </span>
-              </div>
-            </div>
-
             <RankingTable 
               data={rankingData} 
               loading={isLoading} 
@@ -540,6 +565,13 @@ function App() {
               onSelectProject={handleOpenA3Modal}
               onRefresh={fetchData}
               onPrint={() => window.print()}
+              activeStep={workflowStep}
+              onStepChange={(step) => setWorkflowStep(step)}
+              gembaChecklists={gembaChecklists}
+              onSaveGembaChecklist={handleSaveGembaChecklist}
+              onOpenScoreForProject={handleOpenScoreForProject}
+              rawScoreRows={rawScoreRows}
+              judgesList={appConfig.judges}
             />
           </div>
         )}
@@ -588,6 +620,7 @@ function App() {
         isOpen={isA3ModalOpen}
         onClose={() => setIsA3ModalOpen(false)}
         project={selectedProjectForA3}
+        initialTab={initialA3Tab}
         onSaveScore={handleSaveDirectScore}
         judgesList={appConfig.judges}
       />
@@ -632,10 +665,10 @@ function App() {
           </div>
 
           <div className="footer-compact-right">
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('home')}>Trang chủ</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('showcase')}>Sản phẩm</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('score')}>Ban giám khảo</button>
-            <button type="button" className="footer-quick-btn" onClick={() => setActiveTab('secretary')}>Thư ký</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('home')}>Trang chủ</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step1')}>Nộp đề án</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step2')}>Thực địa Thư ký</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step3')}>Chung kết BGK</button>
           </div>
         </div>
       </footer>

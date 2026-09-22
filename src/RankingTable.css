@@ -499,3 +499,744 @@
     font-weight: bold;
   }
 }
+
+/* ==========================================================================
+   WORKFLOW STEPPER BAR (TIẾN ĐỘ THỰC THI 3 BƯỚC)
+   ========================================================================== */
+.workflow-stepper-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl, 16px);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.workflow-stepper-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.workflow-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  background: rgba(0, 133, 219, 0.12);
+  color: var(--primary, #0085db);
+  border-radius: 9999px;
+  margin-bottom: 0.25rem;
+}
+
+.workflow-main-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main, #0f172a);
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+.workflow-stepper-telemetry {
+  font-size: 0.82rem;
+  color: var(--text-muted, #64748b);
+  background: var(--background, #f8fafc);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* STEPS DOCK */
+.workflow-steps-dock {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.workflow-step-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--background, #f8fafc);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-step-btn:hover {
+  border-color: var(--primary, #0085db);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 133, 219, 0.12);
+}
+
+.workflow-step-btn.active {
+  background: #ffffff;
+  border-color: var(--primary, #0085db);
+  box-shadow: 0 0 0 3px rgba(0, 133, 219, 0.15), 0 8px 24px rgba(0, 133, 219, 0.15);
+}
+
+:root[data-theme="dark"] .workflow-step-btn.active {
+  background: #1e293b;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.workflow-step-btn.completed {
+  border-color: #86efac;
+  background: rgba(240, 253, 244, 0.7);
+}
+
+:root[data-theme="dark"] .workflow-step-btn.completed {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.step-btn-num {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface, #ffffff);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.workflow-step-btn.active .step-btn-num {
+  background: var(--primary, #0085db);
+  border-color: var(--primary, #0085db);
+  color: #ffffff;
+}
+
+.workflow-step-btn.completed .step-btn-num {
+  background: #15803d;
+  border-color: #15803d;
+  color: #ffffff;
+}
+
+.step-check-svg {
+  display: none;
+}
+
+.workflow-step-btn.completed .step-check-svg {
+  display: block;
+}
+
+.workflow-step-btn.completed .step-circle {
+  display: none;
+}
+
+.step-btn-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-btn-name {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-main, #0f172a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workflow-step-btn.active .step-btn-name {
+  color: var(--primary, #0085db);
+}
+
+:root[data-theme="dark"] .workflow-step-btn.active .step-btn-name {
+  color: #38bdf8;
+}
+
+.step-btn-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted, #64748b);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.step-status-chip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.chip-done {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.chip-active {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+  animation: pulseLight 2s infinite ease-in-out;
+}
+
+.chip-upcoming {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.step-connector-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* INTRO BANNERS */
+.step-intro-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem 1.15rem;
+  border-radius: 10px;
+  margin-bottom: 1.15rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.banner-step1 {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #0085db;
+  color: #1e3a8a;
+}
+
+.banner-step2 {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+}
+
+.banner-step3 {
+  background: #fefce8;
+  border: 1px solid #fef08a;
+  border-left: 4px solid #f59e0b;
+  color: #854d0e;
+}
+
+.banner-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* PRELIM SCORE IN STEP 1 */
+.prelim-score-chip {
+  display: inline-block;
+  background: rgba(0, 133, 219, 0.1);
+  color: var(--primary, #0085db);
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  border: 1px solid rgba(0, 133, 219, 0.2);
+}
+
+/* ==========================================================================
+   BƯỚC 2: GEMBA FIELD CHECKLIST (BẢNG KIỂM THỰC ĐỊA THƯ KÝ)
+   ========================================================================== */
+.gemba-split-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.gemba-projects-sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 720px;
+}
+
+.gemba-sidebar-head {
+  padding: 0.85rem 1rem;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+}
+
+.gemba-sidebar-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main);
+}
+
+.gemba-sidebar-search {
+  width: 100%;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-main);
+}
+
+.gemba-project-scroll {
+  overflow-y: auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.gemba-project-card {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gemba-project-card:hover {
+  background: #f1f5f9;
+  border-color: var(--primary);
+}
+
+:root[data-theme="dark"] .gemba-project-card:hover {
+  background: #1e293b;
+}
+
+.gemba-project-card.active {
+  background: rgba(0, 133, 219, 0.08);
+  border-color: var(--primary, #0085db);
+  box-shadow: 0 0 0 2px rgba(0, 133, 219, 0.2);
+}
+
+.gemba-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.gemba-card-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gemba-card-dept {
+  font-size: 0.76rem;
+  margin-bottom: 0.35rem;
+}
+
+.gemba-card-meta {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border);
+  padding-top: 0.35rem;
+}
+
+/* CHECKLIST MAIN PANE */
+.gemba-checklist-main {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.35rem 1.6rem;
+}
+
+.gemba-main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.gemba-header-title {
+  margin: 0.25rem 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.gemba-header-dept {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.gemba-header-score-badge {
+  background: #eff6ff;
+  border: 2px solid #0085db;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+:root[data-theme="dark"] .gemba-header-score-badge {
+  background: #1e293b;
+  border-color: #38bdf8;
+}
+
+.gemba-score-val {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #0085db;
+  line-height: 1;
+}
+
+:root[data-theme="dark"] .gemba-score-val {
+  color: #38bdf8;
+}
+
+.gemba-score-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.gemba-inspector-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: var(--background);
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+}
+
+.criteria-list-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin: 0 0 0.85rem 0;
+  color: var(--text-main);
+}
+
+.gemba-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.gemba-criterion-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  background: var(--background);
+  transition: all 0.15s ease;
+}
+
+.gemba-criterion-card:hover {
+  border-color: #94a3b8;
+}
+
+.crit-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.crit-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.crit-idx-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+:root[data-theme="dark"] .crit-idx-tag {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.crit-title-text {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.crit-max-score {
+  font-size: 0.75rem;
+  color: #0284c7;
+  font-weight: 600;
+}
+
+.crit-status-buttons {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.btn-crit-status {
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-crit-status:hover {
+  filter: brightness(0.95);
+}
+
+.btn-crit-status.status-pass.active {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.btn-crit-status.status-review.active {
+  background: #d97706;
+  border-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+}
+
+.btn-crit-status.status-fail.active {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+}
+
+.crit-desc {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.crit-note-input-row {
+  margin-top: 0.35rem;
+}
+
+.crit-note-input {
+  width: 100%;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-main);
+}
+
+.gemba-conclusion-box {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.15rem;
+}
+
+.conclusion-label {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.gemba-textarea {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-main);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.gemba-qualification-row {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border);
+}
+
+.checkbox-qualification-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+.gemba-action-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-emerald {
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  padding: 0.65rem 1.35rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-emerald:hover {
+  background: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+/* ==========================================================================
+   BƯỚC 3: CHUNG KẾT & KẾT NỐI CHẤM ĐIỂM BAN GIÁM KHẢO
+   ========================================================================== */
+.final-score-pill {
+  display: inline-block;
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+}
+
+:root[data-theme="dark"] .final-score-pill {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.medal-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+
+.medal-gold {
+  background: linear-gradient(135deg, #fef08a, #fde047);
+  color: #854d0e;
+  border: 1px solid #eab308;
+  box-shadow: 0 2px 6px rgba(234, 179, 8, 0.3);
+}
+
+.medal-silver {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #334155;
+  border: 1px solid #94a3b8;
+}
+
+.medal-bronze {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  color: #9a3412;
+  border: 1px solid #f97316;
+}
+
+.rank-num-plain {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.btn-score-now {
+  background: #0085db;
+  color: #ffffff;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-score-now:hover {
+  background: #0070ba;
+  box-shadow: 0 2px 8px rgba(0, 133, 219, 0.3);
+}
+
+.btn-view-a3-table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-view-a3-table:hover {
+  background: #e2e8f0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .workflow-steps-dock {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .step-connector-arrow {
+    display: none;
+  }
+  .gemba-split-container {
+    grid-template-columns: 1fr;
+  }
+  .gemba-projects-sidebar {
+    max-height: 300px;
+  }
+}
+

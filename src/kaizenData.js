@@ -5874,3 +5874,71 @@ export const getCleanLeaderName = (p) => {
   }
   return '';
 };
+
+/**
+ * 6 TIÊU CHÍ BẢNG KIỂM THẨM ĐỊNH THỰC ĐỊA GEMBA (DÀNH CHO THƯ KÝ BAN TỔ CHỨC)
+ */
+export const GEMBA_CHECKLIST_CRITERIA = [
+  {
+    id: 'g1',
+    title: 'Đo lường hiện trạng thực tế & Bấm giờ tại hiện trường',
+    desc: 'Đơn vị đã tiến hành bấm giờ, đếm mẫu, lập bảng đo lường số liệu xuất phát điểm tại buồng bệnh/hiện trường theo đúng kế hoạch cam kết.',
+    maxScore: 15
+  },
+  {
+    id: 'g2',
+    title: 'Triển khai phương tiện & công cụ thực địa (Hiện vật Kaizen)',
+    desc: 'Bảng kiểm tại giường, xe tiêm thông minh, khay thuốc 5S, module cảnh báo HIS hoặc bảng trực quan đã được lắp đặt và sử dụng thực tế.',
+    maxScore: 20
+  },
+  {
+    id: 'g3',
+    title: 'Đào tạo & Phổ biến nhân viên trực tiếp tham gia',
+    desc: 'Bác sĩ, Điều dưỡng, Kỹ thuật viên tại khoa nắm vững thao tác mới, hiểu rõ nguyên nhân gốc rễ và tự giác tuân thủ không đối phó.',
+    maxScore: 20
+  },
+  {
+    id: 'g4',
+    title: 'Đo lường kết quả sơ bộ đối chiếu Trước - Sau so với mục tiêu',
+    desc: 'Có bảng biểu hoặc biểu đồ so sánh rõ ràng các chỉ số cốt lõi (rút ngắn thời gian chờ, giảm tỷ lệ lỗi, triệt tiêu sự cố).',
+    maxScore: 20
+  },
+  {
+    id: 'g5',
+    title: 'Đóng gói dự thảo Quy trình vận hành chuẩn (SOP)',
+    desc: 'Đã hoàn thiện dự thảo quy trình cải tiến dạng SOP hoặc lưu đồ trực quan, sẵn sàng ban hành chính thức toàn viện.',
+    maxScore: 15
+  },
+  {
+    id: 'g6',
+    title: 'Hồ sơ minh chứng thực chứng (Ảnh hiện trường, Video, Log HIS)',
+    desc: 'Có bộ ảnh chụp thực tế trước/sau cải tiến, video vận hành tại hiện trường hoặc trích xuất lịch sử nhật ký hệ thống phần mềm.',
+    maxScore: 10
+  }
+];
+
+/**
+ * Tạo dữ liệu Bảng kiểm thực địa mặc định cho từng đề án
+ */
+export const getDefaultGembaChecklist = (project) => {
+  if (!project) return null;
+  const initScore = parseFloat(project.tongDiemThamDinh || project.diemBanDau) || 88;
+  return {
+    maDeTai: project.maDeTai,
+    ngayKiemTra: '18/09/2026',
+    chuyenVienKiemTra: 'Thư ký Tổ QLCL (Đỗ Thị Hồng Nhung)',
+    trangThaiThucDia: 'Đang thử nghiệm thực địa',
+    duDieuKienChungKet: true,
+    diemThucDia: initScore,
+    items: {
+      g1: { status: 'pass', note: 'Đã đo lường số liệu xuất phát điểm tại hiện trường' },
+      g2: { status: 'pass', note: 'Đã lắp đặt phương tiện và công cụ trực quan tại vị trí' },
+      g3: { status: 'pass', note: 'Nhân viên khoa đã được tập huấn và tuân thủ thao tác' },
+      g4: { status: 'pass', note: 'Đang theo dõi số liệu Trước - Sau đạt trên 85% mục tiêu' },
+      g5: { status: 'review', note: 'Đang hoàn thiện lưu đồ SOP theo góp ý của Tổ QLCL' },
+      g6: { status: 'pass', note: 'Đã lưu trữ ảnh chụp hiện trường và dữ liệu đối chiếu' }
+    },
+    nhanXetThucDia: `Tổ QLCL đã trực tiếp kiểm tra thực địa tại ${project.khoaPhong}. Đơn vị triển khai nghiêm túc, bám sát đề cương A3 đã được phê duyệt. Đề nghị nhóm tác giả tiếp tục duy trì đo lường và hoàn thiện Báo cáo A3 chuẩn bị thuyết trình Vòng Chung kết.`
+  };
+};
+

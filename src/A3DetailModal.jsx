@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './A3DetailModal.css';
 import { getCleanLeaderName } from './kaizenData';
 
-export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, judgesList = [] }) {
-  const [activeTab, setActiveTab] = useState('tq'); // 'tq' | 'tt' | 'pt' | 'gp' | 'kq' | 'hs' | 'chamDiem'
+export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, judgesList = [], initialTab = 'tq' }) {
+  const [activeTab, setActiveTab] = useState(initialTab || 'tq');
 
   // Trạng thái chấm điểm trực tiếp
   const [judgeName, setJudgeName] = useState('');
@@ -17,7 +17,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
 
   useEffect(() => {
     if (project) {
-      setActiveTab('tq');
+      setActiveTab(initialTab || 'tq');
       setSaveSuccessMsg('');
 
       const score = (typeof project.tongDiemThamDinh === 'number')
@@ -148,6 +148,29 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
           <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Đóng báo cáo A3" title="Đóng (Esc)">
             &times;
           </button>
+        </div>
+
+        {/* TIẾN ĐỘ ĐỀ ÁN 3 BƯỚC TRONG MODAL */}
+        <div className="modal-workflow-steps-indicator screen-only">
+          <div className="modal-step-item step-done">
+            <span className="step-dot">✓</span>
+            <span className="step-label">Bước 1: Nộp đề án (Sơ khảo {sc.score}đ)</span>
+          </div>
+          <span className="modal-step-arrow">➔</span>
+          <div className="modal-step-item step-active">
+            <span className="step-dot">●</span>
+            <span className="step-label">Bước 2: Thực địa & Bảng kiểm Thư ký</span>
+          </div>
+          <span className="modal-step-arrow">➔</span>
+          <div 
+            className={`modal-step-item step-score ${activeTab === 'chamDiem' ? 'active' : ''}`}
+            onClick={() => setActiveTab('chamDiem')}
+            style={{ cursor: 'pointer' }}
+            title="Bấm để mở phiếu chấm điểm Ban Giám Khảo"
+          >
+            <span className="step-dot">★</span>
+            <span className="step-label">Bước 3: Chấm điểm Chung kết</span>
+          </div>
         </div>
 
         {/* TAB NAVIGATION BAR (6 PDCA TABS + BGK CHẤM ĐIỂM) */}
