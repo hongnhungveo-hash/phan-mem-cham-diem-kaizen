@@ -1223,6 +1223,409 @@
   background: #e2e8f0;
 }
 
+/* ==========================================================================
+   TỐI GIẢN HÓA GIAO DIỆN & TRẠNG THÁI TIẾN ĐỘ 1-CHẠM
+   ========================================================================== */
+
+/* 1. Status Chips */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-chip.chip-final {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.status-chip.chip-review {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+
+.status-chip.chip-testing {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+}
+
+.status-chip.chip-prelim {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+:root[data-theme="dark"] .status-chip.chip-final {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+:root[data-theme="dark"] .status-chip.chip-review {
+  background: rgba(217, 119, 6, 0.2);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+:root[data-theme="dark"] .status-chip.chip-testing {
+  background: rgba(2, 132, 199, 0.2);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+:root[data-theme="dark"] .status-chip.chip-prelim {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+/* 2. Compact Buttons */
+.btn-action-compact {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.btn-action-compact.btn-a3 {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text-main);
+}
+
+.btn-action-compact.btn-a3:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.btn-action-compact.btn-forward {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.btn-action-compact.btn-forward:hover {
+  background: #0369a1;
+}
+
+.btn-score-now-compact {
+  background: #0085db;
+  color: #ffffff;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-score-now-compact:hover {
+  background: #0070ba;
+  box-shadow: 0 2px 6px rgba(0, 133, 219, 0.3);
+}
+
+.sub-title-text {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+/* 3. Quick Status Bar (1-Chạm) */
+.gemba-quick-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--background);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.gemba-quick-status-bar .bar-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.status-button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.btn-status-quick {
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.btn-status-quick:hover {
+  filter: brightness(0.95);
+}
+
+.btn-status-quick.btn-status-final.active {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.btn-status-quick.btn-status-review.active {
+  background: #d97706;
+  border-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+}
+
+.btn-status-quick.btn-status-testing.active {
+  background: #0284c7;
+  border-color: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+/* 4. Section Tabs */
+.gemba-sections-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.sec-tab-btn {
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.sec-tab-btn:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+
+.sec-tab-btn.active {
+  background: #003b73;
+  border-color: #003b73;
+  color: #ffffff;
+}
+
+/* 5. Compact Checklist Body */
+.gemba-compact-checklist-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.gemba-group-block {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+
+.group-block-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #003b73;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+:root[data-theme="dark"] .group-block-title {
+  color: #38bdf8;
+}
+
+.compact-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.06);
+}
+
+:root[data-theme="dark"] .compact-item-row {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.compact-item-row:last-child {
+  border-bottom: none;
+}
+
+.item-text-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.item-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+}
+
+:root[data-theme="dark"] .item-num {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.item-content {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.item-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+  margin-top: 1px;
+}
+
+.pill-toggle-btn {
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.pill-toggle-btn.status-pass {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.pill-toggle-btn.status-pass:hover {
+  background: #bbf7d0;
+}
+
+.pill-toggle-btn.status-fail {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.pill-toggle-btn.status-fail:hover {
+  background: #fecaca;
+}
+
+/* 6. Conclusion & Footer */
+.gemba-conclusion-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.conclusion-input-wrap {
+  flex: 1;
+  min-width: 220px;
+}
+
+.gemba-note-input-compact {
+  width: 100%;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-main);
+}
+
+.gemba-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.save-indicator-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #16a34a;
+  background: #dcfce7;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.btn-footer {
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.btn-footer.btn-save {
+  background: #0085db;
+  color: #ffffff;
+}
+
+.btn-footer.btn-save:hover {
+  background: #0070ba;
+}
+
+.btn-footer.btn-next-step {
+  background: #059669;
+  color: #ffffff;
+}
+
+.btn-footer.btn-next-step:hover {
+  background: #047857;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .workflow-steps-dock {
@@ -1236,7 +1639,7 @@
     grid-template-columns: 1fr;
   }
   .gemba-projects-sidebar {
-    max-height: 300px;
+    max-height: 260px;
   }
 }
 

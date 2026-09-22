@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './RankingTable.css';
-import { getCleanLeaderName, GEMBA_CHECKLIST_CRITERIA, getDefaultGembaChecklist } from './kaizenData';
+import { getCleanLeaderName } from './kaizenData';
+import { getProjectGembaChecklist } from './gembaChecklistsData';
 
 export default function RankingTable({ 
   data = [], 
@@ -17,7 +18,7 @@ export default function RankingTable({
   judgesList = [],
   comments = {}
 }) {
-  // 1. Quản lý Bước Tiến Độ Đề Án (Workflow Stepper)
+  // 1. Quản lý Bước Tiến Độ (Workflow Stepper)
   const [currentStep, setCurrentStep] = useState(activeStep);
 
   const handleStepSelect = (step) => {
@@ -25,91 +26,144 @@ export default function RankingTable({
     if (onStepChange) onStepChange(step);
   };
 
-  // Đồng bộ khi prop activeStep thay đổi từ ngoài (ví dụ từ Bento Home)
-  React.useEffect(() => {
+  useEffect(() => {
     if (activeStep) {
       setCurrentStep(activeStep);
     }
   }, [activeStep]);
 
-  // Bộ lọc chung: Tìm kiếm & Phân nhánh A/B
-  const [filterBranch, setFilterBranch] = useState('ALL'); // 'ALL', 'Nhánh A', 'Nhánh B'
+  // Bộ lọc chung
+  const [filterBranch, setFilterBranch] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // 2. Quản lý Đề án được chọn trong Bước 2 (Bảng kiểm Thư ký)
+  // 2. Quản lý Trạng thái Tiến độ của từng Đề án (Lưu localStorage)
+  const [projectStatuses, setProjectStatuses] = useState(() => {
+    try {
+      const saved = localStorage.getItem('hv_kaizen_project_statuses');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const getProjectStatus = (maDeTai) => {
+    return projectStatuses[maDeTai] || 'sokhao'; // 'sokhao' | 'thucdia' | 'chungket' | 'bosung'
+  };
+
+  const handleUpdateProjectStatus = (maDeTai, newStatus) => {
+    setProjectStatuses(prev => {
+      const updated = { ...prev, [maDeTai]: newStatus };
+      try {
+        localStorage.setItem('hv_kaizen_project_statuses', JSON.stringify(updated));
+      } catch (err) {
+        console.warn('Lỗi lưu localStorage:', err);
+      }
+      return updated;
+    });
+  };
+
+  // 3. Quản lý Đề án được chọn trong Bước 2 (Bảng kiểm Thư ký)
   const [selectedGembaMaDeTai, setSelectedGembaMaDeTai] = useState(data[0]?.maDeTai || '');
   const [gembaSaveSuccess, setGembaSaveSuccess] = useState(false);
+  const [activeChecklistTab, setActiveChecklistTab] = useState('all'); // 'all', 'hienVat', 'lamSang', 'doLuong', 'sanPham'
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!selectedGembaMaDeTai && data.length > 0) {
       setSelectedGembaMaDeTai(data[0].maDeTai);
     }
   }, [data, selectedGembaMaDeTai]);
 
-  // Lấy dữ liệu bảng kiểm hiện tại của đề án được chọn
   const activeGembaProject = data.find(p => p.maDeTai === selectedGembaMaDeTai) || data[0];
 
+  // Lấy dữ liệu Bảng kiểm thực địa chuyên sâu từ PDF
   const currentChecklist = useMemo(() => {
     if (!activeGembaProject) return null;
-    return gembaChecklists[activeGembaProject.maDeTai] || getDefaultGembaChecklist(activeGembaProject);
+    const fromStorage = gembaChecklists[activeGembaProject.maDeTai];
+    if (fromStorage && fromStorage.hienVat) return fromStorage;
+    return getProjectGembaChecklist(activeGembaProject.maDeTai);
   }, [gembaChecklists, activeGembaProject]);
 
-  // State cục bộ chỉnh sửa bảng kiểm thực địa
-  const [localChecklistItems, setLocalChecklistItems] = useState({});
-  const [localGembaNote, setLocalGembaNote] = useState('');
-  const [localGembaQualified, setLocalGembaQualified] = useState(true);
+  // State chỉnh sửa cục bộ các tiêu chí
+  const [localHienVat, setLocalHienVat] = useState([]);
+  const [localLamSang, setLocalLamSang] = useState([]);
+  const [localDoLuong, setLocalDoLuong] = useState([]);
+  const [localSanPham, setLocalSanPham] = useState([]);
+  const [localPhanLoai, setLocalPhanLoai] = useState('A');
+  const [localGhiChu, setLocalGhiChu] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentChecklist) {
-      setLocalChecklistItems(currentChecklist.items || {});
-      setLocalGembaNote(currentChecklist.nhanXetThucDia || '');
-      setLocalGembaQualified(currentChecklist.duDieuKienChungKet !== false);
+      setLocalHienVat(currentChecklist.hienVat || []);
+      setLocalLamSang(currentChecklist.lamSang || []);
+      setLocalDoLuong(currentChecklist.doLuong || []);
+      setLocalSanPham(currentChecklist.sanPham || []);
+      setLocalPhanLoai(currentChecklist.ketLuan?.phanLoai || 'A');
+      setLocalGhiChu(currentChecklist.ketLuan?.ghiChu || '');
       setGembaSaveSuccess(false);
     }
   }, [currentChecklist, selectedGembaMaDeTai]);
 
-  // Tính tổng điểm thực địa dựa trên các mục chọn
-  const calculatedGembaScore = useMemo(() => {
-    let total = 0;
-    GEMBA_CHECKLIST_CRITERIA.forEach(crit => {
-      const item = localChecklistItems[crit.id] || { status: 'pass' };
-      if (item.status === 'pass') {
-        total += crit.maxScore;
-      } else if (item.status === 'review') {
-        total += Math.round(crit.maxScore * 0.7);
-      } else {
-        total += 0;
-      }
-    });
-    return total;
-  }, [localChecklistItems]);
-
-  const handleUpdateChecklistItem = (critId, status, note) => {
-    setLocalChecklistItems(prev => ({
-      ...prev,
-      [critId]: {
-        status,
-        note: note !== undefined ? note : (prev[critId]?.note || '')
-      }
-    }));
+  // Toggle trạng thái của 1 tiêu chí (pass <-> fail)
+  const toggleItemStatus = (section, id) => {
+    const updater = (list) => list.map(it => it.id === id ? { ...it, status: it.status === 'pass' ? 'fail' : 'pass' } : it);
+    if (section === 'hienVat') setLocalHienVat(updater);
+    else if (section === 'lamSang') setLocalLamSang(updater);
+    else if (section === 'doLuong') setLocalDoLuong(updater);
+    else if (section === 'sanPham') setLocalSanPham(updater);
   };
 
-  const handleSaveCurrentGemba = () => {
+  // Tính điểm thực địa tự động
+  const calculatedScore = useMemo(() => {
+    const all = [...localHienVat, ...localLamSang, ...localDoLuong, ...localSanPham];
+    if (all.length === 0) return 90;
+    const passCount = all.filter(i => i.status === 'pass').length;
+    const percent = Math.round((passCount / all.length) * 100);
+    return Math.max(70, Math.min(100, percent));
+  }, [localHienVat, localLamSang, localDoLuong, localSanPham]);
+
+  // Lưu bảng kiểm thực địa
+  const handleSaveGemba = () => {
     if (!activeGembaProject || !onSaveGembaChecklist) return;
+    const isQual = localPhanLoai === 'A';
     const updated = {
-      ...(currentChecklist || getDefaultGembaChecklist(activeGembaProject)),
+      ...(currentChecklist || {}),
       maDeTai: activeGembaProject.maDeTai,
-      ngayKiemTra: new Date().toLocaleDateString('vi-VN'),
-      chuyenVienKiemTra: 'Thư ký Tổ QLCL (Đỗ Thị Hồng Nhung)',
-      trangThaiThucDia: localGembaQualified ? 'Đã thẩm định đạt chuẩn' : 'Cần bổ sung thực địa',
-      duDieuKienChungKet: localGembaQualified,
-      diemThucDia: calculatedGembaScore,
-      items: localChecklistItems,
-      nhanXetThucDia: localGembaNote
+      tenDeAn: activeGembaProject.tenSanPham || activeGembaProject.tenDeTai,
+      donVi: activeGembaProject.khoaPhong,
+      canBo: currentChecklist?.canBo || 'Tổ QLCL',
+      ngayThamDinh: new Date().toLocaleDateString('vi-VN'),
+      hienVat: localHienVat,
+      lamSang: localLamSang,
+      doLuong: localDoLuong,
+      sanPham: localSanPham,
+      diemThucDia: calculatedScore,
+      ketLuan: {
+        phanLoai: localPhanLoai,
+        ghiChu: localGhiChu,
+        duDieuKienChungKet: isQual
+      }
     };
     onSaveGembaChecklist(activeGembaProject.maDeTai, updated);
+    
+    // Tự động cập nhật trạng thái đề án
+    handleUpdateProjectStatus(activeGembaProject.maDeTai, isQual ? 'chungket' : (localPhanLoai === 'B' ? 'bosung' : 'thucdia'));
+
     setGembaSaveSuccess(true);
-    setTimeout(() => setGembaSaveSuccess(false), 2500);
+    setTimeout(() => setGembaSaveSuccess(false), 2000);
+  };
+
+  // Nút 1-chạm chuyển trạng thái đề án
+  const handleQuickStatusChange = (status) => {
+    if (!activeGembaProject) return;
+    handleUpdateProjectStatus(activeGembaProject.maDeTai, status);
+    if (status === 'chungket') {
+      setLocalPhanLoai('A');
+    } else if (status === 'bosung') {
+      setLocalPhanLoai('B');
+    } else {
+      setLocalPhanLoai('C');
+    }
+    handleSaveGemba();
   };
 
   // Dữ liệu lọc chung
@@ -119,8 +173,7 @@ export default function RankingTable({
       (row.tenDeTai && row.tenDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (row.tenSanPham && row.tenSanPham.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (row.maDeTai && row.maDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.khoaPhong && row.khoaPhong.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (row.nhomTacGia && row.nhomTacGia.toLowerCase().includes(searchQuery.toLowerCase()));
+      (row.khoaPhong && row.khoaPhong.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchBranch && matchSearch;
   });
 
@@ -133,13 +186,27 @@ export default function RankingTable({
   }
 
   if (data.length === 0) {
-    return <div className="empty-state text-center text-muted">Chưa có đề án nào trong danh mục tiếp nhận.</div>;
+    return <div className="empty-state text-center text-muted">Chưa có đề án nào.</div>;
   }
+
+  // Render chip trạng thái gọn gàng
+  const renderStatusChip = (st) => {
+    switch(st) {
+      case 'chungket':
+        return <span className="status-chip chip-final" title="Đã thẩm định đạt chuẩn Loại A - Đủ điều kiện vào Chung kết">⭐ Vào Chung kết</span>;
+      case 'bosung':
+        return <span className="status-chip chip-review" title="Cần hoàn thiện bổ sung tài liệu / mốc đo lường">⚠ Cần bổ sung</span>;
+      case 'thucdia':
+        return <span className="status-chip chip-testing" title="Đang khảo sát thực địa Gemba tại khoa">🔍 Đang thực địa</span>;
+      default:
+        return <span className="status-chip chip-prelim" title="Đã thẩm định đề cương A3 sơ bộ">✓ Đã duyệt sơ khảo</span>;
+    }
+  };
 
   return (
     <div className="ranking-wrapper">
       
-      {/* HEADER NGHỊ ĐỊNH 30 (KHI IN ẤN DANH MỤC TIẾP NHẬN) */}
+      {/* HEADER NGHỊ ĐỊNH 30 (KHI IN ẤN) */}
       <div className="print-only print-header-tonghop">
         <table className="print-header-table">
           <tbody>
@@ -159,36 +226,20 @@ export default function RankingTable({
             </tr>
           </tbody>
         </table>
-
         <div className="print-main-title">
-          {currentStep === 'step1' && 'DANH MỤC TIẾP NHẬN & ĐIỂM SƠ KHẢO ĐỀ ÁN CẢI TIẾN CHẤT LƯỢNG 2026'}
-          {currentStep === 'step2' && 'BIÊN BẢN THẨM ĐỊNH THỰC ĐỊA GEMBA — HỘI THI CẢI TIẾN 2026'}
-          {currentStep === 'step3' && 'KẾT QUẢ CHẤM THI VÒNG CHUNG KẾT HỘI THI CẢI TIẾN NĂM 2026'}
-        </div>
-        <div className="print-sub-title">
-          {currentStep === 'step1' && '(Giai đoạn 1: Tiếp nhận hồ sơ đăng ký và điểm thẩm định sơ bộ của Tổ QLCL)'}
-          {currentStep === 'step2' && '(Giai đoạn 2: Bảng kiểm hiện trường dành cho Thư ký Ban Tổ Chức)'}
-          {currentStep === 'step3' && '(Giai đoạn 3: Tổng hợp kết quả đánh giá từ Hội đồng Ban Giám khảo)'}
+          {currentStep === 'step1' && 'DANH MỤC TIẾP NHẬN & ĐIỂM SƠ KHẢO ĐỀ ÁN CẢI TIẾN 2026'}
+          {currentStep === 'step2' && 'BIÊN BẢN THẨM ĐỊNH THỰC ĐỊA GEMBA (THƯ KÝ BAN TỔ CHỨC)'}
+          {currentStep === 'step3' && 'BẢNG XẾP HẠNG VÒNG CHUNG KẾT HỘI THI CẢI TIẾN 2026'}
         </div>
       </div>
 
       {/* ==========================================================================
-          THANH NÚT TRẠNG THÁI TIẾN ĐỘ ĐỀ ÁN (INTERACTIVE WORKFLOW STEPPER DOCK)
+          THANH ĐIỀU HƯỚNG 3 BƯỚC TIẾN ĐỘ (TỐI GIẢN - GỌN GÀNG)
           ========================================================================== */}
       <div className="workflow-stepper-container screen-only">
-        <div className="workflow-stepper-header">
-          <div className="workflow-stepper-title-wrap">
-            <span className="workflow-badge">Quy trình điều hành 3 bước</span>
-            <h2 className="workflow-main-title">Tiến độ thực thi hội thi đề án cải tiến 2026</h2>
-          </div>
-          <div className="workflow-stepper-telemetry mono">
-            Tổng số: <strong>{data.length} đề án</strong> • Đang thực nghiệm thực địa
-          </div>
-        </div>
-
-        <div className="workflow-steps-dock" role="tablist" aria-label="Các giai đoạn tiến độ đề án">
+        <div className="workflow-steps-dock" role="tablist">
           
-          {/* NÚT BƯỚC 1 */}
+          {/* BƯỚC 1 */}
           <button 
             type="button" 
             role="tab"
@@ -198,21 +249,18 @@ export default function RankingTable({
           >
             <div className="step-btn-num">
               <span className="step-circle">1</span>
-              <svg className="step-check-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <div className="step-btn-info">
-              <div className="step-btn-name">Bước 1: Nộp đề án</div>
-              <div className="step-btn-sub">Nội dung 19 đề án & Điểm sơ khảo</div>
+              <div className="step-btn-name">1. Nộp & Sơ khảo</div>
+              <div className="step-btn-sub">19 đề án • 80-96đ</div>
             </div>
-            <span className="step-status-chip chip-done">Hoàn thành</span>
           </button>
 
-          {/* Mũi tên kết nối 1 -> 2 */}
           <div className="step-connector-arrow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
 
-          {/* NÚT BƯỚC 2 */}
+          {/* BƯỚC 2 */}
           <button 
             type="button" 
             role="tab"
@@ -224,18 +272,16 @@ export default function RankingTable({
               <span className="step-circle">2</span>
             </div>
             <div className="step-btn-info">
-              <div className="step-btn-name">Bước 2: Thực địa & thẩm định</div>
-              <div className="step-btn-sub">Bảng kiểm Thư ký Ban Tổ Chức</div>
+              <div className="step-btn-name">2. Thẩm định thực địa</div>
+              <div className="step-btn-sub">Bảng kiểm Thư ký BTC</div>
             </div>
-            <span className="step-status-chip chip-active">Đang diễn ra</span>
           </button>
 
-          {/* Mũi tên kết nối 2 -> 3 */}
           <div className="step-connector-arrow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
 
-          {/* NÚT BƯỚC 3 */}
+          {/* BƯỚC 3 */}
           <button 
             type="button" 
             role="tab"
@@ -247,30 +293,21 @@ export default function RankingTable({
               <span className="step-circle">3</span>
             </div>
             <div className="step-btn-info">
-              <div className="step-btn-name">Bước 3: Chung kết</div>
-              <div className="step-btn-sub">Kết nối chấm điểm Ban Giám Khảo</div>
+              <div className="step-btn-name">3. Vòng Chung kết</div>
+              <div className="step-btn-sub">Chấm điểm Ban giám khảo</div>
             </div>
-            <span className="step-status-chip chip-upcoming">Sắp diễn ra</span>
           </button>
 
         </div>
       </div>
 
       {/* ==========================================================================
-          BƯỚC 1: NỘP ĐỀ ÁN (NỘI DUNG CÁC ĐỀ ÁN & ĐIỂM PHẦN SƠ KHẢO)
+          BƯỚC 1: NỘP ĐỀ ÁN & ĐIỂM SƠ KHẢO (GỌN GÀNG, ÍT CHỮ)
           ========================================================================== */}
       {currentStep === 'step1' && (
         <div className="step-content-pane">
-          {/* THÔNG BÁO TIẾN ĐỘ BƯỚC 1 */}
-          <div className="screen-only step-intro-banner banner-step1">
-            <div className="banner-icon">📋</div>
-            <div className="banner-text">
-              <strong>Bước 1: Tiếp nhận đề án & thẩm định sơ khảo</strong> — Toàn bộ 19 đề án sáng kiến cải tiến y tế đã hoàn tất nộp hồ sơ, được 
-              <strong> Tổ Quản lý Chất lượng thẩm định đề cương A3</strong> và ban hành thông báo phê duyệt triển khai thử nghiệm thực địa với thang điểm sơ khảo từ 80 đến 96 điểm.
-            </div>
-          </div>
-
-          {/* BỘ LỌC & TÌM KIẾM */}
+          
+          {/* THANH CÔNG CỤ TỐI GIẢN */}
           <div className="ranking-controls screen-only">
             <div className="branch-filter-tabs">
               <button 
@@ -278,21 +315,21 @@ export default function RankingTable({
                 className={`filter-tab-btn ${filterBranch === 'ALL' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('ALL')}
               >
-                Tất cả đề tài <span className="tab-counter">{countAll}</span>
+                Tất cả <span className="tab-counter">{countAll}</span>
               </button>
               <button 
                 type="button"
                 className={`filter-tab-btn ${filterBranch === 'Nhánh A' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('Nhánh A')}
               >
-                Nhánh A (Nội bộ khoa) <span className="tab-counter">{countA}</span>
+                Nhánh A <span className="tab-counter">{countA}</span>
               </button>
               <button 
                 type="button"
                 className={`filter-tab-btn ${filterBranch === 'Nhánh B' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('Nhánh B')}
               >
-                Nhánh B (Liên khoa) <span className="tab-counter">{countB}</span>
+                Nhánh B <span className="tab-counter">{countB}</span>
               </button>
             </div>
 
@@ -301,7 +338,7 @@ export default function RankingTable({
                 <input
                   type="text"
                   className="ranking-search-input"
-                  placeholder="Tìm mã đề tài, tên sản phẩm, khoa..."
+                  placeholder="Tìm đề tài, đơn vị..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -310,117 +347,92 @@ export default function RankingTable({
               <button 
                 type="button" 
                 className="btn-control-action" 
-                onClick={onPrint || (() => window.print())} 
-                title="In danh mục tiếp nhận đề án chuẩn Nghị định 30"
+                onClick={() => handleStepSelect('step2')}
+                title="Chuyển sang Bước 2: Thẩm định thực địa"
               >
-                In danh mục
-              </button>
-              <button 
-                type="button" 
-                className="btn-control-action" 
-                onClick={onRefresh} 
-                disabled={loading}
-                title="Làm mới danh sách từ dữ liệu tiếp nhận"
-              >
-                {loading ? 'Đang tải...' : 'Làm mới'}
+                Sang Bước 2 ➔
               </button>
             </div>
           </div>
 
-          {/* BẢNG SỔ TIẾP NHẬN ĐỀ ÁN & ĐIỂM SƠ KHẢO */}
+          {/* BẢNG SƠ KHẢO GỌN GÀNG */}
           <div className="table-responsive">
             <table className="ranking-table">
               <thead>
                 <tr>
-                  <th style={{width: '45px', textAlign: 'center'}}>STT</th>
-                  <th style={{width: '90px', textAlign: 'center'}}>Mã đề tài</th>
-                  <th style={{minWidth: '240px'}}>Tên sản phẩm & đề án cải tiến</th>
-                  <th style={{minWidth: '150px'}}>Khoa / Phòng chủ trì</th>
-                  <th style={{width: '75px', textAlign: 'center'}}>Nhánh</th>
-                  <th style={{minWidth: '135px'}}>Chủ nhiệm đề án</th>
-                  <th style={{width: '120px', textAlign: 'center'}}>Điểm sơ khảo</th>
-                  <th style={{width: '135px', textAlign: 'center'}}>Xếp loại duyệt</th>
-                  <th className="screen-only" style={{width: '120px', textAlign: 'center'}}>Thao tác</th>
+                  <th style={{width: '40px', textAlign: 'center'}}>#</th>
+                  <th style={{width: '85px', textAlign: 'center'}}>Mã</th>
+                  <th style={{minWidth: '220px'}}>Tên sản phẩm & đề án</th>
+                  <th style={{minWidth: '140px'}}>Khoa/Phòng</th>
+                  <th style={{width: '70px', textAlign: 'center'}}>Nhánh</th>
+                  <th style={{width: '95px', textAlign: 'center'}}>Điểm SK</th>
+                  <th style={{width: '130px', textAlign: 'center'}}>Tiến độ</th>
+                  <th className="screen-only" style={{width: '130px', textAlign: 'center'}}>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredData.length === 0 ? (
-                  <tr>
-                    <td colSpan={9} className="text-center text-muted" style={{padding: '2rem'}}>
-                      Không tìm thấy đề án nào phù hợp.
-                    </td>
-                  </tr>
-                ) : (
-                  filteredData.map((row, index) => {
-                    const prelimScore = parseFloat(row.tongDiemThamDinh || row.diemBanDau) || 88;
-                    const rankShort = prelimScore >= 95 ? 'Loại A+ (Xuất sắc)' : (prelimScore >= 90 ? 'Loại A (Xuất sắc)' : 'Loại B (Khá giỏi)');
-                    return (
-                      <tr key={row.maDeTai || index}>
-                        <td className="text-center font-bold rank-cell">
-                          {index + 1}
-                        </td>
-                        <td className="text-center font-mono font-medium text-muted">
-                          {row.maDeTai}
-                        </td>
-                        <td 
-                          className="project-title-cell"
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => onSelectProject && onSelectProject(row)}
-                          title="Bấm để xem nội dung báo cáo A3 chi tiết"
-                        >
-                          <div className="font-bold text-main" style={{ color: '#003B73', fontSize: '0.92rem' }}>
-                            {row.tenSanPham || row.tenDeTai}
-                          </div>
-                          {row.tenSanPham && (
-                            <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
-                              Đề tài: {row.tenDeTai}
-                            </div>
-                          )}
-                        </td>
-                        <td>
-                          <div className="font-medium text-main">{row.khoaPhong}</div>
-                          {row.khoaPhoiHop && (
-                            <div style={{ fontSize: '0.75rem', color: '#0284c7' }}>
-                              + {row.khoaPhoiHop}
-                            </div>
-                          )}
-                        </td>
-                        <td className="text-center">
-                          <span className={`badge ${row.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
-                            {row.nhanh}
-                          </span>
-                        </td>
-                        <td className="text-muted font-medium">
-                          {getCleanLeaderName(row) || '—'}
-                        </td>
-                        <td className="text-center">
-                          <span className="prelim-score-chip mono font-bold">
-                            {prelimScore} / 100
-                          </span>
-                        </td>
-                        <td className="text-center">
-                          <span className="badge badge-excellent" style={{ background: '#dcfce7', color: '#15803d', border: '1px solid #86efac' }}>
-                            {rankShort}
-                          </span>
-                          <div style={{ fontSize: '0.7rem', color: '#64748b', marginTop: '3px' }}>
-                            {row.soHieuVanBan || 'Số: 16/TB-QLCL'}
-                          </div>
-                        </td>
-                        <td className="screen-only text-center">
+                {filteredData.map((row, index) => {
+                  const prelimScore = parseFloat(row.tongDiemThamDinh || row.diemBanDau) || 88;
+                  const currentSt = getProjectStatus(row.maDeTai);
+
+                  return (
+                    <tr key={row.maDeTai || index}>
+                      <td className="text-center font-bold rank-cell">{index + 1}</td>
+                      <td className="text-center font-mono text-muted">{row.maDeTai}</td>
+                      <td 
+                        className="project-title-cell"
+                        onClick={() => onSelectProject && onSelectProject(row)}
+                        title="Bấm để xem Báo cáo A3"
+                      >
+                        <div className="font-bold text-main" style={{ color: '#003B73' }}>
+                          {row.tenSanPham || row.tenDeTai}
+                        </div>
+                        {row.tenSanPham && (
+                          <div className="sub-title-text">{row.tenDeTai}</div>
+                        )}
+                      </td>
+                      <td>
+                        <div className="font-medium">{row.khoaPhong}</div>
+                      </td>
+                      <td className="text-center">
+                        <span className={`badge ${row.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
+                          {row.nhanh}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="prelim-score-chip mono font-bold">
+                          {prelimScore}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        {renderStatusChip(currentSt)}
+                      </td>
+                      <td className="screen-only text-center">
+                        <div className="flex items-center justify-center gap-1">
                           <button 
                             type="button" 
-                            className="btn-table-secretary"
-                            style={{ background: '#0085db', color: '#ffffff', border: 'none', padding: '0.35rem 0.75rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 600 }}
+                            className="btn-action-compact btn-a3"
                             onClick={() => onSelectProject && onSelectProject(row)}
-                            title="Xem nội dung đề án và đề cương A3"
+                            title="Xem báo cáo A3"
                           >
-                            Xem báo cáo A3
+                            A3
                           </button>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
+                          <button 
+                            type="button" 
+                            className="btn-action-compact btn-forward"
+                            onClick={() => {
+                              setSelectedGembaMaDeTai(row.maDeTai);
+                              handleStepSelect('step2');
+                            }}
+                            title="Mở Bảng kiểm thực địa Thư ký"
+                          >
+                            Thực địa ➔
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -428,29 +440,19 @@ export default function RankingTable({
       )}
 
       {/* ==========================================================================
-          BƯỚC 2: THỰC ĐỊA VÀ THẨM ĐỊNH (BẢNG KIỂM THƯ KÝ BAN TỔ CHỨC)
+          BƯỚC 2: THỰC ĐỊA & THẨM ĐỊNH (BẢNG KIỂM THƯ KÝ TỪ FILE PDF)
           ========================================================================== */}
       {currentStep === 'step2' && (
         <div className="step-content-pane step2-gemba-pane">
-          {/* THÔNG BÁO TIẾN ĐỘ BƯỚC 2 */}
-          <div className="screen-only step-intro-banner banner-step2">
-            <div className="banner-icon">🔍</div>
-            <div className="banner-text">
-              <strong>Bước 2: Thực địa và thẩm định (Dành cho Thư ký Ban Tổ Chức)</strong> — Mỗi đề án có 
-              <strong> 01 Bảng kiểm thực địa Gemba chuyên sâu</strong> để Thư ký theo dõi hiện trường buồng bệnh/khoa, kiểm tra việc bấm giờ đo lường, vận hành phương tiện cải tiến và mức độ tuân thủ SOP thực tế trước khi phê duyệt vào Vòng Chung kết.
-            </div>
-          </div>
-
           <div className="gemba-split-container">
             
-            {/* CỘT TRÁI: DANH SÁCH ĐỀ ÁN & TRẠNG THÁI THẨM ĐỊNH */}
+            {/* CỘT TRÁI: DANH SÁCH 19 ĐỀ ÁN & TRẠNG THÁI */}
             <div className="gemba-projects-sidebar">
               <div className="gemba-sidebar-head">
-                <h3 className="gemba-sidebar-title">Danh sách 19 đề án thực địa</h3>
                 <input 
                   type="text" 
                   className="gemba-sidebar-search"
-                  placeholder="Lọc nhanh đề án..."
+                  placeholder="Lọc đề án..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -459,8 +461,7 @@ export default function RankingTable({
               <div className="gemba-project-scroll">
                 {filteredData.map(p => {
                   const isSelected = p.maDeTai === selectedGembaMaDeTai;
-                  const chk = gembaChecklists[p.maDeTai] || getDefaultGembaChecklist(p);
-                  const isDone = chk?.duDieuKienChungKet;
+                  const st = getProjectStatus(p.maDeTai);
 
                   return (
                     <div 
@@ -470,187 +471,254 @@ export default function RankingTable({
                     >
                       <div className="gemba-card-top">
                         <span className="badge badge-good mono">{p.maDeTai}</span>
-                        <span className={`badge ${p.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>{p.nhanh}</span>
-                        <span className={`badge ${isDone ? 'badge-excellent' : 'badge-warning'}`}>
-                          {isDone ? 'Đủ chuẩn Chung kết' : 'Đang thử nghiệm'}
-                        </span>
+                        {renderStatusChip(st)}
                       </div>
                       <div className="gemba-card-title">{p.tenSanPham || p.tenDeTai}</div>
                       <div className="gemba-card-dept text-muted">{p.khoaPhong}</div>
-                      <div className="gemba-card-meta">
-                        <span>Điểm thực địa: <strong className="text-primary mono">{chk?.diemThucDia || 90}/100</strong></span>
-                      </div>
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* CỘT PHẢI: BẢNG KIỂM THỰC ĐỊA GEMBA CHI TIẾT */}
+            {/* CỘT PHẢI: BẢNG KIỂM THỰC ĐỊA GEMBA CHUẨN XÁC TỪ PDF */}
             <div className="gemba-checklist-main glass-panel">
               {activeGembaProject ? (
                 <>
+                  {/* HEADER COMPACT */}
                   <div className="gemba-main-header">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="badge badge-good mono">{activeGembaProject.maDeTai}</span>
-                        <span className={`badge ${activeGembaProject.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>{activeGembaProject.nhanh}</span>
-                        <span className="text-muted" style={{ fontSize: '0.85rem' }}>
-                          Chủ nhiệm: <strong>{getCleanLeaderName(activeGembaProject)}</strong>
+                        <span className="text-muted" style={{ fontSize: '0.8rem' }}>
+                          Thẩm định viên: <strong>{currentChecklist?.canBo || 'Tổ QLCL'}</strong>
                         </span>
                       </div>
                       <h3 className="gemba-header-title">{activeGembaProject.tenSanPham || activeGembaProject.tenDeTai}</h3>
-                      <div className="gemba-header-dept">
-                        <strong>Khoa/phòng thực hiện:</strong> {activeGembaProject.khoaPhong}
-                        {activeGembaProject.khoaPhoiHop && <span className="tag-partner ml-2">+ {activeGembaProject.khoaPhoiHop}</span>}
+                      <div className="gemba-header-dept text-muted">
+                        Khoa/phòng: <strong>{activeGembaProject.khoaPhong}</strong>
                       </div>
                     </div>
 
                     <div className="gemba-header-score-badge">
-                      <div className="gemba-score-val mono">{calculatedGembaScore}</div>
+                      <div className="gemba-score-val mono">{calculatedScore}</div>
                       <div className="gemba-score-lbl">Điểm thực địa / 100</div>
                     </div>
                   </div>
 
-                  {/* THÔNG TIN BIÊN BẢN KIỂM TRA */}
-                  <div className="gemba-inspector-row">
-                    <div>
-                      <span className="text-muted">Chuyên viên kiểm tra:</span> <strong>Thư ký Tổ QLCL (Đỗ Thị Hồng Nhung)</strong>
-                    </div>
-                    <div>
-                      <span className="text-muted">Ngày thẩm định:</span> <strong className="mono">Tháng 09/2026</strong>
-                    </div>
-                    <div>
-                      <span className="text-muted">Hình thức:</span> <strong>Khảo sát hiện trường Gemba tại khoa</strong>
+                  {/* THANH NÚT CHUYỂN TRẠNG THÁI 1-CHẠM (QUICK STATUS BUTTONS) */}
+                  <div className="gemba-quick-status-bar">
+                    <span className="bar-label">Chuyển trạng thái:</span>
+                    <div className="status-button-group">
+                      <button
+                        type="button"
+                        className={`btn-status-quick btn-status-final ${getProjectStatus(activeGembaProject.maDeTai) === 'chungket' ? 'active' : ''}`}
+                        onClick={() => handleQuickStatusChange('chungket')}
+                        title="Đạt Loại A - Đủ điều kiện vào vòng Chung kết"
+                      >
+                        ⭐ Duyệt vào Chung kết (Loại A)
+                      </button>
+                      <button
+                        type="button"
+                        className={`btn-status-quick btn-status-review ${getProjectStatus(activeGembaProject.maDeTai) === 'bosung' ? 'active' : ''}`}
+                        onClick={() => handleQuickStatusChange('bosung')}
+                        title="Cần hoàn thiện bổ sung trước khi Chung kết"
+                      >
+                        ⚠ Cần bổ sung (Loại B)
+                      </button>
+                      <button
+                        type="button"
+                        className={`btn-status-quick btn-status-testing ${getProjectStatus(activeGembaProject.maDeTai) === 'thucdia' ? 'active' : ''}`}
+                        onClick={() => handleQuickStatusChange('thucdia')}
+                        title="Đang trong quá trình khảo sát thực địa"
+                      >
+                        🔍 Đang thực địa
+                      </button>
                     </div>
                   </div>
 
-                  {/* 6 TIÊU CHÍ BẢNG KIỂM HIỆN TRƯỜNG */}
-                  <div className="gemba-criteria-list">
-                    <h4 className="criteria-list-heading">6 Tiêu chí Bảng kiểm Hiện trường dành cho Thư ký Ban Tổ Chức:</h4>
+                  {/* TABS PHÂN NHÓM TIÊU CHUẨN THỰC ĐỊA */}
+                  <div className="gemba-sections-tabs">
+                    <button 
+                      type="button" 
+                      className={`sec-tab-btn ${activeChecklistTab === 'all' ? 'active' : ''}`}
+                      onClick={() => setActiveChecklistTab('all')}
+                    >
+                      Tất cả ({localHienVat.length + localLamSang.length + localDoLuong.length + localSanPham.length})
+                    </button>
+                    <button 
+                      type="button" 
+                      className={`sec-tab-btn ${activeChecklistTab === 'hienVat' ? 'active' : ''}`}
+                      onClick={() => setActiveChecklistTab('hienVat')}
+                    >
+                      Mục II: Hiện vật ({localHienVat.length})
+                    </button>
+                    <button 
+                      type="button" 
+                      className={`sec-tab-btn ${activeChecklistTab === 'lamSang' ? 'active' : ''}`}
+                      onClick={() => setActiveChecklistTab('lamSang')}
+                    >
+                      Mục III: Lâm sàng ({localLamSang.length})
+                    </button>
+                    <button 
+                      type="button" 
+                      className={`sec-tab-btn ${activeChecklistTab === 'doLuong' ? 'active' : ''}`}
+                      onClick={() => setActiveChecklistTab('doLuong')}
+                    >
+                      Mục IV: Số liệu ({localDoLuong.length})
+                    </button>
+                    <button 
+                      type="button" 
+                      className={`sec-tab-btn ${activeChecklistTab === 'sanPham' ? 'active' : ''}`}
+                      onClick={() => setActiveChecklistTab('sanPham')}
+                    >
+                      Mục V: Sản phẩm ({localSanPham.length})
+                    </button>
+                  </div>
 
-                    {GEMBA_CHECKLIST_CRITERIA.map((crit, idx) => {
-                      const itemState = localChecklistItems[crit.id] || { status: 'pass', note: '' };
-
-                      return (
-                        <div key={crit.id} className="gemba-criterion-card">
-                          <div className="crit-head">
-                            <div className="crit-title-wrap">
-                              <span className="crit-idx-tag">Mục {idx + 1}</span>
-                              <div className="crit-title-text font-bold">{crit.title}</div>
-                              <span className="crit-max-score mono">Tối đa: {crit.maxScore} điểm</span>
+                  {/* NỘI DUNG BẢNG KIỂM COMPACT */}
+                  <div className="gemba-compact-checklist-body">
+                    
+                    {/* 1. HIỆN VẬT KAIZEN (MỤC II) */}
+                    {(activeChecklistTab === 'all' || activeChecklistTab === 'hienVat') && localHienVat.length > 0 && (
+                      <div className="gemba-group-block">
+                        <div className="group-block-title">Mục II. Thẩm định hiện vật & công cụ Kaizen tại hiện trường</div>
+                        {localHienVat.map(item => (
+                          <div key={item.id} className="compact-item-row">
+                            <div className="item-text-wrap">
+                              <span className="item-num">{item.stt}</span>
+                              <div className="item-content">
+                                <div className="item-title">{item.title}</div>
+                                {item.desc && <div className="item-desc">{item.desc}</div>}
+                              </div>
                             </div>
+                            <button
+                              type="button"
+                              className={`pill-toggle-btn ${item.status === 'pass' ? 'status-pass' : 'status-fail'}`}
+                              onClick={() => toggleItemStatus('hienVat', item.id)}
+                            >
+                              {item.status === 'pass' ? '✓ Đạt' : '✕ K.Đạt'}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
-                            {/* 3 NÚT TRẠNG THÁI ĐÁNH GIÁ TIÊU CHÍ */}
-                            <div className="crit-status-buttons" role="group">
-                              <button
-                                type="button"
-                                className={`btn-crit-status status-pass ${itemState.status === 'pass' ? 'active' : ''}`}
-                                onClick={() => handleUpdateChecklistItem(crit.id, 'pass')}
-                                title="Đạt tiêu chuẩn thực tế"
-                              >
-                                ✓ Đạt chuẩn ({crit.maxScore}đ)
-                              </button>
-                              <button
-                                type="button"
-                                className={`btn-crit-status status-review ${itemState.status === 'review' ? 'active' : ''}`}
-                                onClick={() => handleUpdateChecklistItem(crit.id, 'review')}
-                                title="Cần hoàn thiện bổ sung"
-                              >
-                                ⚠ Cần bổ sung ({Math.round(crit.maxScore * 0.7)}đ)
-                              </button>
-                              <button
-                                type="button"
-                                className={`btn-crit-status status-fail ${itemState.status === 'fail' ? 'active' : ''}`}
-                                onClick={() => handleUpdateChecklistItem(crit.id, 'fail')}
-                                title="Chưa triển khai tại hiện trường"
-                              >
-                                ✕ Chưa làm (0đ)
-                              </button>
+                    {/* 2. QUY TRÌNH & LÂM SÀNG (MỤC III) */}
+                    {(activeChecklistTab === 'all' || activeChecklistTab === 'lamSang') && localLamSang.length > 0 && (
+                      <div className="gemba-group-block">
+                        <div className="group-block-title">Mục III. Kiểm định quy trình lâm sàng & tình huống kiểm chứng</div>
+                        {localLamSang.map(item => (
+                          <div key={item.id} className="compact-item-row">
+                            <div className="item-text-wrap">
+                              <span className="item-num">{item.stt}</span>
+                              <div className="item-content">
+                                <div className="item-title">{item.title}</div>
+                                {item.desc && <div className="item-desc">{item.desc}</div>}
+                              </div>
                             </div>
+                            <button
+                              type="button"
+                              className={`pill-toggle-btn ${item.status === 'pass' ? 'status-pass' : 'status-fail'}`}
+                              onClick={() => toggleItemStatus('lamSang', item.id)}
+                            >
+                              {item.status === 'pass' ? '✓ Đạt' : '✕ K.Đạt'}
+                            </button>
                           </div>
+                        ))}
+                      </div>
+                    )}
 
-                          <div className="crit-desc text-muted">{crit.desc}</div>
-
-                          <div className="crit-note-input-row">
-                            <input
-                              type="text"
-                              className="crit-note-input"
-                              placeholder="Ghi chú nhận xét của Thư ký về tiêu chí này..."
-                              value={itemState.note || ''}
-                              onChange={(e) => handleUpdateChecklistItem(crit.id, itemState.status, e.target.value)}
-                            />
+                    {/* 3. SỐ LIỆU ĐO LƯỜNG (MỤC IV) */}
+                    {(activeChecklistTab === 'all' || activeChecklistTab === 'doLuong') && localDoLuong.length > 0 && (
+                      <div className="gemba-group-block">
+                        <div className="group-block-title">Mục IV. Kiểm định số liệu mốc ban đầu & kết quả đo lường</div>
+                        {localDoLuong.map(item => (
+                          <div key={item.id} className="compact-item-row">
+                            <div className="item-text-wrap">
+                              <span className="item-num">{item.stt}</span>
+                              <div className="item-content">
+                                <div className="item-title">{item.title}</div>
+                                {item.desc && <div className="item-desc">{item.desc}</div>}
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className={`pill-toggle-btn ${item.status === 'pass' ? 'status-pass' : 'status-fail'}`}
+                              onClick={() => toggleItemStatus('doLuong', item.id)}
+                            >
+                              {item.status === 'pass' ? '✓ Đạt' : '✕ K.Đạt'}
+                            </button>
                           </div>
-                        </div>
-                      );
-                    })}
+                        ))}
+                      </div>
+                    )}
+
+                    {/* 4. SẢN PHẨM ĐẦU RA (MỤC V) */}
+                    {(activeChecklistTab === 'all' || activeChecklistTab === 'sanPham') && localSanPham.length > 0 && (
+                      <div className="gemba-group-block">
+                        <div className="group-block-title">Mục V. Kiểm định sản phẩm đầu ra cam kết nghiệm thu</div>
+                        {localSanPham.map(item => (
+                          <div key={item.id} className="compact-item-row">
+                            <div className="item-text-wrap">
+                              <span className="item-num">{item.stt}</span>
+                              <div className="item-content">
+                                <div className="item-title">{item.title}</div>
+                                {item.desc && <div className="item-desc">{item.desc}</div>}
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className={`pill-toggle-btn ${item.status === 'pass' ? 'status-pass' : 'status-fail'}`}
+                              onClick={() => toggleItemStatus('sanPham', item.id)}
+                            >
+                              {item.status === 'pass' ? '✓ Đã có' : '✕ Chưa có'}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
                   </div>
 
-                  {/* NHẬN XÉT TỔNG THỂ & PHÊ DUYỆT CHUNG KẾT */}
-                  <div className="gemba-conclusion-box">
-                    <label className="conclusion-label">
-                      <strong>Ý kiến kết luận của Thư ký Ban Tổ Chức:</strong>
-                    </label>
-                    <textarea 
-                      className="gemba-textarea"
-                      rows={4}
-                      placeholder="Ghi nhận xét đánh giá tổng quan, các điểm cần nhóm tác giả hoàn thiện trước Vòng Chung kết..."
-                      value={localGembaNote}
-                      onChange={(e) => setLocalGembaNote(e.target.value)}
-                    />
-
-                    <div className="gemba-qualification-row">
-                      <label className="checkbox-qualification-label">
-                        <input 
-                          type="checkbox" 
-                          checked={localGembaQualified}
-                          onChange={(e) => setLocalGembaQualified(e.target.checked)}
-                        />
-                        <span>Xác nhận đề án <strong>đủ điều kiện báo cáo thuyết trình tại Vòng Chung kết</strong></span>
-                      </label>
+                  {/* KẾT LUẬN & GHI CHÚ GỌN GÀNG */}
+                  <div className="gemba-conclusion-compact">
+                    <div className="conclusion-input-wrap">
+                      <input 
+                        type="text"
+                        className="gemba-note-input-compact"
+                        placeholder="Ghi chú thẩm định viên QLCL (nếu có)..."
+                        value={localGhiChu}
+                        onChange={(e) => setLocalGhiChu(e.target.value)}
+                      />
                     </div>
-                  </div>
 
-                  {/* THÔNG BÁO LƯU THÀNH CÔNG */}
-                  {gembaSaveSuccess && (
-                    <div className="save-success-banner">
-                      ✓ Đã lưu thành công Bảng kiểm thực địa vào hệ thống.
+                    <div className="gemba-footer-actions">
+                      {gembaSaveSuccess && (
+                        <span className="save-indicator-badge">✓ Đã lưu bảng kiểm</span>
+                      )}
+
+                      <button
+                        type="button"
+                        className="btn-footer btn-save"
+                        onClick={handleSaveGemba}
+                      >
+                        💾 Lưu bảng kiểm
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn-footer btn-next-step"
+                        onClick={() => handleStepSelect('step3')}
+                      >
+                        Sang Chung kết ➔
+                      </button>
                     </div>
-                  )}
-
-                  {/* CÁC NÚT THAO TÁC THƯ KÝ */}
-                  <div className="gemba-action-footer">
-                    <button
-                      type="button"
-                      className="btn btn-outline"
-                      onClick={() => onSelectProject && onSelectProject(activeGembaProject)}
-                      title="Đối chiếu Báo cáo A3 của đề án"
-                    >
-                      Xem báo cáo A3
-                    </button>
-
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      style={{ padding: '0.65rem 2rem' }}
-                      onClick={handleSaveCurrentGemba}
-                    >
-                      Lưu bảng kiểm thực địa
-                    </button>
-
-                    <button
-                      type="button"
-                      className="btn btn-emerald"
-                      onClick={() => handleStepSelect('step3')}
-                      title="Chuyển sang Bước 3: Chấm điểm Chung kết"
-                    >
-                      Sang Vòng Chung kết ➔
-                    </button>
                   </div>
                 </>
               ) : (
                 <div className="empty-state text-center text-muted">
-                  Vui lòng chọn một đề án từ danh sách bên trái để mở Bảng kiểm thực địa.
+                  Vui lòng chọn đề án từ danh sách bên trái.
                 </div>
               )}
             </div>
@@ -659,20 +727,12 @@ export default function RankingTable({
       )}
 
       {/* ==========================================================================
-          BƯỚC 3: CHUNG KẾT (DÀNH CHO BAN GIÁM KHẢO - KẾT NỐI CHẤM ĐIỂM)
+          BƯỚC 3: CHUNG KẾT & KẾT NỐI CHẤM ĐIỂM BAN GIÁM KHẢO
           ========================================================================== */}
       {currentStep === 'step3' && (
         <div className="step-content-pane step3-final-pane">
-          {/* THÔNG BÁO TIẾN ĐỘ BƯỚC 3 */}
-          <div className="screen-only step-intro-banner banner-step3">
-            <div className="banner-icon">🏆</div>
-            <div className="banner-text">
-              <strong>Bước 3: Vòng Chung kết & trao giải (Dành cho Hội đồng Ban Giám Khảo)</strong> — Kết nối trực tiếp hệ thống chấm điểm 
-              <strong> 11 tiêu chí thuộc 5 phần (100 điểm)</strong>. Giám khảo có thể chọn từng đề tài để chấm thi trực tiếp, kết quả sẽ được tự động tổng hợp thời gian thực vào bảng xếp hạng vinh danh giải thưởng.
-            </div>
-          </div>
-
-          {/* BẢNG ĐIỀU HÀNH CHUNG KẾT & KẾT NỐI CHẤM ĐIỂM */}
+          
+          {/* THANH CÔNG CỤ TỐI GIẢN */}
           <div className="ranking-controls screen-only">
             <div className="branch-filter-tabs">
               <button 
@@ -680,21 +740,21 @@ export default function RankingTable({
                 className={`filter-tab-btn ${filterBranch === 'ALL' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('ALL')}
               >
-                Tất cả đề tài Chung kết <span className="tab-counter">{countAll}</span>
+                Tất cả <span className="tab-counter">{countAll}</span>
               </button>
               <button 
                 type="button"
                 className={`filter-tab-btn ${filterBranch === 'Nhánh A' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('Nhánh A')}
               >
-                Nhánh A (Nội bộ) <span className="tab-counter">{countA}</span>
+                Nhánh A <span className="tab-counter">{countA}</span>
               </button>
               <button 
                 type="button"
                 className={`filter-tab-btn ${filterBranch === 'Nhánh B' ? 'active' : ''}`}
                 onClick={() => setFilterBranch('Nhánh B')}
               >
-                Nhánh B (Liên khoa) <span className="tab-counter">{countB}</span>
+                Nhánh B <span className="tab-counter">{countB}</span>
               </button>
             </div>
 
@@ -712,74 +772,68 @@ export default function RankingTable({
               <button 
                 type="button" 
                 className="btn-control-action" 
+                onClick={() => handleStepSelect('step2')}
+                title="Quay lại Bước 2: Thực địa"
+              >
+                ⬅ Về Thực địa
+              </button>
+              <button 
+                type="button" 
+                className="btn-control-action" 
                 onClick={onRefresh} 
                 disabled={loading}
-                title="Cập nhật kết quả chấm từ máy chủ"
               >
-                {loading ? 'Đang tải...' : 'Làm mới điểm'}
+                {loading ? 'Đang tải...' : 'Làm mới'}
               </button>
             </div>
           </div>
 
-          {/* BẢNG XẾP HẠNG & NÚT CHẤM ĐIỂM CHUNG KẾT */}
+          {/* BẢNG CHUNG KẾT & NÚT CHẤM ĐIỂM BGK */}
           <div className="table-responsive">
             <table className="ranking-table final-leaderboard-table">
               <thead>
                 <tr>
-                  <th style={{width: '60px', textAlign: 'center'}}>Hạng</th>
-                  <th style={{width: '90px', textAlign: 'center'}}>Mã đề tài</th>
-                  <th style={{minWidth: '240px'}}>Tên sản phẩm & Đề án Chung kết</th>
-                  <th style={{minWidth: '150px'}}>Khoa / Phòng chủ trì</th>
-                  <th style={{width: '75px', textAlign: 'center'}}>Nhánh</th>
-                  <th style={{minWidth: '130px', textAlign: 'center'}}>Tiến độ chấm</th>
-                  <th style={{width: '110px', textAlign: 'center'}}>Điểm BGK</th>
-                  <th style={{width: '125px', textAlign: 'center'}}>Xếp loại</th>
-                  <th className="screen-only" style={{width: '180px', textAlign: 'center'}}>Thao tác BGK</th>
+                  <th style={{width: '50px', textAlign: 'center'}}>Hạng</th>
+                  <th style={{width: '85px', textAlign: 'center'}}>Mã</th>
+                  <th style={{minWidth: '220px'}}>Tên sản phẩm & Đề án</th>
+                  <th style={{minWidth: '140px'}}>Khoa/Phòng</th>
+                  <th style={{width: '70px', textAlign: 'center'}}>Nhánh</th>
+                  <th style={{width: '120px', textAlign: 'center'}}>Thực địa</th>
+                  <th style={{width: '95px', textAlign: 'center'}}>Điểm BGK</th>
+                  <th style={{width: '100px', textAlign: 'center'}}>Xếp loại</th>
+                  <th className="screen-only" style={{width: '140px', textAlign: 'center'}}>Thao tác BGK</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredData.map((row, index) => {
-                  const pScores = rawScoreRows.filter(r => r.maDeTai === row.maDeTai);
                   const hasScore = row.hasScore && Number(row.tongDiem) > 0;
                   const scoreVal = hasScore ? Number(row.tongDiem) : (parseFloat(row.diemBanDau) || 88);
+                  const st = getProjectStatus(row.maDeTai);
                   
-                  // Phân hạng Huy chương tượng trưng
                   let medalBadge = null;
-                  if (index === 0) medalBadge = <span className="medal-tag medal-gold" title="Huy chương Vàng">🥇 Nhất</span>;
-                  else if (index === 1 || index === 2) medalBadge = <span className="medal-tag medal-silver" title="Huy chương Bạc">🥈 Nhì</span>;
-                  else if (index === 3 || index === 4) medalBadge = <span className="medal-tag medal-bronze" title="Huy chương Đồng">🥉 Ba</span>;
+                  if (index === 0) medalBadge = <span className="medal-tag medal-gold">🥇 1</span>;
+                  else if (index === 1 || index === 2) medalBadge = <span className="medal-tag medal-silver">🥈 {index + 1}</span>;
+                  else if (index === 3 || index === 4) medalBadge = <span className="medal-tag medal-bronze">🥉 {index + 1}</span>;
                   else medalBadge = <span className="rank-num-plain">{index + 1}</span>;
 
                   return (
                     <tr key={row.maDeTai || index} className={hasScore ? 'row-scored' : ''}>
-                      <td className="text-center font-bold rank-cell">
-                        {medalBadge}
-                      </td>
-                      <td className="text-center font-mono font-medium text-muted">
-                        {row.maDeTai}
-                      </td>
+                      <td className="text-center font-bold rank-cell">{medalBadge}</td>
+                      <td className="text-center font-mono text-muted">{row.maDeTai}</td>
                       <td 
                         className="project-title-cell"
-                        style={{ cursor: 'pointer' }}
                         onClick={() => onSelectProject && onSelectProject(row)}
-                        title="Bấm để xem Báo cáo A3 chi tiết"
+                        title="Xem Báo cáo A3"
                       >
-                        <div className="font-bold text-main" style={{ color: '#003B73', fontSize: '0.92rem' }}>
+                        <div className="font-bold text-main" style={{ color: '#003B73' }}>
                           {row.tenSanPham || row.tenDeTai}
                         </div>
                         {row.tenSanPham && (
-                          <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
-                            Đề tài: {row.tenDeTai}
-                          </div>
+                          <div className="sub-title-text">{row.tenDeTai}</div>
                         )}
                       </td>
                       <td>
-                        <div className="font-medium text-main">{row.khoaPhong}</div>
-                        {row.khoaPhoiHop && (
-                          <div style={{ fontSize: '0.75rem', color: '#0284c7' }}>
-                            + {row.khoaPhoiHop}
-                          </div>
-                        )}
+                        <div className="font-medium">{row.khoaPhong}</div>
                       </td>
                       <td className="text-center">
                         <span className={`badge ${row.nhanh === 'Nhánh B' ? 'badge-partner' : 'badge-pass'}`}>
@@ -787,9 +841,7 @@ export default function RankingTable({
                         </span>
                       </td>
                       <td className="text-center">
-                        <span className={`status-tag ${pScores.length > 0 ? 'status-scored' : 'status-waiting'}`}>
-                          {pScores.length > 0 ? `${pScores.length} Giám khảo` : 'Sẵn sàng chấm'}
-                        </span>
+                        {renderStatusChip(st)}
                       </td>
                       <td className="text-center">
                         <span className="final-score-pill mono font-bold">
@@ -802,20 +854,20 @@ export default function RankingTable({
                         </span>
                       </td>
                       <td className="screen-only text-center">
-                        <div className="flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-center gap-1">
                           <button 
                             type="button" 
-                            className="btn-score-now"
+                            className="btn-score-now-compact"
                             onClick={() => onOpenScoreForProject ? onOpenScoreForProject(row) : (onSelectProject && onSelectProject(row))}
-                            title="Mở giao diện chấm điểm 11 tiêu chí dành cho Ban Giám Khảo"
+                            title="Chấm điểm 11 tiêu chí BGK"
                           >
                             ⭐ Chấm điểm
                           </button>
                           <button 
                             type="button" 
-                            className="btn-view-a3-table"
+                            className="btn-action-compact btn-a3"
                             onClick={() => onSelectProject && onSelectProject(row)}
-                            title="Xem Báo cáo A3 đối chiếu"
+                            title="Xem A3"
                           >
                             A3
                           </button>
