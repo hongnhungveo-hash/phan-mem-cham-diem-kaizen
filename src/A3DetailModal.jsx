@@ -150,28 +150,7 @@ export default function A3DetailModal({ project, isOpen, onClose, onSaveScore, j
           </button>
         </div>
 
-        {/* TIẾN ĐỘ ĐỀ ÁN 3 BƯỚC TRONG MODAL */}
-        <div className="modal-workflow-steps-indicator screen-only">
-          <div className="modal-step-item step-done">
-            <span className="step-dot">✓</span>
-            <span className="step-label">Bước 1: Nộp đề án (Sơ khảo {sc.score}đ)</span>
-          </div>
-          <span className="modal-step-arrow">➔</span>
-          <div className="modal-step-item step-active">
-            <span className="step-dot">●</span>
-            <span className="step-label">Bước 2: Thực địa & Bảng kiểm Thư ký</span>
-          </div>
-          <span className="modal-step-arrow">➔</span>
-          <div 
-            className={`modal-step-item step-score ${activeTab === 'chamDiem' ? 'active' : ''}`}
-            onClick={() => setActiveTab('chamDiem')}
-            style={{ cursor: 'pointer' }}
-            title="Bấm để mở phiếu chấm điểm Ban Giám Khảo"
-          >
-            <span className="step-dot">★</span>
-            <span className="step-label">Bước 3: Chấm điểm Chung kết</span>
-          </div>
-        </div>
+
 
         {/* TAB NAVIGATION BAR (6 PDCA TABS + BGK CHẤM ĐIỂM) */}
         <div className="a3-tabs" role="tablist">

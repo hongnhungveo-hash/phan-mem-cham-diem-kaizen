@@ -247,30 +247,6 @@ function App() {
     return Math.max(...scoredList.map(r => Number(r.tongDiem)));
   }, [rankingData]);
 
-  // Quản lý bước tiến độ trong Workflow 3 Bước ('step1' | 'step2' | 'step3')
-  const [workflowStep, setWorkflowStep] = useState('step1');
-
-  // Quản lý dữ liệu Bảng kiểm thực địa Gemba của Thư ký
-  const [gembaChecklists, setGembaChecklists] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('hv_kaizen_gemba_checklists') || '{}');
-    } catch {
-      return {};
-    }
-  });
-
-  const handleSaveGembaChecklist = (maDeTai, checklistData) => {
-    setGembaChecklists(prev => {
-      const next = { ...prev, [maDeTai]: checklistData };
-      try {
-        localStorage.setItem('hv_kaizen_gemba_checklists', JSON.stringify(next));
-      } catch (e) {
-        console.warn('Lỗi khi lưu bảng kiểm thực địa:', e);
-      }
-      return next;
-    });
-  };
-
   const [initialA3Tab, setInitialA3Tab] = useState('tq');
 
   // Mở modal A3 chi tiết
@@ -280,18 +256,8 @@ function App() {
     setIsA3ModalOpen(true);
   };
 
-  // Mở chấm điểm trực tiếp cho đề án từ Bước 3 Chung kết
-  const handleOpenScoreForProject = (project) => {
-    setSelectedProjectForA3(project);
-    setInitialA3Tab('chamDiem');
-    setIsA3ModalOpen(true);
-  };
-
-  const handleNavigate = (tabName, stepName) => {
+  const handleNavigate = (tabName) => {
     setActiveTab(tabName);
-    if (stepName) {
-      setWorkflowStep(stepName);
-    }
   };
 
   // Xử lý lưu điểm trực tiếp từ Giám khảo trong Modal chi tiết đề án
@@ -490,9 +456,9 @@ function App() {
             type="button" 
             className={`nav-dock-tab ${activeTab === 'showcase' ? 'active' : ''}`}
             onClick={() => setActiveTab('showcase')}
-            title="Quy trình 3 bước: Nộp đề án, Thực địa & Thẩm định, Chung kết"
+            title="Danh mục 19 sản phẩm & đề án cải tiến Kaizen 2026"
           >
-            Tiến độ đề án
+            Sản phẩm Kaizen
           </button>
           <button 
             type="button" 
@@ -554,26 +520,12 @@ function App() {
           />
         )}
 
-        {/* TAB 2: TIẾN ĐỘ ĐỀ ÁN & WORKFLOW 3 BƯỚC */}
+        {/* TAB 2: DANH MỤC SẢN PHẨM KAIZEN (NGẮN GỌN, ÍT CHỮ, CLICK MỞ CHI TIẾT A3) */}
         {activeTab === 'showcase' && (
-          <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', borderRadius: '18px', background: 'var(--bg-glass-card)', border: '1px solid var(--border-subtle)' }}>
-            <RankingTable 
-              data={rankingData} 
-              loading={isLoading} 
-              comments={commentsMap}
-              onOpenCommentModal={handleOpenCommentModal}
-              onSelectProject={handleOpenA3Modal}
-              onRefresh={fetchData}
-              onPrint={() => window.print()}
-              activeStep={workflowStep}
-              onStepChange={(step) => setWorkflowStep(step)}
-              gembaChecklists={gembaChecklists}
-              onSaveGembaChecklist={handleSaveGembaChecklist}
-              onOpenScoreForProject={handleOpenScoreForProject}
-              rawScoreRows={rawScoreRows}
-              judgesList={appConfig.judges}
-            />
-          </div>
+          <KaizenShowcase 
+            projects={rankingData} 
+            onSelectProject={handleOpenA3Modal}
+          />
         )}
 
         {/* TAB 3: GIÁM KHẢO CHẤM ĐIỂM (BẢO VỆ MẬT KHẨU) */}
@@ -666,9 +618,9 @@ function App() {
 
           <div className="footer-compact-right">
             <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('home')}>Trang chủ</button>
-            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step1')}>Nộp đề án</button>
-            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step2')}>Thực địa Thư ký</button>
-            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase', 'step3')}>Chung kết BGK</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('showcase')}>Sản phẩm Kaizen</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('score')}>Ban giám khảo</button>
+            <button type="button" className="footer-quick-btn" onClick={() => handleNavigate('secretary')}>Thư ký</button>
           </div>
         </div>
       </footer>

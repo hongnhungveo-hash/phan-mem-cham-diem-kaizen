@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import './KaizenShowcase.css';
-import { getCleanLeaderName } from './kaizenData';
 
 export default function KaizenShowcase({ 
   projects = [], 
@@ -9,306 +8,265 @@ export default function KaizenShowcase({
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedBranch, setSelectedBranch] = useState('ALL');
-  const [selectedCategory, setSelectedCategory] = useState('ALL');
-  const [selectedBlock, setSelectedBlock] = useState('ALL');
-  const [sortBy, setSortBy] = useState('default'); // 'default', 'score', 'likes', 'views'
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
 
-  // Quản lý trạng thái like lưu local
-  const [userLikes, setUserLikes] = useState(() => {
-    try {
-      const saved = localStorage.getItem('hv_kaizen_user_likes');
-      return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
-  });
-
-  const [projectLikesMap, setProjectLikesMap] = useState(() => {
-    try {
-      const saved = localStorage.getItem('hv_kaizen_project_likes');
-      return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
-  });
-
-  const handleToggleLike = (maDeTai, e) => {
-    e.stopPropagation();
-    const isLiked = !!userLikes[maDeTai];
-    const newLikedState = !isLiked;
-
-    const updatedUserLikes = { ...userLikes, [maDeTai]: newLikedState };
-    setUserLikes(updatedUserLikes);
-    localStorage.setItem('hv_kaizen_user_likes', JSON.stringify(updatedUserLikes));
-
-    const currentCount = projectLikesMap[maDeTai] !== undefined 
-      ? projectLikesMap[maDeTai] 
-      : (projects.find(p => p.maDeTai === maDeTai)?.likes || 0);
-
-    const updatedCount = newLikedState ? currentCount + 1 : Math.max(0, currentCount - 1);
-    const updatedProjectLikes = { ...projectLikesMap, [maDeTai]: updatedCount };
-    setProjectLikesMap(updatedProjectLikes);
-    localStorage.setItem('hv_kaizen_project_likes', JSON.stringify(updatedProjectLikes));
+  // Tính điểm hiển thị nhất quán
+  const getProjectScore = (p) => {
+    const raw = (typeof p.tongDiemThamDinh === 'number')
+      ? p.tongDiemThamDinh
+      : (parseInt(p.tongDiemThamDinh, 10) || (Number(p.tongDiem) > 0 ? Number(p.tongDiem) : (Number(p.diemBanDau) || 85)));
+    let tier = 'muted';
+    let label = 'Đạt';
+    if (raw >= 95) { tier = 'emerald'; label = 'Xuất sắc'; }
+    else if (raw >= 90) { tier = 'cyan'; label = 'Tốt'; }
+    else if (raw >= 80) { tier = 'amber'; label = 'Khá'; }
+    return { score: raw, tier, label };
   };
 
-  // Lọc dữ liệu
-  const filteredProjects = projects.filter((p) => {
-    const matchSearch = !searchQuery || 
-      (p.tenDeTai && p.tenDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (p.maDeTai && p.maDeTai.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (p.khoaPhong && p.khoaPhong.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (p.khoaPhoiHop && p.khoaPhoiHop.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (p.nhomTacGia && p.nhomTacGia.toLowerCase().includes(searchQuery.toLowerCase()));
+  // Lọc dữ liệu tức thì
+  const filteredProjects = useMemo(() => {
+    return projects.filter((p) => {
+      const q = searchQuery.toLowerCase().trim();
+      const matchSearch = !q || 
+        (p.tenSanPham && p.tenSanPham.toLowerCase().includes(q)) ||
+        (p.tenDeTai && p.tenDeTai.toLowerCase().includes(q)) ||
+        (p.maDeTai && p.maDeTai.toLowerCase().includes(q)) ||
+        (p.khoaPhong && p.khoaPhong.toLowerCase().includes(q));
 
-    const matchBranch = selectedBranch === 'ALL' || p.nhanh === selectedBranch;
-    const matchCat = selectedCategory === 'ALL' || p.chuDe === selectedCategory;
-    const matchBlock = selectedBlock === 'ALL' || p.khoiChuyenMon === selectedBlock;
+      const matchBranch = selectedBranch === 'ALL' || p.nhanh === selectedBranch;
+      return matchSearch && matchBranch;
+    });
+  }, [projects, searchQuery, selectedBranch]);
 
-    return matchSearch && matchBranch && matchCat && matchBlock;
-  });
-
-  // Sắp xếp
-  const sortedProjects = [...filteredProjects].sort((a, b) => {
-    if (sortBy === 'score') {
-      const scoreA = rankingScores[a.maDeTai]?.tongDiem || 0;
-      const scoreB = rankingScores[b.maDeTai]?.tongDiem || 0;
-      return scoreB - scoreA;
-    }
-    if (sortBy === 'likes') {
-      const likesA = projectLikesMap[a.maDeTai] !== undefined ? projectLikesMap[a.maDeTai] : (a.likes || 0);
-      const likesB = projectLikesMap[b.maDeTai] !== undefined ? projectLikesMap[b.maDeTai] : (b.likes || 0);
-      return likesB - likesA;
-    }
-    if (sortBy === 'views') {
-      return (b.views || 0) - (a.views || 0);
-    }
-    return (a.maDeTai || '').localeCompare(b.maDeTai || '');
-  });
+  const countBranchA = useMemo(() => projects.filter(p => p.nhanh === 'Nhánh A').length, [projects]);
+  const countBranchB = useMemo(() => projects.filter(p => p.nhanh === 'Nhánh B').length, [projects]);
 
   return (
     <div className="showcase-container">
-      {/* Header Thư viện */}
-      <div className="showcase-header">
-        <div>
-          <h1 className="showcase-title">Không Gian Giới Thiệu Sản Phẩm & Đề Tài Cải Tiến</h1>
-          <p className="showcase-subtitle">
-            Xem tham khảo các mô hình, sáng chế kỹ thuật và giải pháp y tế đang được đăng ký và thử nghiệm tại Bệnh viện Đa khoa Hùng Vương
+      {/* HEADER SIÊU GỌN */}
+      <div className="showcase-header-compact">
+        <div className="showcase-header-left">
+          <div className="showcase-badge-pill">
+            <span className="dot-live"></span>
+            19 Sản phẩm & Đề án Kaizen 2026
+          </div>
+          <h1 className="showcase-title-compact">Danh mục sản phẩm cải tiến</h1>
+          <p className="showcase-subtitle-compact">
+            Click vào sản phẩm bất kỳ để mở báo cáo chi tiết A3, giải pháp kỹ thuật và phiếu đánh giá.
           </p>
         </div>
-        <div className="showcase-count-pill">
-          Hiển thị {sortedProjects.length} / {projects.length} sản phẩm
+
+        {/* CÔNG CỤ CHUYỂN CHẾ ĐỘ XEM: LƯỚI / BẢNG */}
+        <div className="showcase-view-switch">
+          <button 
+            type="button" 
+            className={`view-switch-btn ${viewMode === 'grid' ? 'active' : ''}`}
+            onClick={() => setViewMode('grid')}
+            title="Xem dạng thẻ lưới"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dạng thẻ</span>
+          </button>
+          <button 
+            type="button" 
+            className={`view-switch-btn ${viewMode === 'table' ? 'active' : ''}`}
+            onClick={() => setViewMode('table')}
+            title="Xem dạng bảng danh sách gọn"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+            <span>Dạng bảng</span>
+          </button>
         </div>
       </div>
 
-      {/* Thanh Công Cụ Lọc & Tìm Kiếm 5S */}
-      <div className="showcase-filter-panel">
-        <div className="search-bar-row">
+      {/* THANH LỌC TỐI GIẢN */}
+      <div className="showcase-filter-bar">
+        <div className="filter-chips-cluster">
+          <button 
+            type="button" 
+            className={`filter-chip-btn ${selectedBranch === 'ALL' ? 'active' : ''}`}
+            onClick={() => setSelectedBranch('ALL')}
+          >
+            Tất cả ({projects.length})
+          </button>
+          <button 
+            type="button" 
+            className={`filter-chip-btn ${selectedBranch === 'Nhánh A' ? 'active' : ''}`}
+            onClick={() => setSelectedBranch('Nhánh A')}
+          >
+            Nhánh A: Nội bộ ({countBranchA})
+          </button>
+          <button 
+            type="button" 
+            className={`filter-chip-btn ${selectedBranch === 'Nhánh B' ? 'active' : ''}`}
+            onClick={() => setSelectedBranch('Nhánh B')}
+          >
+            Nhánh B: Liên khoa ({countBranchB})
+          </button>
+        </div>
+
+        <div className="search-wrap-compact">
+          <svg className="search-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
           <input
             type="text"
-            className="search-input"
-            placeholder="Tìm kiếm theo tên đề tài, mã số, khoa phòng, tác giả..."
+            className="search-input-compact"
+            placeholder="Tìm tên sản phẩm, mã số, khoa phòng..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           {searchQuery && (
             <button 
               type="button" 
-              className="clear-search-btn"
+              className="clear-search-compact"
               onClick={() => setSearchQuery('')}
             >
-              Xóa
+              ✕
             </button>
           )}
         </div>
-
-        <div className="filter-tags-row">
-          <div className="filter-group">
-            <span className="filter-label">Phân nhánh:</span>
-            <select 
-              className="filter-select"
-              value={selectedBranch}
-              onChange={(e) => setSelectedBranch(e.target.value)}
-            >
-              <option value="ALL">Tất cả các nhánh</option>
-              <option value="Nhánh A">Nhánh A (Nội bộ khoa)</option>
-              <option value="Nhánh B">Nhánh B (Liên khoa)</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <span className="filter-label">Khối chuyên môn:</span>
-            <select 
-              className="filter-select"
-              value={selectedBlock}
-              onChange={(e) => setSelectedBlock(e.target.value)}
-            >
-              <option value="ALL">Tất cả các khối</option>
-              <option value="Khối Lâm Sàng">Khối Lâm Sàng</option>
-              <option value="Khối Cận Lâm Sàng & Quản Lý">Khối Cận Lâm Sàng & Quản Lý</option>
-              <option value="Khối Phòng Khám Vệ Tinh">Khối Phòng Khám Vệ Tinh</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <span className="filter-label">Chủ đề:</span>
-            <select 
-              className="filter-select"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="ALL">Tất cả chủ đề</option>
-              <option value="SAFETY">An toàn người bệnh</option>
-              <option value="TIME">Thời gian chờ</option>
-              <option value="EXP">Trải nghiệm & Hài lòng</option>
-              <option value="DIGITAL">Chuyển đổi số</option>
-              <option value="5S">Thực hành 5S</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <span className="filter-label">Sắp xếp:</span>
-            <select 
-              className="filter-select"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="default">Theo mã đề tài</option>
-              <option value="score">Điểm số cao nhất</option>
-              <option value="likes">Lượt thích nhiều nhất</option>
-              <option value="views">Lượt xem nhiều nhất</option>
-            </select>
-          </div>
-        </div>
       </div>
 
-      {/* Lưới Thẻ Đề Tài */}
-      {sortedProjects.length === 0 ? (
-        <div className="empty-results">
-          <p className="empty-title">Không tìm thấy đề tài phù hợp với tiêu chí lọc.</p>
-          <p className="empty-desc">Vui lòng thử xóa từ khóa tìm kiếm hoặc chọn lại bộ lọc.</p>
+      {/* HIỂN THỊ DỮ LIỆU: DẠNG LƯỚI THẺ HOẶC DẠNG BẢNG */}
+      {filteredProjects.length === 0 ? (
+        <div className="empty-results-box">
+          <p className="empty-text">Không tìm thấy sản phẩm nào khớp với từ khóa "{searchQuery}".</p>
           <button 
             type="button" 
-            className="btn btn-outline"
-            onClick={() => {
-              setSearchQuery('');
-              setSelectedBranch('ALL');
-              setSelectedCategory('ALL');
-              setSelectedBlock('ALL');
-              setSortBy('default');
-            }}
+            className="btn-reset-filter"
+            onClick={() => { setSearchQuery(''); setSelectedBranch('ALL'); }}
           >
-            Đặt lại tất cả bộ lọc
+            Đặt lại bộ lọc
           </button>
         </div>
-      ) : (
-        <div className="project-grid">
-          {sortedProjects.map((p) => {
-            const scoreInfo = rankingScores[p.maDeTai];
-            const currentLikes = projectLikesMap[p.maDeTai] !== undefined 
-              ? projectLikesMap[p.maDeTai] 
-              : (p.likes || 0);
-            const isLiked = !!userLikes[p.maDeTai];
+      ) : viewMode === 'grid' ? (
+        /* CHẾ ĐỘ THẺ LƯỚI: NGẮN GỌN, ÍT CHỮ, BẤM VÀO MỞ A3 */
+        <div className="product-minimal-grid">
+          {filteredProjects.map((p, idx) => {
+            const sc = getProjectScore(p);
+            const isBranchA = p.nhanh === 'Nhánh A';
+            const displayTitle = p.tenSanPham || p.tenDeTai;
 
             return (
               <div 
-                key={p.maDeTai} 
-                className="project-card"
+                key={p.maDeTai || idx} 
+                className="product-compact-card"
                 onClick={() => onSelectProject(p)}
+                title="Bấm để xem chi tiết báo cáo A3"
               >
-                {/* Header Thẻ */}
-                <div className="card-top-row">
-                  <span className="card-id-badge">{p.maDeTai}</span>
-                  <span className={`card-branch-pill ${p.nhanh === 'Nhánh A' ? 'branch-a' : 'branch-b'}`}>
-                    {p.nhanh}
+                {/* Dòng đỉnh: Mã số, Phân nhánh, Điểm số */}
+                <div className="card-header-line">
+                  <div className="card-tags-left">
+                    <span className="card-code-mono">{p.maDeTai}</span>
+                    <span className={`card-branch-badge ${isBranchA ? 'branch-a' : 'branch-b'}`}>
+                      {p.nhanh}
+                    </span>
+                  </div>
+                  <span className={`card-score-pill tier-${sc.tier}`}>
+                    ★ {sc.score}đ
                   </span>
-                  {p.chuDeTen && (
-                    <span className="card-cat-pill">{p.chuDeTen}</span>
-                  )}
                 </div>
 
-                {/* Tên Sản phẩm & Đề tài */}
-                <h3 className="card-title">{p.tenSanPham || p.tenDeTai}</h3>
-                {p.tenSanPham && (
-                  <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '0.5rem', lineHeight: 1.3 }}>
-                    Đề tài: {p.tenDeTai}
+                {/* Tên sản phẩm: Nổi bật, súc tích, không rườm rà */}
+                <h3 className="card-product-title">
+                  {displayTitle}
+                </h3>
+
+                {/* Khoa/Phòng chủ trì & Hành động xem chi tiết */}
+                <div className="card-footer-line">
+                  <div className="card-dept-name" title={p.khoaPhong}>
+                    🏥 {p.khoaPhong}
                   </div>
-                )}
-
-                {/* Khoa Phòng & Tác giả */}
-                <div className="card-dept-box">
-                  <div className="dept-item">
-                    <span className="dept-label">Chủ trì:</span>
-                    <span className="dept-val">{p.khoaPhong}</span>
+                  <div className="card-action-link">
+                    <span>Chi tiết</span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
                   </div>
-                  {p.khoaPhoiHop && (
-                    <div className="dept-item">
-                      <span className="dept-label">Phối hợp:</span>
-                      <span className="dept-val partner">{p.khoaPhoiHop}</span>
-                    </div>
-                  )}
-                  {p.nhomTacGia && (
-                    <div className="dept-item">
-                      <span className="dept-label">Chủ nhiệm:</span>
-                      <span className="dept-val text-muted">{getCleanLeaderName(p)}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Tóm tắt súc tích */}
-                <p className="card-summary">
-                  {p.quickSummary?.idea || p.tomTat || (p.a3Report?.background ? p.a3Report.background.substring(0, 130) + '...' : 'Đề án cải tiến chất lượng đang triển khai thử nghiệm.')}
-                </p>
-
-                {/* Trạng thái đề tài */}
-                <div className="card-score-strip">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <span style={{
-                      background: '#dcfce7',
-                      color: '#15803d',
-                      fontSize: '0.74rem',
-                      fontWeight: 700,
-                      padding: '0.2rem 0.55rem',
-                      borderRadius: '4px',
-                      border: '1px solid #86efac'
-                    }}>
-                      Đã Tiếp Nhận & Phê Duyệt
-                    </span>
-                    <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
-                      Đang thử nghiệm thực địa
-                    </span>
-                  </div>
-                </div>
-
-                {/* Footer Thẻ: Like, View, Action */}
-                <div className="card-footer-row">
-                  <div className="card-stats">
-                    <button 
-                      type="button" 
-                      className={`vote-btn ${isLiked ? 'liked' : ''}`}
-                      onClick={(e) => handleToggleLike(p.maDeTai, e)}
-                      title={isLiked ? "Bỏ bình chọn" : "Bình chọn sản phẩm"}
-                    >
-                      <span className="vote-heart">{isLiked ? '♥' : '♡'}</span>
-                      <span className="vote-count">{currentLikes}</span>
-                    </button>
-                    <span className="view-count" title="Lượt xem">{p.views || 0} lượt xem</span>
-                  </div>
-
-                  <button 
-                    type="button" 
-                    className="view-a3-btn"
-                    style={{ background: '#0085db', color: '#fff', fontWeight: 600, padding: '0.45rem 0.85rem' }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectProject(p);
-                    }}
-                  >
-                    Xem Chi Tiết Sản Phẩm ➔
-                  </button>
                 </div>
               </div>
             );
           })}
+        </div>
+      ) : (
+        /* CHẾ ĐỘ BẢNG DANH SÁCH: 1 DÒNG/SẢN PHẨM, CỰC KỲ DỄ QUAN SÁT */
+        <div className="product-table-wrapper">
+          <table className="product-compact-table">
+            <thead>
+              <tr>
+                <th style={{ width: '50px', textAlign: 'center' }}>STT</th>
+                <th style={{ width: '130px' }}>Mã đề tài</th>
+                <th>Tên sản phẩm & Đề án cải tiến</th>
+                <th style={{ width: '220px' }}>Khoa/Phòng</th>
+                <th style={{ width: '110px', textAlign: 'center' }}>Phân nhánh</th>
+                <th style={{ width: '90px', textAlign: 'center' }}>Điểm</th>
+                <th style={{ width: '120px', textAlign: 'center' }}>Hành động</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProjects.map((p, idx) => {
+                const sc = getProjectScore(p);
+                const isBranchA = p.nhanh === 'Nhánh A';
+                const displayTitle = p.tenSanPham || p.tenDeTai;
+
+                return (
+                  <tr 
+                    key={p.maDeTai || idx}
+                    onClick={() => onSelectProject(p)}
+                    className="product-table-row"
+                    title="Bấm vào hàng để mở chi tiết A3"
+                  >
+                    <td style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{idx + 1}</td>
+                    <td>
+                      <span className="table-code-pill">{p.maDeTai}</span>
+                    </td>
+                    <td>
+                      <div className="table-product-title">{displayTitle}</div>
+                    </td>
+                    <td>
+                      <div className="table-dept">{p.khoaPhong}</div>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span className={`table-branch-pill ${isBranchA ? 'branch-a' : 'branch-b'}`}>
+                        {p.nhanh}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span className={`table-score-pill tier-${sc.tier}`}>
+                        {sc.score}đ
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <button 
+                        type="button" 
+                        className="table-action-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectProject(p);
+                        }}
+                      >
+                        Xem A3 ➔
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

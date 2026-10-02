@@ -272,8 +272,8 @@ export default function Home({
               <div 
                 className="timeline-node completed"
                 style={{ cursor: 'pointer' }}
-                onClick={() => onNavigate && onNavigate('showcase', 'step1')}
-                title="Bấm để xem Bước 1: Nộp đề án & Điểm sơ khảo của 19 đề án"
+                onClick={() => onNavigate && onNavigate('showcase')}
+                title="Bấm để xem danh mục 19 sản phẩm & đề án Kaizen"
               >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 1</span>
@@ -286,22 +286,22 @@ export default function Home({
               <div 
                 className="timeline-node active"
                 style={{ cursor: 'pointer' }}
-                onClick={() => onNavigate && onNavigate('showcase', 'step2')}
-                title="Bấm để xem Bước 2: Bảng kiểm Thực địa & Thẩm định dành cho Thư ký"
+                onClick={() => onNavigate && onNavigate('showcase')}
+                title="Bấm để xem danh mục 19 sản phẩm Kaizen"
               >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 2</span>
-                  <span className="node-status-chip chip-active">Đang diễn ra</span>
+                  <span className="node-status-chip chip-active">Đã hoàn thành</span>
                 </div>
                 <div className="node-name">Thực địa & thẩm định</div>
-                <div className="node-date mono">Bảng kiểm Thư ký BTC ➔</div>
+                <div className="node-date mono">Đạt 100% tiêu chuẩn ➔</div>
               </div>
 
               <div 
                 className="timeline-node"
                 style={{ cursor: 'pointer' }}
-                onClick={() => onNavigate && onNavigate('showcase', 'step3')}
-                title="Bấm để xem Bước 3: Vòng Chung kết & Chấm thi Ban Giám Khảo"
+                onClick={() => onNavigate && onNavigate('score')}
+                title="Bấm để chuyển tới bàn chấm thi Ban Giám Khảo"
               >
                 <div className="node-header">
                   <span className="node-round-lbl">Vòng 3</span>
