@@ -440,7 +440,7 @@ function App() {
             <div className="brand-title">
               Bệnh viện Đa khoa Hùng Vương
             </div>
-            <div className="brand-sub">Tận tâm - Liêm chính - Nhân văn</div>
+            <div className="brand-sub">Thân thiện — Chuyên nghiệp — Chu đáo</div>
           </div>
         </div>
 
@@ -456,7 +456,7 @@ function App() {
             type="button" 
             className={`nav-dock-tab ${activeTab === 'showcase' ? 'active' : ''}`}
             onClick={() => setActiveTab('showcase')}
-            title="Danh mục 19 sản phẩm & đề án cải tiến Kaizen 2026"
+            title="Kho tri thức 19 sản phẩm & đề án cải tiến Kaizen 2026"
           >
             Sản phẩm Kaizen
           </button>
@@ -473,7 +473,7 @@ function App() {
             className={`nav-dock-tab ${activeTab === 'secretary' ? 'active' : ''}`}
             onClick={() => setActiveTab('secretary')}
           >
-            Thư ký
+            Bàn thư ký
           </button>
         </nav>
 
